@@ -1,0 +1,12 @@
+#!/bin/sh
+
+filename=$(date +%Y-%m-%d_%I:%M:%S_%p).png
+output=$HOME/Pictures/Screenshots/"$filename"
+
+case "$1" in
+	"full") maim "$output" || exit ;;
+	"select") maim -u -s "$output" || exit ;;
+esac
+
+xclip -sel clip -t image/png "$output"
+notify-send -i "$output" "Screenshot Taken" "Saved as $filename"

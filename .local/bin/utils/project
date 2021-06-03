@@ -1,0 +1,37 @@
+#!/bin/sh
+
+LANGS="cpp"
+
+if [ ! -z "$1" ]; then
+    project_name="$1"
+else
+    printf "\x1b[38;2;37;157;232;1mProject Name: \x1b[0m"
+    read project_name
+fi
+
+[ -z "$project_name" ] && printf "\x1b[38;2;176;43;5;1mError:\x1b[0m Invalid project name\n" && exit 1
+
+project_path="/home/infinity/Documents/$project_name"
+
+if [ ! -d "$project_path" ]; then
+
+    project_path_escaped=$(echo "$project_path" | sed 's/\//\\\//g')
+
+    project_lang=$(echo "$LANGS" | fzf --info hidden -1 --reverse --prompt='Select Language: ')
+
+    [ -z "$project_lang" ] && exit 1;
+
+    case "$project_lang" in
+        "cpp")
+            mkdir "$project_path"
+            cd "$project_path"
+            cp -a "$XDG_DATA_HOME/project_templates/cpp/." "$project_path"
+            git init -q
+            sed -i "s/PROJECT_PATH/$project_path_escaped/g" .vimspector.json
+            sed -i "s/PROJECT_TARGET/$project_name/g" .vimspector.json makefile
+        ;;
+    esac
+fi
+
+cd "$project_path"
+tmux-attach "$project_name"

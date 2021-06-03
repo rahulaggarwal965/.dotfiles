@@ -1,0 +1,12 @@
+#!/bin/python3
+
+from transmission_rpc import Client, Torrent
+
+client = Client()
+torrents = client.get_torrents()
+
+def format_torrent(torrent : Torrent):
+    return "{} {} {}% {} mB/s {}".format(torrent.name, torrent.status, torrent.progress, torrent.rateDownload / 1048576, torrent.format_eta())
+
+for torrent in torrents:
+    print(format_torrent(torrent))

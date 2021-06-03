@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Use nvim for vim
+alias vim="nvim" vimdiff="nvim -d"
+
+# Useful file management
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	mf="touch" \
+	md="mkdir -pv"
+
+# Colorized commands
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto"
+
+# Shorten commands
+alias \
+	ka="killall" \
+	g="git" \
+	f="$FILE" \
+	v="$EDITOR" \
+	t="tmux-attach" \
+	p="sudo pacman" \
+	y="yay" \
+	z="zathura" \
+	open="xdg-open" \
+	fetch="fastfetch"
+
+# Dotfiles
+alias \
+    d="/usr/bin/git --git-dir=$XDG_DATA_HOME/.dotfiles.git/ --work-tree=$HOME"
+
+# Clean up commands
+alias \
+	irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"

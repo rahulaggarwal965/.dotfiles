@@ -1,0 +1,19 @@
+set default-bg "#1c1d1f"
+set recolor-lightcolor "#1c1d1f"
+set recolor-darkcolor "#F2F2F2"
+set recolor-keephue true
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 1
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+map r reload
+map R rotate
+map K zoom in
+map J zoom out
+map i recolor
+map p print
+set recolor
+set selection-clipboard clipboard
+set sandbox none

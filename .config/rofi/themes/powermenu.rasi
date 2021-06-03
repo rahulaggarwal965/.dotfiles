@@ -1,0 +1,57 @@
+* {
+    background:           #121212CD;
+    foreground:           #f5f5f5;
+    primary:              #ff8700;
+    selected:             #ffffff11;
+}
+
+
+window {
+    background-color:     @background;
+    text-color:           @foreground;
+    width:                35mm;
+    location:             northeast;
+    anchor:               northeast;
+    y-offset:             32px;
+    border:               1px 0px 0px 0px;
+    border-color:         @primary;
+}
+
+
+mainbox {
+    background-color:     transparent;
+    padding:              0px 0px 8px 0px;
+}
+
+error-message {
+    background-color:   #00000000;
+    padding:            8px;
+}
+
+textbox {
+    background-color:   inherit;
+    text-color:         @foreground;
+}
+
+inputbar {
+    enabled:              false;
+}
+
+listview {
+    background-color:     inherit;
+}
+
+element {
+    background-color:     inherit;
+    text-color:           @foreground;
+    padding:              8px 16px 8px 0px;
+}
+
+element-text {
+    highlight:            bold #FF8700;
+    horizontal-align:     1;
+}
+
+element selected {
+    background-color:     @selected;
+}

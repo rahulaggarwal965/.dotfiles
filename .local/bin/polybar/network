@@ -1,0 +1,10 @@
+#!/bin/sh
+
+nmcli device monitor | while read -r interface message; do
+    echo "$interface $message"
+    case "$interface" in
+        "wlp0s20f3")
+            case "$message" in
+                "disconnected") printf "󰤯" ;;
+                "connected") printf "󰤨 "
+done

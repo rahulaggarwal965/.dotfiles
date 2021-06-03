@@ -1,0 +1,66 @@
+#!/bin/sh
+
+_setvars() {
+    if $(optimus-manager --print-mode | grep nvidia >/dev/null 2>&1)
+    then
+        LAPTOP=eDP-1-1
+        MONITOR=HDMI-0
+    else
+        LAPTOP=eDP-1
+        MONITOR=HDMI-1-0
+    fi
+}
+
+_laptop() {
+	xrandr --auto --output "$LAPTOP" "$@"
+}
+
+_multimonitor() {
+	_laptop
+
+	xrandr --auto --output "$MONITOR" --primary --auto --right-of "$LAPTOP"
+}
+
+_initialize() {
+    local n_monitors=$(bspc query -M | wc -l)
+    local n=$(( $1 / $n_monitors ))
+
+    for i in $(seq 1 "$n_monitors"); do
+        local s=$(( 5 * ($i - 1) ))
+        bspc monitor "^$i" -d $(seq "$s" $(( s + n - 1 )))
+    done
+}
+
+_desktops() {
+    local n_monitors=$(bspc query -M | wc -l)
+    local n_desktops=$(bspc query -D --names | grep -v "Desktop" | wc -l)
+    local n=$(( n_desktops / n_monitors ))
+
+    for d in $(seq 1 $((n_desktops - 1))); do
+        bspc desktop "$d" -m ^$(( d / n + 1))
+    done
+
+    # Remove initial desktop
+    bspc desktop Desktop -r >/dev/null 2>&1
+    bspc desktop -f "$last_desktop"
+}
+
+
+_setvars
+
+last_desktop=$(bspc query -D -d --names)
+
+if [ -n "$(xrandr --query | grep "$MONITOR connected")" ]; then
+    _multimonitor
+else
+    _laptop --primary
+fi
+
+if [ ! -z "$1" ]; then
+    _initialize 10
+    launchpolybar &
+else
+    _desktops
+    launchpolybar "${SRANDRD_ACTION}" &
+fi
+setbg &

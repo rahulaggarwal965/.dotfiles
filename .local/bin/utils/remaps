@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Swap caps with control
+setxkbmap -option ctrl:nocaps
+
+# Make singular caps lock press escape
+xcape -e 'Control_L=Escape'

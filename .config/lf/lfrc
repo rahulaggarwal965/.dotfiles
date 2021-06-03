@@ -1,0 +1,155 @@
+# Settings
+set preview true
+set previewer lfpreview
+set cleaner lfclear
+set hidden true
+set ignorecase true
+set tabstop 4
+set mouse true
+set promptfmt "\033[38;5;208m%u\033[38;5;247m@\033[38;5;33m%h \033[38;5;96m%d%f"
+
+# Custom Functions
+cmd open ${{
+	case $(file --mime-type "$f" -bL) in
+	    text/html) xdg-open "$f" ;;
+		text/*|application/octet-stream) $EDITOR "$fx" ;;
+		image/*) sxiv_dir "$f" ;;
+		*) xdg-open "$f" ;;
+	esac
+}}
+
+cmd mkdir %{{
+	printf "Directory Name: "
+	read ans
+	mkdir "$ans"
+	lf -remote "send $id select \"$ans\""
+}}
+
+cmd mkfile %{{
+	printf "File Name: "
+	read ans
+	touch "$ans"
+	lf -remote "send $id select \"$ans\""
+}}
+
+cmd chmod %{{
+	printf "Mode bits: "
+	read ans
+
+	for file in "$fx"
+	do
+		chmod $ans $file
+	done
+    lf -remote "send $id reload"
+}}
+
+cmd sudomkfile ${{
+	printf "File Name: "
+	read ans
+	sudo $EDITOR $ans
+}}
+
+# Archive bindings
+cmd unarchive ${{
+	case "$f" in
+		*.zip) unzip "$f" ;;
+		*.gz) gunzip "$f" ;;
+		*.tar.gz) tar -xzvf "$f" ;;
+		*.tar.bz2) tar -xjvf "$f" ;;
+		*.tar) tar -xvf "$f" ;;
+		*) echo "Unsupported format" ;;
+	esac
+}}
+
+cmd bulk-rename ${{
+    old=$(mktemp)
+    new=$(mktemp)
+    [ -n $fs ] && fs=$(ls)
+    printf "$fs\n" > $old
+    printf "$fs\n" > $new
+    $EDITOR $new
+    [ $(cat $new | wc -l) -ne $(cat $old | wc -l) ] && exit
+    paste $old $new | while read names; do
+        src=$(printf $names | cut -f1)
+        dst=$(printf $names | cut -f2)
+        [ $src = $dst ] && continue
+        [ -e $dst ] && continue
+        mv $src $dst
+    done
+    rm $old $new
+    lf -remote "send $id unselect"
+}}
+
+cmd zip %{{
+    if [ -d "$f" ]; then
+        zip -rq "$f" "$f"
+    else
+        printf "Archive Name: "
+        read ans
+        printf "$fx"
+        # zip -q $ans "$fx"
+    fi
+}}
+
+cmd tar %tar cvf "$f.tar" "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+
+# Bindings
+map <c-f> $lf -remote "send $id select '$(fzf)'"
+map d
+map c
+map e
+map r
+map m
+map u
+
+# Set Background
+map sb %setbg "$f"
+
+# File Openers
+map v $$EDITOR "$f"
+
+# Archive Mappings
+map uz zip
+map ut tar
+map ug targz
+map ub tarbz2
+map ua unarchive
+
+# Basic Functions
+map mm mark-save
+map . set hidden!
+map dd delete
+map p paste
+map x cut
+map y copy
+map <enter> open
+map mf mkfile
+map mr sudomkfile
+map md mkdir
+map ch chmod
+map a rename
+map A push a<c-u>
+map I push a<a-b><a-b><a-f><c-u>
+map i push a<a-b><a-b><a-f>
+map H top
+map L bottom
+map R reload
+map C clear
+map U unselect
+map V invert
+
+# Movement
+map g/ cd /
+map gc cd ~/.config
+map gl cd ~/.local/share
+map gs cd ~/.local/bin
+map gS cd ~/Documents/Georgia_Tech
+map gd cd ~/Documents
+map gb cd ~/Documents/ebooks
+map gD cd ~/Downloads
+map gp cd ~/Pictures
+map gv cd ~/Videos
+map ga cd ~/Music
+map gnp cd ~/.local/share/nvim/plugged
