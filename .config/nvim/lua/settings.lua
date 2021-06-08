@@ -18,7 +18,7 @@ opt.inccommand = "nosplit"
 opt.splitbelow = true
 opt.splitright = true
 opt.hidden = true
-opt.updatetime = 100
+opt.updatetime = 500
 opt.backup = false
 opt.writebackup = false
 opt.fillchars = { vert = "│", eob = " " }

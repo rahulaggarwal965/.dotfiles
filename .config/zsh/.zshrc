@@ -12,6 +12,8 @@ HISTFILE=~/.cache/zsh/history
 # Load Aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc"
 
+stty -ixon
+
 # Autocompletion
 autoload -U compinit
 zstyle ':completion:*' menu select

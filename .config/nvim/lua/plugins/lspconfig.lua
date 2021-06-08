@@ -6,7 +6,7 @@ local on_attach = function(client)
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    map("n", "gD", "vim.lsp.buf.declaration()")
+    map("n", "gD", "vim.lsp.buf.declaration()") 
     map("n", "gd", "vim.lsp.buf.definition()")
     map("n", "gi", "vim.lsp.buf.implementation()")
     map("n", "gr", "vim.lsp.buf.references()")
@@ -22,6 +22,18 @@ local on_attach = function(client)
     map("n", "<leader>dN", "vim.lsp.diagnostic.goto_prev()")
     map("n", "<leader>dn", "vim.lsp.diagnostic.goto_next()")
     map("n", "<leader>q", "vim.lsp.diagnostic.set_loclist()")
+
+    if client.resolved_capabilities.document_highlight then
+        vim.api.nvim_exec ([[
+	    hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
+	    hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
+	    hi LspReferenceWrite cterm=bold ctermbg=red guibg=#464646
+	    augroup lsp_document_highlight
+	    	autocmd! * <buffer>
+            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+	    augroup END ]], false)
+    end
 
     if client.resolved_capabilities.document_formatting then
         map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()")
@@ -72,4 +84,17 @@ lspconfig.sumneko_lua.setup {
     }
 }
 
+vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsSignError" })
+vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", numhl = "LspDiagnosticsSignWarning" })
+vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
+vim.fn.sign_define("LspDiagnosticsSignHint", { text = "", numhl = "LspDiagnosticsSignHint" })
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = {
+            spacing = 0,
+        },
+        signs = true,
+        underline = true,
+    }
+)
