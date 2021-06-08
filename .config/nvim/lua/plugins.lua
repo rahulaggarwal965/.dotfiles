@@ -8,12 +8,18 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute 'packadd packer.nvim'
 end
 
+local packer = require('packer')
+
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
-return require('packer').startup(
-    function(use)
+return packer.startup(function(use)
+
+
         use 'wbthomason/packer.nvim'
 
         use 'neovim/nvim-lspconfig'
+        use 'hrsh7th/nvim-compe'
+        require('plugins.lspconfig')
+        require('plugins.compe')
     end
 )

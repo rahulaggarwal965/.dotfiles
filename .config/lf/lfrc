@@ -12,7 +12,7 @@ set promptfmt "\033[38;5;208m%u\033[38;5;247m@\033[38;5;33m%h \033[38;5;96m%d%f"
 cmd open ${{
 	case $(file --mime-type "$f" -bL) in
 	    text/html) xdg-open "$f" ;;
-		text/*|application/octet-stream) $EDITOR "$fx" ;;
+		text/*|application/octet-stream|inode/x-empty) $EDITOR "$fx" ;;
 		image/*) sxiv_dir "$f" ;;
 		*) xdg-open "$f" ;;
 	esac

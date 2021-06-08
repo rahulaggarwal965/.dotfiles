@@ -1,44 +1,41 @@
-local o = vim.o
-local wo = vim.wo
-local bo = vim.bo
+local opt = vim.opt
 local cmd = vim.cmd
 
-o.clipboard = 'unnamedplus'
-o.mouse = 'a'
-o.showmode = false
-o.scrolloff = 5
-o.pumheight = 10
-o.ignorecase = true
-o.smartcase = true
-o.termguicolors = true
-o.linebreak = true
-o.wildmode = 'longest,list,full'
-o.hlsearch = false
-o.inccommand = 'nosplit'
-o.splitbelow = true
-o.splitright = true
-o.hidden = true
-o.updatetime = 100
-o.backup = false
-o.writebackup = false
-cmd [[
-    set shortmess+=c
-    set fillchars=vert:│
-    ]]
+cmd [[ colorscheme molokai ]]
+opt.clipboard = "unnamedplus"
+opt.mouse = "a"
+opt.showmode = false
+opt.scrolloff = 5
+opt.pumheight = 10
+opt.completeopt = { "menuone" , "noselect" }
+opt.ignorecase = true
+opt.smartcase = true
+opt.termguicolors = true
+opt.linebreak = true
+opt.wildmode = { "longest", "full" }
+opt.hlsearch = false
+opt.inccommand = "nosplit"
+opt.splitbelow = true
+opt.splitright = true
+opt.hidden = true
+opt.updatetime = 100
+opt.backup = false
+opt.writebackup = false
+opt.fillchars = { vert = "│", eob = " " }
+opt.shortmess = opt.shortmess + "c"
 
-wo.conceallevel = 2
-wo.number = true
-wo.relativenumber = true
-wo.breakindent = true
-wo.signcolumn = 'yes'
+opt.conceallevel = 2
+opt.number = true
+opt.relativenumber = true
+opt.breakindent = true
+opt.showbreak = string.rep(" ", 3)
+opt.signcolumn = "yes"
 
-bo.undofile = true
-bo.tabstop = 4
-bo.shiftwidth = 4
-bo.expandtab = true
-bo.smartindent = true
-bo.copyindent = true
-cmd [[
-    set iskeyword+=-
-    set formatoptions-=ato2
-    ]]
+opt.undofile = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.smartindent = true
+opt.copyindent = true
+opt.formatoptions = opt.formatoptions - "ato2"
+opt.iskeyword = opt.iskeyword + "-"
