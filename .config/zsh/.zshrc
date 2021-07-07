@@ -2,7 +2,7 @@
 
 # Colors and Prompt
 autoload -U colors && colors
-PS1="%{%F{208}%}%n%{%F{247}%}@%{%F{33}%}%m %{%F{96}%}%~ %{%F{247}%}$ "
+PS1="%{%F{208}%}%n%{%F{247}%} :: %{%F{96}%}%~ %{%F{247}%}$ "
 
 # History file
 HISTSIZE=10000
@@ -87,10 +87,10 @@ lfcd () {
 }
 
 # Navigating file system with lf
-bindkey -s '^o' '^ulfcd\n'
+bindkey -s '^o' '^ulfcd^M'
 
 # Fzf file search
-bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"\n'
+bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 
 # Edit line in vim buffer
 autoload edit-command-line; zle -N edit-command-line

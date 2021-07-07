@@ -1,23 +1,45 @@
-local set_keymap = vim.api.nvim_set_keymap
+local ino = vim.keymap.inoremap
+local nn = vim.keymap.nnoremap
+local xn = vim.keymap.xnoremap
+local cn = vim.keymap.cnoremap
 
 vim.g.mapleader = ' '
 
-set_keymap('i', 'jk', '<Esc>', {noremap = true, silent = true})
+-- use jk to escape insert mode
+ino { 'jk', '<Esc>' }
 
-set_keymap('x', '<', '<gv', {noremap = true, silent = true})
-set_keymap('x', '>', '>gv', {noremap = true, silent = true})
+-- hold visual mode when indenting
+xn { '<', '<gv' }
+xn { '>', '>gv' }
 
-set_keymap('n', 'Y', 'y$', {noremap = true, silent = true})
+-- copy to end of line
+nn { 'Y', 'y$' }
 
-set_keymap('n', 'j', 'gj', {noremap = true, silent = true})
-set_keymap('n', 'k', 'gk', {noremap = true, silent = true})
-set_keymap('x', 'j', 'gj', {noremap = true, silent = true})
-set_keymap('x', 'k', 'gk', {noremap = true, silent = true})
+-- navigate by visual lines rather than normal lines
+nn { 'j', 'gj' }
+nn { 'k', 'gk' }
+xn { 'j', 'gj' }
+xn { 'k', 'gk' }
 
-set_keymap('x', 'J', ':m \'>+1<CR>gv=gv', {noremap = true, silent = true})
-set_keymap('x', 'K', ':m \'<-2<CR>gv=gv', {noremap = true, silent = true})
+-- move selected block in visual mode
+xn { 'J', ':m \'>+1<CR>gv=gv', silent = true }
+xn { 'K', ':m \'<-2<CR>gv=gv', silent = true }
 
-set_keymap('c', 'w!!', 'execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!', {noremap = true, silent = true})
+-- write to files wit elevated permissions
+cn { 'w!!', 'execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!', silent = true }
+
+-- Telescope mappings
+local t = require('telescope.builtin')
+nn { '<leader>f', t.find_files }            -- list files in current working directory
+nn { '<leader>b', t.buffers }               -- list current open buffers
+nn { '<leader>/g', t.live_grep }            -- search for strings in current working directory
+nn { '<leader>/t', t.tags }                 -- list tags in current working directory
+nn { '<leader>/m', t.marks }
+nn { '<leader>/k', t.keymaps }              -- list keymappings
+nn { '<leader>/c', t.command_history }      -- list previous commands
+nn { '<leader>/h', t.search_history }       -- list previous searches
+
+
 
 -- n          <leader>;r :%s//gc<Left><Left><Left>
 -- n          <leader>;f m`gg=G``

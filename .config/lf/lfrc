@@ -6,7 +6,7 @@ set hidden true
 set ignorecase true
 set tabstop 4
 set mouse true
-set promptfmt "\033[38;5;208m%u\033[38;5;247m@\033[38;5;33m%h \033[38;5;96m%d%f"
+set promptfmt "\033[38;5;208m%u\033[38;5;247m :: \033[38;5;96m%d%f"
 
 # Custom Functions
 cmd open ${{

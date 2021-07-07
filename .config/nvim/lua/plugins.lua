@@ -14,12 +14,22 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 return packer.startup(function(use)
 
+        use "wbthomason/packer.nvim"
+        use "tjdevries/astronauta.nvim"
 
-        use 'wbthomason/packer.nvim'
+        use "neovim/nvim-lspconfig"
+        use "hrsh7th/nvim-compe"
 
-        use 'neovim/nvim-lspconfig'
-        use 'hrsh7th/nvim-compe'
-        require('plugins.lspconfig')
-        require('plugins.compe')
+        use {
+            "nvim-telescope/telescope.nvim",
+            requires = {{ "nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+        }
+
+        use { "terrortylor/nvim-comment", config = function() require("nvim_comment").setup() end }
+        use "kyazdani42/nvim-tree.lua"
+
+
+
+        use "dstein64/vim-startuptime"
     end
 )

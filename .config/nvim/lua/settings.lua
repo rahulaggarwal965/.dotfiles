@@ -1,7 +1,6 @@
 local opt = vim.opt
-local cmd = vim.cmd
 
-cmd [[ colorscheme molokai ]]
+vim.g.colors_name = "molokai"
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.showmode = false
@@ -37,5 +36,5 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.copyindent = true
-opt.formatoptions = opt.formatoptions - "ato2"
+opt.formatoptions = opt.formatoptions - "atro2"
 opt.iskeyword = opt.iskeyword + "-"
