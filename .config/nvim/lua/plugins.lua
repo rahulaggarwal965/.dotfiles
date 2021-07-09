@@ -19,33 +19,50 @@ return packer.startup(function(use)
 
         use "neovim/nvim-lspconfig"
         use "ray-x/lsp_signature.nvim"
-        use "hrsh7th/nvim-compe"
+        use { "hrsh7th/nvim-compe",
+            config = function()
+                require("plugins.compe")
+            end,
+            event = "InsertEnter"
+        }
 
 
         use { "lewis6991/gitsigns.nvim",
             requires = { "nvim-lua/plenary.nvim" },
             config = function()
-                require("gitsigns").setup()
-            end
+                require("plugins.gitsigns")
+            end,
+            event = "BufRead"
         }
 
         use { "nvim-telescope/telescope.nvim",
-            requires = {{ "nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+            requires = {{ "nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+            config = function()
+                require("plugins.telescope")
+            end,
+            event = "BufEnter"
         }
 
         use { "terrortylor/nvim-comment",
             config = function()
                 require("nvim_comment").setup()
-            end
+            end,
+            event = "BufWinEnter"
         }
 
         use { "nvim-treesitter/nvim-treesitter",
-            run = ":TSUpdate"
+            config = function()
+                require("plugins.treesitter")
+            end
         }
 
     	use { "kyazdani42/nvim-tree.lua",
             commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
     	    requires = { "kyazdani42/nvim-web-devicons" },
+    	    config = function()
+    	        require("plugins.tree")
+            end
+
         }
 
 

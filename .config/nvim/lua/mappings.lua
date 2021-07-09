@@ -29,15 +29,14 @@ xn { 'K', ":m \'<-2<CR>gv=gv", silent = true }
 cn { 'w!!', "execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!", silent = true }
 
 -- Telescope mappings
-local t = require("telescope.builtin")
-nn { '<leader>f', t.find_files }            -- list files in current working directory
-nn { '<leader>b', t.buffers }               -- list current open buffers
-nn { '<leader>/g', t.live_grep }            -- search for strings in current working directory
-nn { '<leader>/t', t.tags }                 -- list tags in current working directory
-nn { '<leader>/m', t.marks }                -- list marks in working session
-nn { '<leader>/k', t.keymaps }              -- list keymappings
-nn { '<leader>/c', t.command_history }      -- list previous commands
-nn { '<leader>/h', t.search_history }       -- list previous searches
+nn { '<leader>f', function() require('telescope.builtin').find_files() end } -- list files in current working directory
+nn { '<leader>b', function() require('telescope.builtin').buffers() end } -- list current open buffers
+-- nn { '<leader>/g', t.live_grep }            -- search for strings in current working directory
+-- nn { '<leader>/t', t.tags }                 -- list tags in current working directory
+-- nn { '<leader>/m', t.marks }                -- list marks in working session
+-- nn { '<leader>/k', t.keymaps }              -- list keymappings
+-- nn { '<leader>/c', t.command_history }      -- list previous commands
+-- nn { '<leader>/h', t.search_history }       -- list previous searches
 
 -- File Explorer
 nn { '<leader>e', function() require('nvim-tree').toggle() end }
