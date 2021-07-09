@@ -1,6 +1,6 @@
 local opt = vim.opt
 
-vim.g.colors_name = "molokai"
+vim.g.colors_name = "nvcode"
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.showmode = false
@@ -22,6 +22,7 @@ opt.backup = false
 opt.writebackup = false
 opt.fillchars = { vert = "│", eob = " " }
 opt.shortmess = opt.shortmess + "c"
+opt.switchbuf = "useopen"
 
 opt.conceallevel = 2
 opt.number = true
