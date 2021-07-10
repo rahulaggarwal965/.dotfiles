@@ -152,4 +152,4 @@ map gD cd ~/Downloads
 map gp cd ~/Pictures
 map gv cd ~/Videos
 map ga cd ~/Music
-map gnp cd ~/.local/share/nvim/plugged
+map gnp cd ~/.local/share/nvim/site/pack/packer

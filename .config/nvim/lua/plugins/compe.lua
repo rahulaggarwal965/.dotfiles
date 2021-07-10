@@ -34,9 +34,13 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+local luasnip = require("luasnip")
+
 _G.tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-n>"
+    elseif luasnip.expand_or_jumpable() then
+        return t "<Plug>luasnip-expand-or-jump"
     else
         return t "<Tab>"
     end
@@ -44,6 +48,8 @@ end
 _G.s_tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-p>"
+    elseif luasnip.jumpable(-1) then
+        return t "<Plug>luasnip-jump-prev"
     else
         return t "<S-Tab>"
     end

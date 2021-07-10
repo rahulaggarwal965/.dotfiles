@@ -5,6 +5,7 @@ require("lspconfig").sumneko_lua.setup {
         "lua-language-server"
     },
     on_attach = require("lsp").on_attach,
+    capabilities = require("lsp").capabilities,
     settings = {
         Lua = {
 	    runtime = {

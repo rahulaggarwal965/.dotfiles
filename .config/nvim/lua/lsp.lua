@@ -2,9 +2,8 @@ local nnoremap = vim.keymap.nnoremap
 local inoremap = vim.keymap.inoremap
 local xnoremap = vim.keymap.xnoremap
 
-local lsp = {}
-
-lsp.on_attach = function(client)
+local M = {}
+M.on_attach = function(client)
 
     require('lsp_signature').on_attach({
         bind = true,
@@ -60,6 +59,16 @@ lsp.on_attach = function(client)
     end
 end
 
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits"
+    }
+}
+
 vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsSignError" })
 vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", numhl = "LspDiagnosticsSignWarning" })
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
@@ -103,4 +112,4 @@ vim.lsp.protocol.CompletionItemKind = {
     "   (TypeParameter)"
 }
 
-return lsp
+return M

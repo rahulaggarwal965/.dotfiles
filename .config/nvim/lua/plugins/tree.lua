@@ -49,7 +49,7 @@ g.nvim_tree_icons = {
 }
 
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-vim.g.nvim_tree_bindings = {
+g.nvim_tree_bindings = {
   { key = "l",      cb = tree_cb("edit") },
   { key = "L",      cb = tree_cb("cd") },
   { key = "H",      cb = tree_cb("dir_up") },

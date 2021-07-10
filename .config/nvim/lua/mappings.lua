@@ -29,20 +29,17 @@ xn { 'K', ":m \'<-2<CR>gv=gv", silent = true }
 cn { 'w!!', "execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!", silent = true }
 
 -- Telescope mappings
-nn { '<leader>f', function() require('telescope.builtin').find_files() end } -- list files in current working directory
-nn { '<leader>b', function() require('telescope.builtin').buffers() end } -- list current open buffers
--- nn { '<leader>/g', t.live_grep }            -- search for strings in current working directory
--- nn { '<leader>/t', t.tags }                 -- list tags in current working directory
--- nn { '<leader>/m', t.marks }                -- list marks in working session
--- nn { '<leader>/k', t.keymaps }              -- list keymappings
--- nn { '<leader>/c', t.command_history }      -- list previous commands
--- nn { '<leader>/h', t.search_history }       -- list previous searches
+nn { '<leader>f',  function() require('telescope.builtin').find_files() end }                -- list files in current working directory
+nn { '<leader>b',  function() require('telescope.builtin').buffers() end }                   -- list current open buffers
+nn { '<leader>/g', function() require('telescope.builtin').live_grep() end }                 -- search for strings in current working directory
+nn { '<leader>/t', function() require('telescope.builtin').tags() end}                       -- list tags in current working directory
+nn { '<leader>/m', function() require('telescope.builtin').marks() end }                     -- list marks in working session
+nn { '<leader>/k', function() require('telescope.builtin').keymaps() end }                   -- list keymappings
+nn { '<leader>/c', function() require('telescope.builtin').command_history() end }           -- list previous commands
+nn { '<leader>/h', function() require('telescope.builtin').search_history() end }            -- list previous searches
+nn { '<leader>/s', function() require('telescope.builtin').current_buffer_fuzzy_find() end } -- search within buffer
 
--- File Explorer
-nn { '<leader>e', function() require('nvim-tree').toggle() end }
-
-
-
+vim.keymap.nnoremap { '<leader>e', ":NvimTreeToggle<CR>", silent = true }
 -- n          <leader>;r :%s//gc<Left><Left><Left>
 -- n          <leader>;f m`gg=G``
 -- x          <leader>;r :s/\%V/g<Left><Left>

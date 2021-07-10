@@ -22,7 +22,6 @@ opt.backup = false
 opt.writebackup = false
 opt.fillchars = { vert = "│", eob = " " }
 opt.shortmess = opt.shortmess + "c"
-opt.switchbuf = "useopen"
 
 opt.conceallevel = 2
 opt.number = true

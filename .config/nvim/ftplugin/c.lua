@@ -7,6 +7,10 @@ require("lspconfig").clangd.setup {
         "--completion-style=bundled",
         "--malloc-trim"
     },
-    on_attach = require("lsp").on_attach,
+    on_attach = function(client)
+        require("lsp").on_attach(client)
+        vim.keymap.nnoremap { "gh", ":ClangdSwitchSourceHeader<CR>", silent = true }
+    end,
+    capabilities = require("lsp").capabilities,
     filetypes = {"c", "cpp", "cuda", "objc", "objcpp"}
 }

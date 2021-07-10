@@ -1,8 +1,9 @@
+local actions = require("telescope.actions")
+
 require('telescope').setup{
   defaults = {
     vimgrep_arguments = {
       'rg',
-      '--color=never',
       '--no-heading',
       '--with-filename',
       '--line-number',
@@ -15,7 +16,7 @@ require('telescope').setup{
     initial_mode = "insert",
     selection_strategy = "reset",
     sorting_strategy = "descending",
-    layout_strategy = "horizontal",
+    layout_strategy = "flex",
     layout_config = {
       horizontal = {
         mirror = false,
@@ -23,6 +24,15 @@ require('telescope').setup{
       vertical = {
         mirror = false,
       },
+    },
+    mappings = {
+        i = {
+            ["<Esc>"] = actions.close,
+            ["<C-x>"] = actions.delete_buffer,
+            ["<C-s>"] = actions.select_horizontal,
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous
+        }
     },
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
@@ -39,6 +49,16 @@ require('telescope').setup{
     qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
 
     -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
+
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            orverride_file_sorter = true
+        }
+    }
   }
 }
+
+require("telescope").load_extension('fzy_native')
+
