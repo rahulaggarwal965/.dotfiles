@@ -55,8 +55,11 @@ return packer.startup(function(use)
                 { "nvim-lua/plenary.nvim" },
                 { "nvim-telescope/telescope-fzy-native.nvim" }
             },
+            setup = function()
+                require("plugins.telescope").mappings()
+            end,
             config = function()
-                require("plugins.telescope")
+                require("plugins.telescope").config()
             end,
             module = "telescope.builtin"
         }
@@ -68,6 +71,10 @@ return packer.startup(function(use)
             event = "BufWinEnter"
         }
 
+        use { "mfussenegger/nvim-dap",
+            module = "dap"
+        }
+
         use { "nvim-treesitter/nvim-treesitter",
             config = function()
                 require("plugins.treesitter")
@@ -77,8 +84,11 @@ return packer.startup(function(use)
     	use { "kyazdani42/nvim-tree.lua",
             commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
     	    requires = { "kyazdani42/nvim-web-devicons" },
+    	    setup = function()
+    	        require("plugins.tree").mappings()
+            end,
     	    config = function()
-    	        require("plugins.tree")
+    	        require("plugins.tree").config()
             end,
             cmd = "NvimTreeToggle"
         }

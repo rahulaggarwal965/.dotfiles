@@ -28,18 +28,19 @@ xn { 'K', ":m \'<-2<CR>gv=gv", silent = true }
 -- write to files wit elevated permissions
 cn { 'w!!', "execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!", silent = true }
 
--- Telescope mappings
-nn { '<leader>f',  function() require('telescope.builtin').find_files() end }                -- list files in current working directory
-nn { '<leader>b',  function() require('telescope.builtin').buffers() end }                   -- list current open buffers
-nn { '<leader>/g', function() require('telescope.builtin').live_grep() end }                 -- search for strings in current working directory
-nn { '<leader>/t', function() require('telescope.builtin').tags() end}                       -- list tags in current working directory
-nn { '<leader>/m', function() require('telescope.builtin').marks() end }                     -- list marks in working session
-nn { '<leader>/k', function() require('telescope.builtin').keymaps() end }                   -- list keymappings
-nn { '<leader>/c', function() require('telescope.builtin').command_history() end }           -- list previous commands
-nn { '<leader>/h', function() require('telescope.builtin').search_history() end }            -- list previous searches
-nn { '<leader>/s', function() require('telescope.builtin').current_buffer_fuzzy_find() end } -- search within buffer
+nn { "<F3>",  "<cmd>lua require('dap').stop()<CR>" }
+nn { "<F4>",  "<cmd>lua require('dap').run_last()<CR>" }
+nn { "<F5>",  "<cmd>lua require('dap').continue()<CR>" }
+nn { "<F6>",  "<cmd>lua require('dap').pause()<CR>" }
+nn { "<F10>", "<cmd>lua require('dap').step_over()<CR>" }
+nn { "<F11>", "<cmd>lua require('dap').step_into()<CR>" }
+nn { "<F12>", "<cmd>lua require('dap').step_out()<CR>" }
 
-vim.keymap.nnoremap { '<leader>e', ":NvimTreeToggle<CR>", silent = true }
+nn { "<leader><F8>", "<cmd>lua require('dap').run_to_cursor()<CR>" }
+nn { "<leader>dd", "<cmd>lua require('dap').continue()<CR>" }
+nn { "<F9>",  "<cmd>lua require('dap').toggle_breakpoint()<CR>" }
+nn { "<leader><F9> ", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" }
+
 -- n          <leader>;r :%s//gc<Left><Left><Left>
 -- n          <leader>;f m`gg=G``
 -- x          <leader>;r :s/\%V/g<Left><Left>

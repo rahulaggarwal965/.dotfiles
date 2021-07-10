@@ -39,6 +39,16 @@ M.on_attach = function(client)
     nnoremap { "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
     nnoremap { "<leader>lQ", vim.lsp.diagnostic.set_loclist, buffer = 0 }
 
+    nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()            end }
+    nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()          end }
+    xnoremap { "<leader>la", function() require("telescope.builtin").lsp_range_code_actions()    end }
+    nnoremap { "<leader>ld", function() require("telescope.builtin").lsp_definitions()           end }
+    nnoremap { "<leader>li", function() require("telescope.builtin").lsp_implementations()       end }
+    nnoremap { "<leader>lg", function() require("telescope.builtin").lsp_document_diagnostics()  end }
+    nnoremap { "<leader>lG", function() require("telescope.builtin").lsp_workspace_diagnostics() end }
+    nnoremap { "<leader>ls", function() require("telescope.builtin").lsp_document_symbols()      end }
+    nnoremap { "<leader>lS", function() require("telescope.builtin").lsp_workspace_symbols()     end }
+
 
     if client.resolved_capabilities.document_highlight then
         vim.api.nvim_exec ([[
