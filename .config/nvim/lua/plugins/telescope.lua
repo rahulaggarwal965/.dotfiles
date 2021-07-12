@@ -16,8 +16,6 @@ end
 M.config = function()
     local actions = require("telescope.actions")
 
-    print("telescope address: ", require'telescope')
-    print("telescope.builtin address: ", require'telescope.builtin')
     require('telescope').setup{
       defaults = {
         vimgrep_arguments = {
