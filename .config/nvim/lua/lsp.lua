@@ -39,15 +39,15 @@ M.on_attach = function(client)
     nnoremap { "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
     nnoremap { "<leader>lQ", vim.lsp.diagnostic.set_loclist, buffer = 0 }
 
-    nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()            end }
-    nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()          end }
-    xnoremap { "<leader>la", function() require("telescope.builtin").lsp_range_code_actions()    end }
-    nnoremap { "<leader>ld", function() require("telescope.builtin").lsp_definitions()           end }
-    nnoremap { "<leader>li", function() require("telescope.builtin").lsp_implementations()       end }
-    nnoremap { "<leader>lg", function() require("telescope.builtin").lsp_document_diagnostics()  end }
-    nnoremap { "<leader>lG", function() require("telescope.builtin").lsp_workspace_diagnostics() end }
-    nnoremap { "<leader>ls", function() require("telescope.builtin").lsp_document_symbols()      end }
-    nnoremap { "<leader>lS", function() require("telescope.builtin").lsp_workspace_symbols()     end }
+    nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()            end, buffer = 0 }
+    nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()          end, buffer = 0 }
+    xnoremap { "<leader>la", function() require("telescope.builtin").lsp_range_code_actions()    end, buffer = 0 }
+    nnoremap { "<leader>ld", function() require("telescope.builtin").lsp_definitions()           end, buffer = 0 }
+    nnoremap { "<leader>li", function() require("telescope.builtin").lsp_implementations()       end, buffer = 0 }
+    nnoremap { "<leader>lg", function() require("telescope.builtin").lsp_document_diagnostics()  end, buffer = 0 }
+    nnoremap { "<leader>lG", function() require("telescope.builtin").lsp_workspace_diagnostics() end, buffer = 0 }
+    nnoremap { "<leader>ls", function() require("telescope.builtin").lsp_document_symbols()      end, buffer = 0 }
+    nnoremap { "<leader>lS", function() require("telescope.builtin").lsp_workspace_symbols()     end, buffer = 0 }
 
 
     if client.resolved_capabilities.document_highlight then
@@ -79,10 +79,10 @@ M.capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
-vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsSignError" })
-vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", numhl = "LspDiagnosticsSignWarning" })
+vim.fn.sign_define("LspDiagnosticsSignError",       { text = "", numhl = "LspDiagnosticsSignError"       })
+vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = "", numhl = "LspDiagnosticsSignWarning"     })
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
-vim.fn.sign_define("LspDiagnosticsSignHint", { text = "", numhl = "LspDiagnosticsSignHint" })
+vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -93,33 +93,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         underline = true,
     }
 )
-
-vim.lsp.protocol.CompletionItemKind = {
-    "   (Text) ",
-    "   (Method)",
-    "   (Function)",
-    "   (Constructor)",
-    " ﴲ  (Field)",
-    "[] (Variable)",
-    "   (Class)",
-    " ﰮ  (Interface)",
-    "   (Module)",
-    " 襁 (Property)",
-    "   (Unit)",
-    "   (Value)",
-    " 練 (Enum)",
-    "   (Keyword)",
-    "   (Snippet)",
-    "   (Color)",
-    "   (File)",
-    "   (Reference)",
-    "   (Folder)",
-    "   (EnumMember)",
-    " ﲀ  (Constant)",
-    " ﳤ  (Struct)",
-    "   (Event)",
-    "   (Operator)",
-    "   (TypeParameter)"
-}
 
 return M

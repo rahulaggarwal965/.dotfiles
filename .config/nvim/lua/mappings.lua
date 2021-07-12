@@ -2,44 +2,46 @@ local ino = vim.keymap.inoremap
 local nn = vim.keymap.nnoremap
 local xn = vim.keymap.xnoremap
 local cn = vim.keymap.cnoremap
+local tn = vim.keymap.tnoremap
 
 vim.g.mapleader = ' '
 
 -- use jk to escape insert mode
-ino { 'jk', '<Esc>' }
+ino { "jk", "<Esc>" }
 
 -- hold visual mode when indenting
-xn { '<', '<gv' }
-xn { '>', '>gv' }
+xn { "<", "<gv" }
+xn { ">", ">gv" }
 
 -- copy to end of line
-nn { 'Y', 'y$' }
+nn { "Y", "y$" }
 
 -- navigate by visual lines rather than normal lines
-nn { 'j', 'gj' }
-nn { 'k', 'gk' }
-xn { 'j', 'gj' }
-xn { 'k', 'gk' }
+nn { "j", "gj" }
+nn { "k", "gk" }
+xn { "j", "gj" }
+xn { "k", "gk" }
 
 -- move selected block in visual mode
-xn { 'J', ":m \'>+1<CR>gv=gv", silent = true }
-xn { 'K', ":m \'<-2<CR>gv=gv", silent = true }
+xn { 'J', ":m'>+1<CR>='[gv",  silent = true }
+xn { 'K', ":m '<-2<CR>='[gv", silent = true }
+
+-- don't pollute the clipboard with "pasted over" text
+xn { "p", "pgvy" }
+
+-- quickly replay a macro in the q register
+nn { "Q", "@q" }
 
 -- write to files wit elevated permissions
-cn { 'w!!', "execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!", silent = true }
+cn { 'w!!', "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!", silent = true }
 
-nn { "<F3>",  "<cmd>lua require('dap').stop()<CR>" }
-nn { "<F4>",  "<cmd>lua require('dap').run_last()<CR>" }
-nn { "<F5>",  "<cmd>lua require('dap').continue()<CR>" }
-nn { "<F6>",  "<cmd>lua require('dap').pause()<CR>" }
-nn { "<F10>", "<cmd>lua require('dap').step_over()<CR>" }
-nn { "<F11>", "<cmd>lua require('dap').step_into()<CR>" }
-nn { "<F12>", "<cmd>lua require('dap').step_out()<CR>" }
-
-nn { "<leader><F8>", "<cmd>lua require('dap').run_to_cursor()<CR>" }
-nn { "<leader>dd", "<cmd>lua require('dap').continue()<CR>" }
-nn { "<F9>",  "<cmd>lua require('dap').toggle_breakpoint()<CR>" }
-nn { "<leader><F9> ", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" }
+-- terminal movement
+tn { "<Esc>", [[<C-\><C-n>]] }
+tn { "jk",    [[<C-\><C-n>]] }
+tn { "C-h",   [[<C-\><C-n><C-w>h]] }
+tn { "C-j",   [[<C-\><C-n><C-w>j]] }
+tn { "C-k",   [[<C-\><C-n><C-w>k]] }
+tn { "C-l",   [[<C-\><C-n><C-w>l]] }
 
 -- n          <leader>;r :%s//gc<Left><Left><Left>
 -- n          <leader>;f m`gg=G``

@@ -17,7 +17,9 @@ return packer.startup(function(use)
         use "wbthomason/packer.nvim"
         use "tjdevries/astronauta.nvim"
 
-        use "neovim/nvim-lspconfig"
+        use { "neovim/nvim-lspconfig",
+            module = "lspconfig"
+        }
         use { "ray-x/lsp_signature.nvim",
             module = "lsp_signature"
         }
@@ -72,13 +74,22 @@ return packer.startup(function(use)
         }
 
         use { "mfussenegger/nvim-dap",
-            module = "dap"
+            setup = function()
+                require("plugins.dap").mappings()
+            end,
+            module = "dap",
         }
 
+        use { "rcarriga/nvim-dap-ui",
+            after = "nvim-dap",
+        }
+
+        -- TODO(rahul): make this based on filetype
         use { "nvim-treesitter/nvim-treesitter",
             config = function()
                 require("plugins.treesitter")
-            end
+            end,
+            run = ":TSUpdate"
         }
 
     	use { "kyazdani42/nvim-tree.lua",

@@ -39,3 +39,6 @@ dap.configurations.c = {
 
 dap.configurations.cpp = dap.configurations.c
 
+require("plugins.dap").config()
+require("dapui").setup()
+

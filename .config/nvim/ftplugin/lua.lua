@@ -1,5 +1,3 @@
-vim.lsp.set_log_level("debug")
-
 require("lspconfig").sumneko_lua.setup {
     cmd = {
         "lua-language-server"
