@@ -17,9 +17,7 @@ return packer.startup(function(use)
         use "wbthomason/packer.nvim"
         use "tjdevries/astronauta.nvim"
 
-        use { "neovim/nvim-lspconfig",
-            module = "lspconfig"
-        }
+        use "neovim/nvim-lspconfig"
         use { "ray-x/lsp_signature.nvim",
             module = "lsp_signature"
         }
@@ -77,7 +75,10 @@ return packer.startup(function(use)
             setup = function()
                 require("plugins.dap").mappings()
             end,
-            module = "dap",
+            config = function()
+                require("plugins.dap").config()
+            end,
+            module = 'dap'
         }
 
         use { "rcarriga/nvim-dap-ui",
