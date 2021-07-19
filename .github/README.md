@@ -80,6 +80,7 @@ linux-lts
 linux-lts-headers
 lldb
 lsof
+lua-language-server
 m4
 maim
 make
@@ -104,7 +105,6 @@ nmap
 nodejs
 noto-fonts
 noto-fonts-emoji
-npm
 ntp
 nvidia
 nvidia-lts
@@ -140,13 +140,12 @@ pulseaudio-bluetooth
 pulsemixer
 pypy
 pyright
-python-jedi
 python-numpy
 python-pylint
 python-pynput
 python-pynvim
+python-pytorch
 python-pywal
-python-rope
 python-transmissionrpc
 qt5-base
 realvnc-vnc-viewer
@@ -160,6 +159,7 @@ rust
 spicetify-cli
 spotify
 srandrd
+st-rva-git
 stb
 sudo
 sxhkd
