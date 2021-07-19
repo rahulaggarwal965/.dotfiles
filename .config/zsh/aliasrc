@@ -24,16 +24,8 @@ alias \
 	f="$FILE" \
 	v="$EDITOR" \
 	t="tmux-attach" \
-	p="sudo pacman" \
-	y="yay" \
-	z="zathura" \
 	open="xdg-open" \
-	fetch="fastfetch"
 
 # Dotfiles
 alias \
     d="/usr/bin/git --git-dir=$XDG_DATA_HOME/.dotfiles.git/ --work-tree=$HOME"
-
-# Clean up commands
-alias \
-	irssi="irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi"
