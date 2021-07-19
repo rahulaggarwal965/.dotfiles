@@ -1,0 +1,30 @@
+#!/bin/sh
+
+mkdir -p "$HOME"/.local/share
+git clone --bare https://github.com/rahulaggarwal965/.dotfiles.git "$HOME"/.local/share/.dotfiles
+
+d() {
+    /usr/bin/git --git-dir="$HOME"/.local/share/.dotfiles/ --work-tree="$HOME" $@
+}
+
+mkdir -p .dotfiles.bak
+if ! command -v fzf &> /dev/null; then
+    d for-each-ref --format='%(refname:short)' refs/heads/
+    printf "Checkout: "
+    read branch
+else
+    branch=$(d for-each-ref --format='%(refname:short)' refs/heads/ | fzf)
+fi
+
+d checkout "$branch"
+if [ $? = 0 ]; then
+    echo "Checkout of branch [$branch] complete."
+else
+    d checkout "$branch" 2>&1 | egrep "\s+\." | awk '{ print $1 }' | xargs -I{} mv {} .dotfiles.bak/{}
+fi
+
+d checkout "$branch"
+d config status.showUntrackedFiles no
+d config alias.update 'add -uv'
+d config alias.untracked 'ls-files -o --exclude-standard'
+
