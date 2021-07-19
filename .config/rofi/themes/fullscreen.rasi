@@ -1,9 +1,0 @@
-@import "launcher.rasi"
-
-#window {
-    fullscreen: true;
-}
-
-element-icon {
-    size:                           256;
-}
