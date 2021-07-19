@@ -15,6 +15,7 @@ the_silver_searcher
 tmux
 xcape
 xclip
+xorg-setxkbmap
 zsh
 zsh-syntax-highlighting
 ```

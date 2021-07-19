@@ -1,8 +1,0 @@
-#!/bin/sh
-
-id=$(xdotool search --classname scratch)
-if [ -z "$id" ]; then
-    st -n scratch -e zsh -c "tmux-attach scratch";
-else
-    bspc node "$id" -g hidden -f
-fi
