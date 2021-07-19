@@ -78,7 +78,7 @@ done
 # lf can switch directories when invoked with ctrl+o
 lfcd () {
     tmp="$(mktemp)"
-    lfimg -last-dir-path="$tmp" "$@"
+    lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp" >/dev/null

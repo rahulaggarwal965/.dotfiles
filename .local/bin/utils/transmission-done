@@ -1,4 +1,0 @@
-#!/bin/sh
-
-notify-send "Torrent Completed" "$TR_TORRENT_NAME"
-transmission-remote -t "$TR_TORRENT_ID" -r

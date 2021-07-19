@@ -1,7 +1,0 @@
-#!/bin/sh
-
-bgloc="${XDG_DATA_HOME:-$HOME/.local/share/}/bg"
-
-[ -f "$1" ] && ln -sf "$(readlink -f "$1")" "$bgloc"
-
-xwallpaper --zoom "$bgloc"
