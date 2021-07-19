@@ -1,6 +1,6 @@
 local opt = vim.opt
 
-vim.g.colors_name = "nvcode"
+vim.g.colors_name = "gruvbox"
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.showmode = false
