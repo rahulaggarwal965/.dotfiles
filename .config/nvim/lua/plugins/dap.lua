@@ -1,8 +1,13 @@
 local M = {}
 
+M.adapter = {}
+M.configurations = {}
+
 M.mappings = function()
     local nn = vim.keymap.nnoremap
     nn { "<leader>dd", "<cmd>lua require('dap').continue()<CR>" }
+    nn { "<F4>",  "<cmd>lua require('dap').run_last()<CR>" }
+    nn { "<F5>",  "<cmd>lua require('dap').continue()<CR>" }
     nn { "<F8>",  "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>" }
     nn { "<F9>",  "<cmd>lua require('dap').toggle_breakpoint()<CR>" }
     nn { "<leader><F9> ", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" }
@@ -11,40 +16,22 @@ end
 M.config = function()
 
     local dap = require("dap")
-    print(dap)
-
-    dap.adapters.lldb = {
-        type = "executable",
-        command = "/usr/bin/lldb-vscode",
-        name = "lldb"
-    }
-
-    dap.configurations.c = {
-        {
-            name = "Launch",
-            type = "lldb",
-            request = "launch",
-            program = function()
-                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-            end,
-            cwd = "${workspaceFolder}",
-            args = function()
-                return vim.split(vim.fn.input('Arguments: '), ' ', true)
-            end,
-        }
-    }
-
-dap.configurations.cpp = dap.configurations.c
-    local nn = vim.keymap.nnoremap
     local api = vim.api
+
+    local ft = api.nvim_buf_get_option(0, 'filetype')
+
+    if (M.adapter.name ~= nil) then
+        dap.adapters[M.adapter.name] = M.adapter
+        dap.configurations[ft] = M.configurations
+    end
+
+    local nn = vim.keymap.nnoremap
 
     local debug_keymaps = {
         ["<F3>" ] = function()
             dap.disconnect()
             dap.stop()
         end,
-        ["<F4>" ] = "<cmd>lua require('dap').run_last()<CR>",
-        ["<F5>" ] = "<cmd>lua require('dap').continue()<CR>",
         ["<F6>" ] = "<cmd>lua require('dap').pause()<CR>",
         ["<F7>" ] = "<cmd>lua require('dap').run_to_cursor()<CR>",
         ["<F10>"] = "<cmd>lua require('dap').step_over()<CR>",
