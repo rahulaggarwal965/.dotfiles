@@ -38,6 +38,8 @@ M.on_attach = function(client)
     nnoremap { "<leader>lc", function() vim.lsp.diagnostic.clear(0) end, buffer = 0 }
     nnoremap { "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
     nnoremap { "<leader>lQ", vim.lsp.diagnostic.set_loclist, buffer = 0 }
+    nnoremap { "<leader>lx", ":LspStop<CR>",  silent = true}
+    nnoremap { "<leader>lX", ":LspStart<CR>", silent = true}
 
     nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()            end, buffer = 0 }
     nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()          end, buffer = 0 }

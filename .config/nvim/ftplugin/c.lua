@@ -15,14 +15,13 @@ require("lspconfig").clangd.setup {
     filetypes = {"c", "cpp", "cuda", "objc", "objcpp"}
 }
 
-local dap = require("dap")
-dap.adapters.lldb = {
+require("plugins.dap").adapter = {
     type = "executable",
     command = "/usr/bin/lldb-vscode",
     name = "lldb"
 }
 
-dap.configurations.c = {
+require("plugins.dap").configurations = {
     {
         name = "Launch",
         type = "lldb",
@@ -36,9 +35,3 @@ dap.configurations.c = {
         end,
     }
 }
-
-dap.configurations.cpp = dap.configurations.c
-
-require("plugins.dap").config()
-require("dapui").setup()
-

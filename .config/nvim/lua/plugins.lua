@@ -16,8 +16,11 @@ return packer.startup(function(use)
 
         use "wbthomason/packer.nvim"
         use "tjdevries/astronauta.nvim"
+        use { "nvim-lua/plenary.nvim", opt = true }
 
-        use "neovim/nvim-lspconfig"
+        use { "neovim/nvim-lspconfig",
+            module = "lspconfig"
+        }
         use { "ray-x/lsp_signature.nvim",
             module = "lsp_signature"
         }
@@ -42,19 +45,19 @@ return packer.startup(function(use)
         }
 
         use { "lewis6991/gitsigns.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
+            wants = "plenary.nvim",
             config = function()
                 require("plugins.gitsigns")
             end,
-            event = "BufRead"
+            event = "BufReadPre"
         }
 
         use { "nvim-telescope/telescope.nvim",
             requires = {
-                { "nvim-lua/popup.nvim" },
-                { "nvim-lua/plenary.nvim" },
-                { "nvim-telescope/telescope-fzy-native.nvim" }
+                { "nvim-lua/popup.nvim", opt = true },
+                { "nvim-telescope/telescope-fzy-native.nvim", opt = true }
             },
+            wants = { "telescope-fzy-native.nvim", "popup.nvim", "plenary.nvim" },
             setup = function()
                 require("plugins.telescope").mappings()
             end,
@@ -83,6 +86,9 @@ return packer.startup(function(use)
 
         use { "rcarriga/nvim-dap-ui",
             after = "nvim-dap",
+            config = function()
+                require("dapui").setup()
+            end
         }
 
         -- TODO(rahul): make this based on filetype
@@ -94,7 +100,6 @@ return packer.startup(function(use)
         }
 
     	use { "kyazdani42/nvim-tree.lua",
-            commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
     	    requires = { "kyazdani42/nvim-web-devicons" },
     	    setup = function()
     	        require("plugins.tree").mappings()

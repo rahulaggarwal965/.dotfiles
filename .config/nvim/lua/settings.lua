@@ -21,7 +21,7 @@ opt.updatetime = 500
 opt.backup = false
 opt.writebackup = false
 opt.fillchars = { vert = "│", eob = " " }
-opt.shortmess = opt.shortmess + "c"
+opt.shortmess:append("c")
 
 opt.conceallevel = 2
 opt.number = true
@@ -36,5 +36,5 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.copyindent = true
-opt.formatoptions = opt.formatoptions - "atro2"
-opt.iskeyword = opt.iskeyword + "-"
+opt.formatoptions:remove("atro2")
+opt.iskeyword:append("-")
