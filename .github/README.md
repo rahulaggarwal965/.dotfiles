@@ -2,9 +2,7 @@
 
 This is a repository for most of my dotfiles, which in combination with a package list, can generate an os-like experience.
 
-#### Base Packages
-
-##### ARCH
+#### .arch
 ```
 fd
 fzf
@@ -20,7 +18,7 @@ zsh
 zsh-syntax-highlighting
 ```
 
-##### AUR
+#### .aur
 ```
 neovim-git
 lf-git
