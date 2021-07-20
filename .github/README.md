@@ -2,9 +2,7 @@
 
 This is a repository for most of my dotfiles, which in combination with a package list, can generate an os-like experience.
 
-#### Base Packages
-
-##### ARCH
+#### .arch
 ```
 alsa-utils
 atool
@@ -37,7 +35,6 @@ git-lfs
 grub
 htop
 imagemagick
-intel-ucode
 jdk-openjdk
 jq
 linux
@@ -55,7 +52,6 @@ meson
 mpv
 mtools
 ncdu
-neovim-git
 networkmanager
 networkmanager-openconnect
 nmap
@@ -127,7 +123,7 @@ zsh
 zsh-syntax-highlighting
 ```
 
-##### AUR
+#### .aur
 ```
 brave-nightly-bin
 bspwm-git
@@ -141,6 +137,7 @@ libxft-bgra-git
 material-black-colors-theme
 multilockscreen-git
 ncurses5-compat-libs
+neovim-git
 nerd-fonts-noto-sans-mono
 nerd-fonts-roboto-mono
 nerd-fonts-sf-mono
@@ -158,7 +155,7 @@ ttf-material-design-icons-git
 ttf-ms-fonts
 ```
 
-#### NVIDIA
+#### .nvidia
 ```
 nvidia
 nvidia-lts
@@ -166,7 +163,7 @@ nvidia-settings
 nvidia-utils
 ```
 
-#### DEV
+#### .dev
 ```
 bear
 cuda
@@ -190,7 +187,7 @@ tk
 valgrind
 ```
 
-#### EXT
+#### .ext
 ```
 gimp
 git-delta
