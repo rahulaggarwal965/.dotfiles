@@ -96,6 +96,7 @@ return packer.startup(function(use)
             config = function()
                 require("plugins.treesitter")
             end,
+            event = "BufRead",
             run = ":TSUpdate"
         }
 
@@ -110,8 +111,15 @@ return packer.startup(function(use)
             cmd = "NvimTreeToggle"
         }
 
+        use { "ChristianChiarulli/nvcode-color-schemes.vim",
+            event = "ColorSchemePre"
+        }
+
+        use { "tweekmonster/startuptime.vim",
+            cmd = "StartupTime"
+        }
+
         use "christoomey/vim-tmux-navigator"
         use "RyanMillerC/better-vim-tmux-resizer"
-        use "ChristianChiarulli/nvcode-color-schemes.vim"
     end
 )
