@@ -125,7 +125,7 @@ zsh-syntax-highlighting
 
 #### .aur
 ```
-brave-nightly-bin
+brave-bin
 bspwm-git
 dashbinsh
 downgrade
