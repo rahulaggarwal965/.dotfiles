@@ -119,6 +119,12 @@ return packer.startup(function(use)
             cmd = "StartupTime"
         }
 
+        use { "iamcco/markdown-preview.nvim",
+            run = function() fn['mkdp#util#install']() end,
+            cmd = "MarkdownPreview",
+            ft = "markdown"
+        }
+
         use "christoomey/vim-tmux-navigator"
         use "RyanMillerC/better-vim-tmux-resizer"
     end

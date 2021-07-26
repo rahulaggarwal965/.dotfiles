@@ -25,6 +25,11 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
 
+# Fix urls
+autoload -U url-quote-magic bracketed-paste-magic
+zle -N self-insert url-quote-magic
+zle -N bracketed-paste bracketed-paste-magic
+
 # Vim mode
 bindkey -v
 export KEYTIMEOUT=5
