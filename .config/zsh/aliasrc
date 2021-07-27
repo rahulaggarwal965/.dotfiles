@@ -32,7 +32,7 @@ alias \
 
 # Dotfiles
 alias \
-    d="/usr/bin/git --git-dir=$XDG_DATA_HOME/.dotfiles.git/ --work-tree=$HOME"
+    d="/usr/bin/git --git-dir=$XDG_DATA_HOME/.dotfiles --work-tree=$HOME"
 
 # Clean up commands
 alias \

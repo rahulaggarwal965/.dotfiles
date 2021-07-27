@@ -15,12 +15,14 @@ else
     branch=$(d for-each-ref --format='%(refname:short)' refs/heads/ | fzf)
 fi
 
+d config alias.update 'add -uv'
+
+d update
 d -c user.name='auto' -c user.email='auto' commit -m "local"
 d branch local
 d reset --hard HEAD~1
 d checkout "$branch"
 
 d config status.showUntrackedFiles no
-d config alias.update 'add -uv'
 d config alias.untracked 'ls-files -o --exclude-standard'
-
+d config alias.merge-modified '!f() { d() { /usr/bin/git --git-dir="$HOME"/.local/share/.dotfiles/ --work-tree="$HOME" "$@"; }; d merge "$1"; if [ $? != 0 ]; then for conflict in $(d status | sed -n "s/deleted by us://p"); do d rm "$conflict"; done; fi; }; f'

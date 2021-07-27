@@ -71,7 +71,7 @@ return packer.startup(function(use)
             config = function()
                 require("nvim_comment").setup()
             end,
-            event = "BufWinEnter"
+            keys = "gc"
         }
 
         use { "mfussenegger/nvim-dap",
@@ -117,6 +117,12 @@ return packer.startup(function(use)
 
         use { "tweekmonster/startuptime.vim",
             cmd = "StartupTime"
+        }
+
+        use { "iamcco/markdown-preview.nvim",
+            run = function() fn['mkdp#util#install']() end,
+            cmd = "MarkdownPreview",
+            ft = "markdown",
         }
 
         use "christoomey/vim-tmux-navigator"
