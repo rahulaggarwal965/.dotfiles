@@ -105,7 +105,7 @@ map u
 map sb %setbg "$f"
 
 # File Openers
-map v $$EDITOR "$f"
+map v $$EDITOR "$fx"
 
 # Archive Mappings
 map uz zip
