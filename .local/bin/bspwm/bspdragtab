@@ -31,7 +31,7 @@ while True:
     words = xprop.stdout.split()
     if (len(words) < 2): continue
     class_name = words[2][1:-2]
-    if class_name == browser_name
+    if class_name == browser_name:
         if mouse_pressed:
             current_window_id = node_id
             subprocess.Popen(('bspc', 'node', current_window_id, '-t', 'floating'))

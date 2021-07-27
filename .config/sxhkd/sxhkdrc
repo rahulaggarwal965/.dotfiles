@@ -109,7 +109,7 @@ super + shift + m;
 
 # Lock screen
 super + shift + n
-	multilockscreen -l
+	betterlockscreen -l
 
 # Toggle compositor
 super + shift + c
