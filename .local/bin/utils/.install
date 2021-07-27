@@ -25,4 +25,15 @@ d checkout "$branch"
 
 d config status.showUntrackedFiles no
 d config alias.untracked 'ls-files -o --exclude-standard'
-
+d config alias.merge-modified '!f() { \
+    d() { \
+        /usr/bin/git --git-dir="$HOME"/.local/share/.dotfiles/ --work-tree="$HOME" "$@" \
+    } \
+    d merge "$1" \
+    if [ $? != 0 ]; then; \
+        for conflict in $(d status | sed -n "s/deleted by us://p"); do; \
+            d rm "$conflict" \
+        done \
+        d update \
+    fi \
+}; f'
