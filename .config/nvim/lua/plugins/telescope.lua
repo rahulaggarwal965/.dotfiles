@@ -11,6 +11,7 @@ M.mappings = function()
     nn { '<leader>/c', function() require('telescope.builtin').command_history()            end } -- list previous commands
     nn { '<leader>/h', function() require('telescope.builtin').search_history()             end } -- list previous searches
     nn { '<leader>/s', function() require('telescope.builtin').current_buffer_fuzzy_find()  end } -- search within buffer
+    nn { '<leader>/w', function() require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") }) end } -- Search for the word underneath the cursor
 end
 
 M.config = function()

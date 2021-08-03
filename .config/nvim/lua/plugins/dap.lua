@@ -18,7 +18,7 @@ M.config = function()
     local dap = require("dap")
     local api = vim.api
 
-    local ft = api.nvim_buf_get_option(0, 'filetype')
+    local ft = vim.bo.filetype
 
     if (M.adapter.name ~= nil) then
         dap.adapters[M.adapter.name] = M.adapter

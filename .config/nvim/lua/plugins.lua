@@ -64,7 +64,8 @@ return packer.startup(function(use)
             config = function()
                 require("plugins.telescope").config()
             end,
-            module = "telescope.builtin"
+            module = "telescope.builtin",
+            cmd = "Telescope"
         }
 
         use { "terrortylor/nvim-comment",
