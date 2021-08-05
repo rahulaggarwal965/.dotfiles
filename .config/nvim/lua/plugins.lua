@@ -112,6 +112,12 @@ return packer.startup(function(use)
             cmd = "NvimTreeToggle"
         }
 
+        use { "akinsho/nvim-toggleterm.lua",
+            config = function()
+                require("plugins.terminal")
+            end
+        }
+
         use { "ChristianChiarulli/nvcode-color-schemes.vim",
             event = "ColorSchemePre"
         }
