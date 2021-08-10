@@ -15,13 +15,16 @@ require("lspconfig").clangd.setup {
     filetypes = {"c", "cpp", "cuda", "objc", "objcpp"}
 }
 
-require("plugins.dap").adapter = {
+-- This is important to resolve symlinked filetypes
+local ft = vim.bo.filetype
+
+require("plugins.dap").adapters.lldb = {
     type = "executable",
     command = "/usr/bin/lldb-vscode",
     name = "lldb"
 }
 
-require("plugins.dap").configurations = {
+require("plugins.dap").configurations[ft] = {
     {
         name = "Launch",
         type = "lldb",

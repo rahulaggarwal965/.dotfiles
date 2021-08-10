@@ -1,6 +1,6 @@
 local M = {}
 
-M.adapter = {}
+M.adapters = {}
 M.configurations = {}
 
 M.mappings = function()
@@ -18,19 +18,15 @@ M.config = function()
     local dap = require("dap")
     local api = vim.api
 
-    local ft = vim.bo.filetype
-
-    if (M.adapter.name ~= nil) then
-        dap.adapters[M.adapter.name] = M.adapter
-        dap.configurations[ft] = M.configurations
-    end
+    dap.adapters = M.adapters
+    dap.configurations = M.configurations
 
     local nn = vim.keymap.nnoremap
 
     local debug_keymaps = {
         ["<F3>" ] = function()
             dap.disconnect()
-            dap.stop()
+            dap.close()
         end,
         ["<F6>" ] = "<cmd>lua require('dap').pause()<CR>",
         ["<F7>" ] = "<cmd>lua require('dap').run_to_cursor()<CR>",

@@ -47,7 +47,5 @@ tn { "C-j",   [[<C-\><C-n><C-w>j]] }
 tn { "C-k",   [[<C-\><C-n><C-w>k]] }
 tn { "C-l",   [[<C-\><C-n><C-w>l]] }
 
--- n          <leader>;r :%s//gc<Left><Left><Left>
--- n          <leader>;f m`gg=G``
--- x          <leader>;r :s/\%V/g<Left><Left>
--- n          <leader>;x :!chmod +x %<CR>
+nn { "<leader>;r", [[:%s//gc<Left><Left><Left>]] }
+xn { "<leader>;r", [[:s/\%V/g<Left><Left>]] }

@@ -4,7 +4,7 @@ from pynput.mouse import Listener, Button
 import subprocess
 import os
 
-browser_name = os.environ.get("BROWSER")
+browser_name = "brave-browser"
 
 mouse_pressed = False
 current_window_id = None
@@ -31,6 +31,7 @@ while True:
     words = xprop.stdout.split()
     if (len(words) < 2): continue
     class_name = words[2][1:-2]
+    print(class_name)
     if class_name == browser_name:
         if mouse_pressed:
             current_window_id = node_id
