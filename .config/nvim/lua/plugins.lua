@@ -15,7 +15,9 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 return packer.startup(function(use)
 
         use "wbthomason/packer.nvim"
-        use "tjdevries/astronauta.nvim"
+        use { "tjdevries/astronauta.nvim",
+            commit = "e69d7bd"
+        }
         use { "nvim-lua/plenary.nvim", opt = true }
 
         use { "neovim/nvim-lspconfig",
@@ -54,10 +56,9 @@ return packer.startup(function(use)
 
         use { "nvim-telescope/telescope.nvim",
             requires = {
-                { "nvim-lua/popup.nvim", opt = true },
                 { "nvim-telescope/telescope-fzy-native.nvim", opt = true }
             },
-            wants = { "telescope-fzy-native.nvim", "popup.nvim", "plenary.nvim" },
+            wants = { "telescope-fzy-native.nvim", "plenary.nvim" },
             setup = function()
                 require("plugins.telescope").mappings()
             end,

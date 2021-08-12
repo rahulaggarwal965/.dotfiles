@@ -26,9 +26,9 @@ xn { "k", "gk" }
 xn { 'J', ":m'>+1<CR>='[gv",  silent = true }
 xn { 'K', ":m '<-2<CR>='[gv", silent = true }
 
--- keep jumps centered
-nn { 'n', 'nzz' }
-nn { 'N', 'Nzz' }
+-- center cursor when moving through search results, but keep counter
+nn { "n", "nzz<BS>n" }
+nn { "N", "Nzz<Space>N" }
 
 -- don't pollute the clipboard with "pasted over" text
 xn { "p", "pgvy" }
@@ -40,8 +40,7 @@ nn { "Q", "@q" }
 cn { 'w!!', "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!", silent = true }
 
 -- terminal movement
--- tn { "<Esc>", [[<C-\><C-n>]] }
--- tn { "jk",    [[<C-\><C-n>]] }
+tn { "<Esc><Esc>", [[<C-\><C-n>]] }
 tn { "C-h",   [[<C-\><C-n><C-w>h]] }
 tn { "C-j",   [[<C-\><C-n><C-w>j]] }
 tn { "C-k",   [[<C-\><C-n><C-w>k]] }

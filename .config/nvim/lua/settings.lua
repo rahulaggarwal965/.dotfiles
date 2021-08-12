@@ -1,6 +1,6 @@
 local opt = vim.opt
 
-vim.g.colors_name = "gruvbox"
+vim.cmd [[colorscheme gruvbox]]
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.showmode = false
@@ -18,6 +18,7 @@ opt.splitbelow = true
 opt.splitright = true
 opt.hidden = true
 opt.updatetime = 500
+opt.lazyredraw = true
 opt.backup = false
 opt.writebackup = false
 opt.fillchars = { vert = "│", eob = " " }

@@ -7,6 +7,7 @@ M.mappings = function()
     nn { '<leader>/g', function() require('telescope.builtin').live_grep()                  end } -- search for strings in current working directory
     nn { '<leader>/t', function() require('telescope.builtin').tags()                       end } -- list tags in current working directory
     nn { '<leader>/m', function() require('telescope.builtin').marks()                      end } -- list marks in working session
+    nn { '<leader>/r', function() require('telescope.builtin').registers()                  end } -- list current registers
     nn { '<leader>/k', function() require('telescope.builtin').keymaps()                    end } -- list keymappings
     nn { '<leader>/c', function() require('telescope.builtin').command_history()            end } -- list previous commands
     nn { '<leader>/h', function() require('telescope.builtin').search_history()             end } -- list previous searches
