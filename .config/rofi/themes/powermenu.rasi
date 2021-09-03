@@ -48,6 +48,8 @@ element {
 }
 
 element-text {
+    background-color:     inherit;
+    text-color:           inherit;
     highlight:            bold #FF8700;
     horizontal-align:     1;
 }

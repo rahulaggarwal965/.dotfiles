@@ -5,3 +5,6 @@ setxkbmap -option ctrl:nocaps
 
 # Make singular caps lock press escape
 xcape -e 'Control_L=Escape'
+
+# Reduce repeat delay and increase speed
+xset r rate 300 30 &

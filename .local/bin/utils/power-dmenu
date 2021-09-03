@@ -1,8 +1,8 @@
 #!/bin/sh
 
-select=$(printf "^Lock\n⏾^Suspend\n^Logout\n^Reboot\n⏻^Shutdown" | column -s'^' -t -R2 | rofi -dmenu -theme powermenu -i)
+select=$(printf "^Lock\n⏾^Suspend\n^Logout\n^Reboot\n⏻^Shutdown" | column -s'^' -t -R2 | rofi -dmenu -theme powermenu -i -hover-select -me-select-entry '' -me-accept-entry MousePrimary)
 case "$select" in
-    *"Lock")     multilockscreen -l ;;
+    *"Lock")     betterlockscreen -l ;;
     *"Suspend")  systemctl suspend ;;
     *"Logout")   bspc quit ;;
     *"Reboot")   systemctl reboot ;;

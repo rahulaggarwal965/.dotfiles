@@ -26,20 +26,26 @@ return packer.startup(function(use)
         use { "ray-x/lsp_signature.nvim",
             module = "lsp_signature"
         }
-        use { "hrsh7th/nvim-compe",
+        use { "hrsh7th/nvim-cmp",
+            requires =  {
+                { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+                { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+                { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
+            },
             config = function()
-                require("plugins.compe")
+                require("plugins.cmp")
             end,
             event = "InsertEnter"
         }
+
         use { "L3MON4D3/LuaSnip",
             module = "luasnip"
         }
         use { "windwp/nvim-autopairs",
-            after = "nvim-compe",
+            after = "nvim-cmp",
             config = function()
                 require("nvim-autopairs").setup()
-                require("nvim-autopairs.completion.compe").setup({
+                require("nvim-autopairs.completion.cmp").setup({
                     map_cr = true,
                     map_complete = true
                 })
@@ -91,6 +97,10 @@ return packer.startup(function(use)
             config = function()
                 require("dapui").setup()
             end
+        }
+
+        use { "mfussenegger/nvim-dap-python",
+            module = "dap-python",
         }
 
         -- TODO(rahul): make this based on filetype
