@@ -20,7 +20,7 @@ window {
 
 mainbox {
     background-color:     transparent;
-    padding:              0px 0px 8px 0px;
+    padding:              0px 0px 0px 0px;
 }
 
 error-message {
@@ -48,7 +48,7 @@ element {
 }
 
 element-text {
-    background-color:     inherit;
+    background-color:     transparent;
     text-color:           inherit;
     highlight:            bold #FF8700;
     horizontal-align:     1;

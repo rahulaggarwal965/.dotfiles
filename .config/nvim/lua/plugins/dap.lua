@@ -20,7 +20,9 @@ M.config = function()
 
     dap.adapters = M.adapters
     dap.configurations = M.configurations
-    M.external_config()
+    if (M.external_config) then
+        M.external_config()
+    end
 
     local nn = vim.keymap.nnoremap
 

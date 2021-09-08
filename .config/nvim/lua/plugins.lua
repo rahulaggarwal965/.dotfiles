@@ -28,9 +28,10 @@ return packer.startup(function(use)
         }
         use { "hrsh7th/nvim-cmp",
             requires =  {
-                { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+                { "hrsh7th/cmp-buffer",   after = "nvim-cmp" },
                 { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-                { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
+                { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+                { "hrsh7th/cmp-path",     after = "nvim-cmp" }
             },
             config = function()
                 require("plugins.cmp")
@@ -60,7 +61,7 @@ return packer.startup(function(use)
             event = "BufReadPre"
         }
 
-        use { "nvim-telescope/telescope.nvim",
+        use { "nvim-telescope/telescope.nvim", -- TODO(rahul): this is broken due to some packer bug (telescope doesn't get client automatically)
             requires = {
                 { "nvim-telescope/telescope-fzy-native.nvim", opt = true }
             },
@@ -133,6 +134,9 @@ return packer.startup(function(use)
             ft = "markdown",
         }
 
+        use { "norcalli/nvim-colorizer.lua",
+            cmd = "ColorizerToggle"
+        }
         use "christoomey/vim-tmux-navigator"
         use "RyanMillerC/better-vim-tmux-resizer"
     end

@@ -113,7 +113,7 @@ super + shift + n
 
 # Toggle compositor
 super + shift + c
-	toggleprogram "picom" "-b"
+	toggleprogram "picom" "--experimental-backends -b"
 
 # Brightness Control
 super + {F8,F9}
@@ -149,7 +149,7 @@ shift + Print
 
 # General Launcher
 super + @space;
-    rofi -show drun -theme launcher -show-icons -hover-select -me-select-entry '' -me-accept-entry MousePrimary
+    rofi -show drun -theme launcher -show-icons
 
 # Terminal emulator
 super + Return
@@ -161,7 +161,7 @@ super + slash
 
 # Menus
 super + m; {t,b,e,p}
-    {transmission-dmenu, rofi -show bluetooth -theme menu -hover-select -me-select-entry '' -me-accept-entry MousePrimary, ebooks-dmenu, power-dmenu}
+    {transmission-dmenu, rofi -show bluetooth -theme menu, ebooks-dmenu, power-dmenu}
 
 # Commonly used applications/menus
 super + alt + {b,s,d}
