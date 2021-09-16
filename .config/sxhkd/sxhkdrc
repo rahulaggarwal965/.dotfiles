@@ -33,11 +33,8 @@ super + {_,shift +}Tab
 	bspc desktop -f {next,prev}.local.occupied
 
 # Cycle tiled nodes
-# alt + Tab
-    # rofi -modi window -show window -kb-row-up 'Alt+ISO_Left_Tab' -kb-row-down 'Alt+Tab' -kb-accept-entry '!Alt+Tab,!Alt+Alt_L' -selected-row 1 -theme launcher
 alt + {_,shift +}Tab
-    bspc query -N -n focused.fullscreen >/dev/null 2>&1 && bspc node {next,prev}.local.!hidden.window -f -t fullscreen || bspc node {next,prev}.local.!hidden.window -f
-
+    bspalttab {next,prev}
 # Circulate tree from root
 super + control + {n,m}
 	bspc node @/ -C {backward,forward}
