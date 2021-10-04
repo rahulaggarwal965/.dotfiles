@@ -13,6 +13,7 @@ HISTFILE=~/.cache/zsh/history
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/aliasrc"
 
 stty -ixon
+setopt nonomatch
 
 # Autocompletion
 autoload -U compinit
@@ -95,6 +96,8 @@ bindkey -s '^f' '^ucd "$(dirname "$(fzf)")"^M'
 # Edit line in vim buffer
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^v' edit-command-line
+
+eval "$(direnv hook zsh)"
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null

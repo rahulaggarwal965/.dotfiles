@@ -1,6 +1,6 @@
 /usr/bin/prime-offload                                                                          # Enable GPU Switching
 xrdb -merge ~/.config/X11/Xresources                                                            # Set colors/fonts
-redshift -m randr -t 5000K:3200K &                                                              # Screen temperature daemon
+flux &                                                                                          # Screen temperature daemon
 sxhkd &                                                                                         # Hotkey Daemon
 udiskie &                                                                                       # Mounting Daemon
 dunst &                                                                                         # Notification Daemon
@@ -9,6 +9,6 @@ libinput-gestures -c ~/.config/libinput/libinput-gestures.conf &                
 transmission-daemon &                                                                           # Torrent Daemon
 xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &                                    # Set normal cursor
 xss-lock -n /home/infinity/.local/bin/utils/dim-screen -l -- betterlockscreen -l &              # Set lock hook
-picom --experimental-backends -b &                                                                                      # Transparency Daemon
+picom --experimental-backends -b &                                                              # Transparency Daemon
 srandrd bspxrandr &                                                                             # Monitor Daemon
 exec bspwm                                                                                      # Window Manager

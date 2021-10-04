@@ -54,14 +54,14 @@ M.on_attach = function(client)
 
     if client.resolved_capabilities.document_highlight then
         vim.api.nvim_exec ([[
-	    hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
-	    hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
-	    hi LspReferenceWrite cterm=bold ctermbg=red guibg=#464646
-	    augroup lsp_document_highlight
-	    	autocmd! * <buffer>
+    	    hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
+    	    hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
+    	    hi LspReferenceWrite cterm=bold ctermbg=red guibg=#464646
+    	    augroup lsp_document_highlight
+    	    	autocmd! * <buffer>
             autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
             autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	    augroup END ]], false)
+    	    augroup END ]], false)
     end
 
     if client.resolved_capabilities.document_formatting then
@@ -86,14 +86,16 @@ vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = "", numhl = "Lsp
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
 vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = {
-            spacing = 0,
-        },
-        signs = true,
-        underline = true,
-    }
-)
+
+-- TODO(rahul): this is broken
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--     vim.lsp.diagnostic.on_publish_diagnostics, {
+--         virtual_text = {
+--             spacing = 0,
+--         },
+--         signs = true,
+--         underline = true,
+--     }
+-- )
 
 return M

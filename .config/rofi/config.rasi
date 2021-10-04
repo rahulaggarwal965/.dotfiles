@@ -18,6 +18,10 @@ configuration {
     me-accept-entry:        "MousePrimary";
     kb-accept-entry:        "Control+m,Return,KP_Enter";
     kb-remove-to-eol:       "Alt+k";
+    kb-remove-char-back:    "BackSpace,Shift+BackSpace";
+    kb-mode-complete:       "";
     kb-row-down:            "Control+j,Down";
     kb-row-up:              "Control+k,Up";
+    kb-row-left:            "Control+h";
+    kb-row-right:           "Control+l";
 }

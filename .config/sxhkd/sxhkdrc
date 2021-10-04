@@ -114,7 +114,7 @@ super + shift + c
 
 # Brightness Control
 super + {F8,F9}
-    brightnessctl s {2%-,+2%}
+    xbacklight {-,+}2
 
 # Pulse control
 super + {_,shift +}grave

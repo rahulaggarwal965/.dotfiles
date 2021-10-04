@@ -8,10 +8,8 @@ M.config = function()
 
     local g = vim.g
 
-    g.nvim_tree_auto_close = 1
     g.nvim_tree_quit_on_open = 1
     g.nvim_tree_git_hl = 1
-    g.nvim_tree_lsp_diagnostics = 1
     g.nvim_tree_indent_markers = 1
 
     g.nvim_tree_show_icons = {
@@ -56,14 +54,36 @@ M.config = function()
         },
     }
 
+    -- g.nvim_tree_bindings = {
+    --   { key = "l",      cb = tree_cb("edit") },
+    --   { key = "L",      cb = tree_cb("cd") },
+    --   { key = "H",      cb = tree_cb("dir_up") },
+    --   { key = "<C-s>",  cb = tree_cb("split") },
+    --   { key = "h",      cb = tree_cb("close_node") },
+    --   { key = ".",      cb = tree_cb("toggle_dotfiles") },
+    -- }
+
     local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-    g.nvim_tree_bindings = {
-      { key = "l",      cb = tree_cb("edit") },
-      { key = "L",      cb = tree_cb("cd") },
-      { key = "H",      cb = tree_cb("dir_up") },
-      { key = "<C-s>",  cb = tree_cb("split") },
-      { key = "h",      cb = tree_cb("close_node") },
-      { key = ".",      cb = tree_cb("toggle_dotfiles") },
+    require("nvim-tree").setup {
+        auto_close = true,
+        update_cwd = true,
+        lsp_diagnostics = true,
+        update_focused_file = {
+            enable = true,
+            update_cwd = true
+        },
+        view = {
+        mappings = {
+        list = {
+          { key = "l",      cb = tree_cb("edit") },
+          { key = "L",      cb = tree_cb("cd") },
+          { key = "H",      cb = tree_cb("dir_up") },
+          { key = "<C-s>",  cb = tree_cb("split") },
+          { key = "h",      cb = tree_cb("close_node") },
+          { key = ".",      cb = tree_cb("toggle_dotfiles") },
+        }
+        }
+        }
     }
 end
 
