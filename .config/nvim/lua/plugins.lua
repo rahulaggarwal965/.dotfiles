@@ -134,9 +134,12 @@ return packer.startup(function(use)
             ft = "markdown",
         }
 
+        use { "plasticboy/vim-markdown" }
+
         use { "norcalli/nvim-colorizer.lua",
             cmd = "ColorizerToggle"
         }
+
         use "christoomey/vim-tmux-navigator"
         use "RyanMillerC/better-vim-tmux-resizer"
     end
