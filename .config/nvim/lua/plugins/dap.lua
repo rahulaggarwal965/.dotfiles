@@ -30,6 +30,7 @@ M.config = function()
         ["<F3>" ] = function()
             dap.disconnect()
             dap.close()
+            require('dapui').close()
         end,
         ["<F6>" ] = "<cmd>lua require('dap').pause()<CR>",
         ["<F7>" ] = "<cmd>lua require('dap').run_to_cursor()<CR>",
@@ -55,6 +56,8 @@ M.config = function()
         for lhs, rhs in pairs(debug_keymaps) do
             nn { lhs, rhs }
         end
+
+        require("dapui").open()
     end
 
     dap.listeners.after['event_terminated']['me'] = function()
@@ -70,6 +73,8 @@ M.config = function()
             { silent = keymap.silent == 1 })
         end
         keymap_restore = {}
+
+        require("dapui").close()
     end
 end
 

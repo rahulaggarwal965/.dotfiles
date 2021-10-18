@@ -67,7 +67,9 @@ M.config = function()
     require("nvim-tree").setup {
         auto_close = true,
         update_cwd = true,
-        lsp_diagnostics = true,
+        diagnostics = {
+            enable = true
+        },
         update_focused_file = {
             enable = true,
             update_cwd = true
