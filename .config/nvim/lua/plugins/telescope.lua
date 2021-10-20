@@ -36,12 +36,8 @@ M.config = function()
         sorting_strategy = "descending",
         layout_strategy = "flex",
         layout_config = {
-          horizontal = {
-            mirror = false,
-          },
-          vertical = {
-            mirror = false,
-          },
+          horizontal = { mirror = false },
+          vertical = { mirror = false },
         },
         mappings = {
             i = {

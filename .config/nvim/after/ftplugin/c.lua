@@ -15,6 +15,8 @@ require("lspconfig").clangd.setup {
     filetypes = {"c", "cpp", "cuda", "objc", "objcpp"}
 }
 
+require("lspconfig").clangd.manager.try_add_wrapper()
+
 -- This is important to resolve symlinked filetypes
 local ft = vim.bo.filetype
 
@@ -38,3 +40,5 @@ require("plugins.dap").configurations[ft] = {
         end,
     }
 }
+
+vim.cmd("setlocal fo-=ro")

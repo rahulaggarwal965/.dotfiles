@@ -25,3 +25,7 @@ require("lspconfig").sumneko_lua.setup {
         }
     }
 }
+
+require("lspconfig").sumneko_lua.manager.try_add_wrapper()
+
+vim.cmd "setlocal fo-=ro"

@@ -45,6 +45,7 @@ bspc rule -a Zathura state=tiled
 bspc rule -a discord desktop='^2'
 bspc rule -a spotify desktop='^2'
 bspc rule -a st-256color:scratch sticky=on state=floating rectangle=800x600+10+10
+bspc rule -a '*:*:Picture in picture' state=floating
 
 # Matlab fix rules
 bspc rule -a 'MATLAB R2020b - academic use:sun-awt-X11-XWindowPeer:DefaultOverlayManager.JWindow' manage=off
@@ -52,4 +53,3 @@ bspc rule -a 'MATLAB R2020b - academic use:sun-awt-X11-XWindowPeer:TabCompletion
 bspc rule -a 'MATLAB R2020b - academic use:sun-awt-X11-XWindowPeer:FunctionHints' manage=off
 bspc rule -a 'MATLAB R2020b - academic use:sun-awt-X11-XWindowPeer:Command HistoryWindow' manage=off
 bspc rule -a 'MATLAB R2020b - academic use:sun-awt-X11-XDialogPeer' center=off focus=off
-

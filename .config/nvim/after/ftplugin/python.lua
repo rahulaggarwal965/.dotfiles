@@ -5,6 +5,8 @@ require("lspconfig").pyright.setup {
     capabilities = require("lsp").capabilities
 }
 
+require("lspconfig").pyright.manager.try_add_wrapper();
+
 local nn = vim.keymap.nnoremap
 local vn = vim.keymap.vnoremap
 

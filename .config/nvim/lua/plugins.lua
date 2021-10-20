@@ -15,10 +15,8 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 return packer.startup(function(use)
 
         use "wbthomason/packer.nvim"
-        use { "tjdevries/astronauta.nvim",
-            commit = "e69d7bd"
-        }
-        use { "nvim-lua/plenary.nvim", opt = true }
+        use { "tjdevries/astronauta.nvim" }
+        use { "nvim-lua/plenary.nvim" }
 
         use { "neovim/nvim-lspconfig",
             module = "lspconfig"
@@ -54,11 +52,18 @@ return packer.startup(function(use)
         }
 
         use { "lewis6991/gitsigns.nvim",
-            wants = "plenary.nvim",
+            requires = { "plenary.nvim" },
             config = function()
                 require("plugins.gitsigns")
             end,
-            event = "BufReadPre"
+        }
+
+        use { "ahmedkhalf/project.nvim",
+            config = function()
+                require("project_nvim").setup({
+                    datapath = vim.fn.stdpath("cache")
+                })
+            end
         }
 
         use { "nvim-telescope/telescope.nvim", -- TODO(rahul): this is broken due to some packer bug (telescope doesn't get client automatically)
@@ -131,7 +136,6 @@ return packer.startup(function(use)
         use { "iamcco/markdown-preview.nvim",
             run = function() fn['mkdp#util#install']() end,
             cmd = "MarkdownPreview",
-            ft = "markdown",
         }
 
         use { "plasticboy/vim-markdown" }

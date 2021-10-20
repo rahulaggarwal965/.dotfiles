@@ -4,3 +4,5 @@ require("lspconfig").gopls.setup {
     end,
     capabilities = require("lsp").capabilities
 }
+
+require("lspconfig").gopls.manager.try_add_wrapper()

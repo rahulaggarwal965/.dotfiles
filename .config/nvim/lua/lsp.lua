@@ -31,7 +31,7 @@ M.on_attach = function(client)
     xnoremap { "ga", vim.lsp.buf.range_code_action, buffer = 0 }
     nnoremap { "gR", vim.lsp.buf.rename, buffer = 0 }
     nnoremap { "<leader>lR", vim.lsp.buf.rename, buffer = 0 }
-    inoremap { "<C-k>", vim.lsp.buf.signature_help, buffer = 0 }
+    -- inoremap { "<C-k>", vim.lsp.buf.signature_help, buffer = 0 }
 
     nnoremap { "[d", vim.lsp.diagnostic.goto_prev, buffer = 0 }
     nnoremap { "]d", vim.lsp.diagnostic.goto_next, buffer = 0 }
