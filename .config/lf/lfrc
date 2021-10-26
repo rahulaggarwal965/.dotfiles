@@ -62,21 +62,22 @@ cmd unarchive ${{
 }}
 
 cmd bulk-rename ${{
-    old=$(mktemp)
-    new=$(mktemp)
-    [ -n $fs ] && fs=$(ls)
-    printf "$fs\n" > $old
-    printf "$fs\n" > $new
-    $EDITOR $new
-    [ $(cat $new | wc -l) -ne $(cat $old | wc -l) ] && exit
-    paste $old $new | while read names; do
-        src=$(printf $names | cut -f1)
-        dst=$(printf $names | cut -f2)
-        [ $src = $dst ] && continue
-        [ -e $dst ] && continue
-        mv $src $dst
+    old="$(mktemp)"
+    new="$(mktemp)"
+    [ -n "$fx" ] && fs="$(ls)"
+    printf '%s\n' "$fx" >"$old"
+    printf '%s\n' "$fx" >"$new"
+    $EDITOR "$new"
+    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+    paste "$old" "$new" | while IFS= read -r names; do
+        src="$(printf '%s' "$names" | cut -f1)"
+        dst="$(printf '%s' "$names" | cut -f2)"
+        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+            continue
+        fi
+        mv -- "$src" "$dst"
     done
-    rm $old $new
+    rm -- "$old" "$new"
     lf -remote "send $id unselect"
 }}
 
@@ -108,7 +109,9 @@ map u
 map sb %setbg "$f"
 
 # File Openers
-map v $$EDITOR "$fx"
+map v $$EDITOR
+
+map br bulk-rename "$fx"
 
 # Archive Mappings
 map uz zip

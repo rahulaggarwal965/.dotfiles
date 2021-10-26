@@ -72,12 +72,19 @@ M.on_attach = function(client)
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities.textDocument.completion.completionItem.resolveSupport = {
+local completion_item = M.capabilities.textDocument.completion.completionItem
+completion_item.snippetSupport = true
+completion_item.preselectSupport = true
+completion_item.insertReplaceSupport = false
+completion_item.labelDetailsSupport = true
+completion_item.deprecatedSupport = true
+completion_item.commitCharactersSupport = true
+completion_item.tagSupport = { valueSet = { 1 } }
+completion_item.resolveSupport = {
     properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits"
+      'documentation',
+      'detail',
+      'additionalTextEdits',
     }
 }
 
