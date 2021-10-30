@@ -43,7 +43,10 @@ font-0 = SF Pro Display:style=Semibold:size=10;1
 font-1 = FontAwesome5Free:style=Solid:size=9;1
 font-2 = Material Design Icons:size=12;1
 font-3 = Noto Sans Mono Nerd Font:size=10;1
+
+# language support
 font-4 = Source Han Serif JP:style=Semibold:size=10;0
+font-5 = Noto Sans Thai:size=11;2
 
 modules-left = bspwm spotify
 modules-center = date

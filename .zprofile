@@ -41,6 +41,7 @@ export MATLAB_LOG_DIR="$XDG_CACHE_HOME/matlab"
 
 # Other program settings
 export SUDO_ASKPASS="$HOME/.local/bin/utils/askpass-dmenu"
+export SSH_ASKPASS="$HOME/.local/bin/utils/askpass-dmenu"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export FZF_DEFAULT_OPTS="--reverse --height 40%"
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git --exclude MATLAB"
