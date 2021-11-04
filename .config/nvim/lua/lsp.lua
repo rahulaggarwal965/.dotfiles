@@ -41,15 +41,15 @@ M.on_attach = function(client)
     nnoremap { "<leader>lx", ":LspStop<CR>",  silent = true}
     nnoremap { "<leader>lX", ":LspStart<CR>", silent = true}
 
-    nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()            end, buffer = 0 }
-    nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()          end, buffer = 0 }
-    xnoremap { "<leader>la", function() require("telescope.builtin").lsp_range_code_actions()    end, buffer = 0 }
-    nnoremap { "<leader>ld", function() require("telescope.builtin").lsp_definitions()           end, buffer = 0 }
-    nnoremap { "<leader>li", function() require("telescope.builtin").lsp_implementations()       end, buffer = 0 }
-    nnoremap { "<leader>lg", function() require("telescope.builtin").lsp_document_diagnostics()  end, buffer = 0 }
-    nnoremap { "<leader>lG", function() require("telescope.builtin").lsp_workspace_diagnostics() end, buffer = 0 }
-    nnoremap { "<leader>ls", function() require("telescope.builtin").lsp_document_symbols()      end, buffer = 0 }
-    nnoremap { "<leader>lS", function() require("telescope.builtin").lsp_workspace_symbols()     end, buffer = 0 }
+    nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()                   end, buffer = 0 }
+    nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()                 end, buffer = 0 }
+    xnoremap { "<leader>la", function() require("telescope.builtin").lsp_range_code_actions()           end, buffer = 0 }
+    nnoremap { "<leader>ld", function() require("telescope.builtin").lsp_definitions()                  end, buffer = 0 }
+    nnoremap { "<leader>li", function() require("telescope.builtin").lsp_implementations()              end, buffer = 0 }
+    nnoremap { "<leader>lg", function() require("telescope.builtin").lsp_document_diagnostics()         end, buffer = 0 }
+    nnoremap { "<leader>lG", function() require("telescope.builtin").lsp_workspace_diagnostics()        end, buffer = 0 }
+    nnoremap { "<leader>ls", function() require("telescope.builtin").lsp_document_symbols()             end, buffer = 0 }
+    nnoremap { "<leader>lS", function() require("telescope.builtin").lsp_dynamic_workspace_symbols()    end, buffer = 0 }
 
 
     if client.resolved_capabilities.document_highlight then

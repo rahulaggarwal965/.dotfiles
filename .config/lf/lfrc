@@ -49,18 +49,6 @@ cmd sudomkfile ${{
 	sudo $EDITOR $ans
 }}
 
-# Archive bindings
-cmd unarchive ${{
-	case "$f" in
-		*.zip) unzip "$f" ;;
-		*.gz) gunzip "$f" ;;
-		*.tar.gz) tar -xzvf "$f" ;;
-		*.tar.bz2) tar -xjvf "$f" ;;
-		*.tar) tar -xvf "$f" ;;
-		*) echo "Unsupported format" ;;
-	esac
-}}
-
 cmd bulk-rename ${{
     old="$(mktemp)"
     new="$(mktemp)"
@@ -79,17 +67,6 @@ cmd bulk-rename ${{
     done
     rm -- "$old" "$new"
     lf -remote "send $id unselect"
-}}
-
-cmd zip %{{
-    if [ -d "$f" ]; then
-        zip -rq "$f" "$f"
-    else
-        printf "Archive Name: "
-        read ans
-        printf "$fx"
-        # zip -q $ans "$fx"
-    fi
 }}
 
 cmd tar %tar cvf "$f.tar" "$f"
@@ -114,11 +91,7 @@ map v $$EDITOR
 map br bulk-rename "$fx"
 
 # Archive Mappings
-map uz zip
-map ut tar
-map ug targz
-map ub tarbz2
-map ua unarchive
+map ua %aunpack "$f"
 
 # Basic Functions
 map mm mark-save
