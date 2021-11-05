@@ -1,4 +1,4 @@
-require("lspconfig").clangd.setup {
+require("lsp").clangd.setup {
     cmd = {
         "clangd",
         "--background-index",
@@ -11,11 +11,8 @@ require("lspconfig").clangd.setup {
         require("lsp").on_attach(client)
         vim.keymap.nnoremap { "gh", ":ClangdSwitchSourceHeader<CR>", silent = true }
     end,
-    capabilities = require("lsp").capabilities,
     filetypes = {"c", "cpp", "cuda", "objc", "objcpp"}
 }
-
-require("lspconfig").clangd.manager.try_add_wrapper()
 
 -- This is important to resolve symlinked filetypes
 local ft = vim.bo.filetype

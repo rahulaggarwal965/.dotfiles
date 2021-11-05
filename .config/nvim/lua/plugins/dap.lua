@@ -2,8 +2,9 @@ local M = {}
 
 M.adapters = {}
 M.configurations = {}
+M.external = {}
 
-M.mappings = function()
+M.setup = function()
     local nn = vim.keymap.nnoremap
     nn { "<leader>dd", "<cmd>lua require('dap').continue()<CR>" }
     nn { "<F4>",  "<cmd>lua require('dap').run_last()<CR>" }
@@ -18,10 +19,12 @@ M.config = function()
     local dap = require("dap")
     local api = vim.api
 
+    local ft = vim.bo.filetype
+
     dap.adapters = M.adapters
     dap.configurations = M.configurations
-    if (M.external_config) then
-        M.external_config()
+    if M.external[ft] then
+        M.external[ft]()
     end
 
     local nn = vim.keymap.nnoremap

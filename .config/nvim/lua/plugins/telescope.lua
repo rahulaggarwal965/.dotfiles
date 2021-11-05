@@ -1,18 +1,40 @@
 local M = {}
 
-M.mappings = function()
+local telescope_map = function (key, f, buffer)
+    local mode = "n"
+    local rhs = string.format(":Telescope %s<CR>", f)
+
+    local map_options = {
+       noremap = true,
+       silent = true,
+    }
+
+    if not buffer then
+        vim.api.nvim_set_keymap(mode, key, rhs, map_options)
+    else
+        vim.api.nvim_buf_set_keymap(0, mode, key, rhs, map_options)
+    end
+end
+
+M.telescope_map = telescope_map
+
+M.setup = function()
     local nn = vim.keymap.nnoremap
-    nn { '<leader>f',  function() require('telescope.builtin').find_files()                 end } -- list files in current working directory
-    nn { '<leader>b',  function() require('telescope.builtin').buffers()                    end } -- list current open buffers
-    nn { '<leader>/g', function() require('telescope.builtin').live_grep()                  end } -- search for strings in current working directory
-    nn { '<leader>/t', function() require('telescope.builtin').tags()                       end } -- list tags in current working directory
-    nn { '<leader>/m', function() require('telescope.builtin').marks()                      end } -- list marks in working session
-    nn { '<leader>/r', function() require('telescope.builtin').registers()                  end } -- list current registers
-    nn { '<leader>/k', function() require('telescope.builtin').keymaps()                    end } -- list keymappings
-    nn { '<leader>/c', function() require('telescope.builtin').command_history()            end } -- list previous commands
-    nn { '<leader>/h', function() require('telescope.builtin').search_history()             end } -- list previous searches
-    nn { '<leader>/s', function() require('telescope.builtin').current_buffer_fuzzy_find()  end } -- search within buffer
+
+    telescope_map("<leader>f",  "find_files") -- list files in current working directory
+    telescope_map("<leader>b",  "buffers") -- list current open buffers
+    telescope_map("<leader>/g", "live_grep") -- search for strings in current working directory
+    telescope_map("<leader>/t", "tags") -- list tags in current working directory
+    telescope_map("<leader>/m", "marks") -- list marks in working session
+    telescope_map("<leader>/r", "registers") -- list current registers
+    telescope_map("<leader>/k", "keymaps") -- list keymappings
+    telescope_map("<leader>/c", "command_history") -- list previous commands
+    telescope_map("<leader>/h", "search_history") -- list previous searches
+    telescope_map("<leader>/s", "current_buffer_fuzzy_find") -- search within buffer
     nn { '<leader>/w', function() require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") }) end } -- Search for the word underneath the cursor
+
+
+
 end
 
 M.config = function()

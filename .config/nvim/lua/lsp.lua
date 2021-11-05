@@ -1,6 +1,16 @@
-local nnoremap = vim.keymap.nnoremap
-local inoremap = vim.keymap.inoremap
-local xnoremap = vim.keymap.xnoremap
+local nn = vim.keymap.nnoremap
+
+local buf_nn = function(args)
+    args.buffer = true
+    vim.keymap.nnoremap(args)
+end
+
+local buf_xn = function(args)
+    args.buffer = true
+    vim.keymap.xnoremap(args)
+end
+
+local tm = require("plugins.telescope").telescope_map
 
 local M = {}
 M.on_attach = function(client)
@@ -21,35 +31,34 @@ M.on_attach = function(client)
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    nnoremap { "gd", vim.lsp.buf.definition, buffer = 0 }
-    nnoremap { "gD", vim.lsp.buf.declaration, buffer = 0 }
-    nnoremap { "gi", vim.lsp.buf.implementation, buffer = 0 }
-    nnoremap { "gt", vim.lsp.buf.type_definition, buffer = 0 }
-    nnoremap { "gr", vim.lsp.buf.references, buffer = 0 }
-    nnoremap { "K",  vim.lsp.buf.hover, buffer = 0 }
-    nnoremap { "ga", vim.lsp.buf.code_action, buffer = 0 }
-    xnoremap { "ga", vim.lsp.buf.range_code_action, buffer = 0 }
-    nnoremap { "gR", vim.lsp.buf.rename, buffer = 0 }
-    nnoremap { "<leader>lR", vim.lsp.buf.rename, buffer = 0 }
-    -- inoremap { "<C-k>", vim.lsp.buf.signature_help, buffer = 0 }
+    buf_nn { "gd", vim.lsp.buf.definition }
+    buf_nn { "gD", vim.lsp.buf.declaration }
+    buf_nn { "gi", vim.lsp.buf.implementation }
+    buf_nn { "gt", vim.lsp.buf.type_definition }
+    buf_nn { "gr", vim.lsp.buf.references }
+    buf_nn { "K",  vim.lsp.buf.hover }
+    buf_nn { "ga", vim.lsp.buf.code_action }
+    buf_xn { "ga", vim.lsp.buf.range_code_action }
+    buf_nn { "gR", vim.lsp.buf.rename }
+    buf_nn { "<leader>lR", vim.lsp.buf.rename }
 
-    nnoremap { "[d", vim.lsp.diagnostic.goto_prev, buffer = 0 }
-    nnoremap { "]d", vim.lsp.diagnostic.goto_next, buffer = 0 }
-    nnoremap { "<leader>lc", function() vim.lsp.diagnostic.clear(0) end, buffer = 0 }
-    nnoremap { "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics, buffer = 0 }
-    nnoremap { "<leader>lQ", vim.lsp.diagnostic.set_loclist, buffer = 0 }
-    nnoremap { "<leader>lx", ":LspStop<CR>",  silent = true}
-    nnoremap { "<leader>lX", ":LspStart<CR>", silent = true}
+    buf_nn { "[d", vim.lsp.diagnostic.goto_prev }
+    buf_nn { "]d", vim.lsp.diagnostic.goto_next }
+    buf_nn { "<leader>lc", function() vim.lsp.diagnostic.clear(0) end }
+    buf_nn { "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics }
+    buf_nn { "<leader>lQ", vim.lsp.diagnostic.set_loclist }
+    nn { "<leader>lx", ":LspStop<CR>",  silent = true}
+    nn { "<leader>lX", ":LspStart<CR>", silent = true}
 
-    nnoremap { "<leader>lr", function() require("telescope.builtin").lsp_references()                   end, buffer = 0 }
-    nnoremap { "<leader>la", function() require("telescope.builtin").lsp_code_actions()                 end, buffer = 0 }
-    xnoremap { "<leader>la", function() require("telescope.builtin").lsp_range_code_actions()           end, buffer = 0 }
-    nnoremap { "<leader>ld", function() require("telescope.builtin").lsp_definitions()                  end, buffer = 0 }
-    nnoremap { "<leader>li", function() require("telescope.builtin").lsp_implementations()              end, buffer = 0 }
-    nnoremap { "<leader>lg", function() require("telescope.builtin").lsp_document_diagnostics()         end, buffer = 0 }
-    nnoremap { "<leader>lG", function() require("telescope.builtin").lsp_workspace_diagnostics()        end, buffer = 0 }
-    nnoremap { "<leader>ls", function() require("telescope.builtin").lsp_document_symbols()             end, buffer = 0 }
-    nnoremap { "<leader>lS", function() require("telescope.builtin").lsp_dynamic_workspace_symbols()    end, buffer = 0 }
+    tm("<leader>lr", "lsp_references",                true)
+    tm("<leader>la", "lsp_code_actions",              true)
+    tm("<leader>la", "lsp_range_code_actions",        true)
+    tm("<leader>ld", "lsp_definitions",               true)
+    tm("<leader>li", "lsp_implementations",           true)
+    tm("<leader>lg", "lsp_document_diagnostics",      true)
+    tm("<leader>lG", "lsp_workspace_diagnostics",     true)
+    tm("<leader>ls", "lsp_document_symbols",          true)
+    tm("<leader>lS", "lsp_dynamic_workspace_symbols", true)
 
 
     if client.resolved_capabilities.document_highlight then
@@ -65,9 +74,9 @@ M.on_attach = function(client)
     end
 
     if client.resolved_capabilities.document_formatting then
-        nnoremap { "<leader>lf", vim.lsp.buf.formatting, buffer = 0 }
+        buf_nn { "<leader>lf", vim.lsp.buf.formatting }
     elseif client.resolved_capabilities.document_range_formatting then
-        nnoremap { "<leader>lf", vim.lsp.buf.range_formatting, buffer = 0}
+        buf_nn { "<leader>lf", vim.lsp.buf.range_formatting }
     end
 end
 
@@ -93,16 +102,24 @@ vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = "", numhl = "Lsp
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
 vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
 
+local meta = {
+    __index = function(_, server)
+        return {
+            setup = function(config)
 
--- TODO(rahul): this is broken
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---     vim.lsp.diagnostic.on_publish_diagnostics, {
---         virtual_text = {
---             spacing = 0,
---         },
---         signs = true,
---         underline = true,
---     }
--- )
+                if config.on_attach == nil then
+                    config.on_attach = M.on_attach
+                end
+                config.capabilities = M.capabilities
+
+                local lspconfig = require("lspconfig")
+                lspconfig[server].setup(config)
+                lspconfig[server].manager.try_add_wrapper() --so we can use this in ftplugins
+            end
+        }
+    end
+}
+
+setmetatable(M, meta)
 
 return M

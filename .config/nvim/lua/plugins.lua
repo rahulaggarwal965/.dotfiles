@@ -15,15 +15,20 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 return packer.startup(function(use)
 
         use "wbthomason/packer.nvim"
-        use { "tjdevries/astronauta.nvim" }
-        use { "nvim-lua/plenary.nvim" }
+        use "tjdevries/astronauta.nvim"
+        use "nvim-lua/plenary.nvim"
 
-        use { "neovim/nvim-lspconfig",
-            module = "lspconfig"
+        use { "lewis6991/gitsigns.nvim",
+            requires = { "plenary.nvim" },
+            config = function()
+                require("plugins.gitsigns")
+            end,
         }
-        use { "ray-x/lsp_signature.nvim",
-            module = "lsp_signature"
-        }
+
+        use { "neovim/nvim-lspconfig", module = "lspconfig" }
+        use { "ray-x/lsp_signature.nvim", module = "lsp_signature" }
+        use { "L3MON4D3/LuaSnip", module = "luasnip" }
+
         use { "hrsh7th/nvim-cmp",
             requires =  {
                 { "hrsh7th/cmp-buffer",   after = "nvim-cmp" },
@@ -37,9 +42,6 @@ return packer.startup(function(use)
             event = "InsertEnter"
         }
 
-        use { "L3MON4D3/LuaSnip",
-            module = "luasnip"
-        }
         use { "windwp/nvim-autopairs",
             after = "nvim-cmp",
             config = function()
@@ -47,13 +49,6 @@ return packer.startup(function(use)
                 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
                 require("cmp").event:on( 'confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
             end
-        }
-
-        use { "lewis6991/gitsigns.nvim",
-            requires = { "plenary.nvim" },
-            config = function()
-                require("plugins.gitsigns")
-            end,
         }
 
         use { "ahmedkhalf/project.nvim",
@@ -70,7 +65,7 @@ return packer.startup(function(use)
             },
             wants = { "telescope-fzy-native.nvim", "plenary.nvim" },
             setup = function()
-                require("plugins.telescope").mappings()
+                require("plugins.telescope").setup()
             end,
             config = function()
                 require("plugins.telescope").config()
@@ -88,7 +83,7 @@ return packer.startup(function(use)
 
         use { "mfussenegger/nvim-dap",
             setup = function()
-                require("plugins.dap").mappings()
+                require("plugins.dap").setup()
             end,
             config = function()
                 require("plugins.dap").config()
@@ -103,9 +98,7 @@ return packer.startup(function(use)
             end
         }
 
-        use { "mfussenegger/nvim-dap-python",
-            module = "dap-python",
-        }
+        use { "mfussenegger/nvim-dap-python", module = "dap-python" }
 
         -- TODO(rahul): make this based on filetype
         use { "nvim-treesitter/nvim-treesitter",
@@ -119,7 +112,7 @@ return packer.startup(function(use)
     	use { "kyazdani42/nvim-tree.lua",
     	    requires = { "kyazdani42/nvim-web-devicons" },
     	    setup = function()
-    	        require("plugins.tree").mappings()
+    	        require("plugins.tree").setup()
             end,
     	    config = function()
     	        require("plugins.tree").config()
@@ -146,3 +139,4 @@ return packer.startup(function(use)
         use "RyanMillerC/better-vim-tmux-resizer"
     end
 )
+
