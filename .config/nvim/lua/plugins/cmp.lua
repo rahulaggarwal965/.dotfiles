@@ -80,12 +80,12 @@ cmp.setup {
     },
     sources = {
         { name = "nvim_lsp" },
-        { name = "path" },
-        { name = "buffer" },
+        { name = "path"     },
+        { name = "luasnip"  },
+        { name = "buffer"   },
         { name = "nvim_lua" }
     },
     experimental = {
-        native_menu = true,
         ghost_text = true
     }
 }

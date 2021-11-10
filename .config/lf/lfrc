@@ -115,6 +115,10 @@ map R reload
 map C clear
 map U unselect
 map V invert
+map <m-up> up
+map <m-down> down
+map <m-left> updir
+map <m-right> open
 
 # Movement
 map g/ cd /
