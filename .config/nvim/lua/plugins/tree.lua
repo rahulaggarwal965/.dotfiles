@@ -9,7 +9,6 @@ M.config = function()
     local g = vim.g
 
     g.nvim_tree_quit_on_open = 1
-    g.nvim_tree_gitignore = 1
     g.nvim_tree_git_hl = 1
     g.nvim_tree_respect_buf_cwd = 1
 
@@ -62,10 +61,10 @@ M.config = function()
         diagnostics = {
             enable = true,
             icons = {
-                error   = "",
-                warning = "",
+                hint    = "",
                 info    = "",
-                hint    = ""
+                warning = "",
+                error   = "",
             }
         },
         update_focused_file = {
@@ -73,16 +72,16 @@ M.config = function()
             update_cwd = true
         },
         view = {
-        mappings = {
-        list = {
-          { key = "l",      cb = tree_cb("edit") },
-          { key = "L",      cb = tree_cb("cd") },
-          { key = "H",      cb = tree_cb("dir_up") },
-          { key = "<C-s>",  cb = tree_cb("split") },
-          { key = "h",      cb = tree_cb("close_node") },
-          { key = ".",      cb = tree_cb("toggle_dotfiles") },
-        }
-        }
+            mappings = {
+                list = {
+                  { key = "l",      cb = tree_cb("edit") },
+                  { key = "L",      cb = tree_cb("cd") },
+                  { key = "H",      cb = tree_cb("dir_up") },
+                  { key = "<C-s>",  cb = tree_cb("split") },
+                  { key = "h",      cb = tree_cb("close_node") },
+                  { key = ".",      cb = tree_cb("toggle_dotfiles") },
+                }
+            }
         }
     }
 end
