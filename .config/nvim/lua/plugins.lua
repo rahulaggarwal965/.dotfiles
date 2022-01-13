@@ -15,7 +15,6 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 return packer.startup(function(use)
 
         use "wbthomason/packer.nvim"
-        use "tjdevries/astronauta.nvim"
         use "nvim-lua/plenary.nvim"
 
         use { "lewis6991/gitsigns.nvim",
@@ -127,7 +126,7 @@ return packer.startup(function(use)
 
         use { "iamcco/markdown-preview.nvim",
             run = function() fn['mkdp#util#install']() end,
-            cmd = "MarkdownPreview",
+            ft = "markdown"
         }
 
         use { "plasticboy/vim-markdown" }

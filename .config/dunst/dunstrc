@@ -8,11 +8,12 @@
     monitor = 0
     follow = mouse
 
-    geometry = "360x30-10+42"
+    width = (300, 360)
+    origin = top-right
+    offset = 10x42
     indicate_hidden = yes
     shrink = no
     transparency = 10
-    notification_height = 0
     separator_height = 3
     padding = 12
     horizontal_padding = 12
@@ -25,7 +26,8 @@
     idle_threshold = 120
 
     ### Text ###
-    font = " SF Pro Display Semibold 11"
+    # font = "SF Pro Display 10"
+    font = "SF Pro Display 11"
     line_height = 0
 
     markup = full
@@ -65,8 +67,6 @@
     always_run_script = true
     title = Dunst
     class = Dunst
-    startup_notification = false
-    verbosity = mesg
     force_xinerama = false
 
     ### mouse
@@ -76,12 +76,6 @@
 
 [experimental]
     per_monitor_dpi = false
-
-[shortcuts]
-    close = ctrl+space
-    close_all = ctrl+shift+space
-    history = ctrl+grave
-    context = ctrl+shift+period
 
 [urgency_low]
     background = colors.background

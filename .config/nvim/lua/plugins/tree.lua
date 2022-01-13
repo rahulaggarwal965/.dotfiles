@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-    vim.keymap.nnoremap { '<leader>e', ":NvimTreeToggle<CR>", silent = true }
+    vim.keymap.set ("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 end
 
 M.config = function()

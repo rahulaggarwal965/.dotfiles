@@ -9,7 +9,7 @@ require("lsp").clangd.setup {
     },
     on_attach = function(client)
         require("lsp").on_attach(client)
-        vim.keymap.nnoremap { "gh", ":ClangdSwitchSourceHeader<CR>", silent = true }
+        vim.keymap.set ("n", "gh", ":ClangdSwitchSourceHeader<CR>", { silent = true })
     end,
     filetypes = {"c", "cpp", "cuda", "objc", "objcpp"}
 }

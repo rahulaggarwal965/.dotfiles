@@ -19,8 +19,6 @@ end
 M.telescope_map = telescope_map
 
 M.setup = function()
-    local nn = vim.keymap.nnoremap
-
     telescope_map("<leader>f",  "find_files") -- list files in current working directory
     telescope_map("<leader>b",  "buffers") -- list current open buffers
     telescope_map("<leader>/g", "live_grep") -- search for strings in current working directory
@@ -31,7 +29,7 @@ M.setup = function()
     telescope_map("<leader>/c", "command_history") -- list previous commands
     telescope_map("<leader>/h", "search_history") -- list previous searches
     telescope_map("<leader>/s", "current_buffer_fuzzy_find") -- search within buffer
-    nn { '<leader>/w', function() require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") }) end } -- Search for the word underneath the cursor
+    vim.keymap.set("n", "<leader>/w", function() require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") }) end ) -- Search for the word underneath the cursor
 
 
 

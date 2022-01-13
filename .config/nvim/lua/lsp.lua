@@ -1,13 +1,7 @@
-local nn = vim.keymap.nnoremap
+local map = vim.keymap.set
 
-local buf_nn = function(args)
-    args.buffer = true
-    vim.keymap.nnoremap(args)
-end
-
-local buf_xn = function(args)
-    args.buffer = true
-    vim.keymap.xnoremap(args)
+local buffer_map = function(modes, lhs, rhs)
+    vim.keymap.set(modes, lhs, rhs, { buffer  = true })
 end
 
 local tm = require("plugins.telescope").telescope_map
@@ -31,24 +25,24 @@ M.on_attach = function(client)
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    buf_nn { "gd", vim.lsp.buf.definition }
-    buf_nn { "gD", vim.lsp.buf.declaration }
-    buf_nn { "gi", vim.lsp.buf.implementation }
-    buf_nn { "gt", vim.lsp.buf.type_definition }
-    buf_nn { "gr", vim.lsp.buf.references }
-    buf_nn { "K",  vim.lsp.buf.hover }
-    buf_nn { "ga", vim.lsp.buf.code_action }
-    buf_xn { "ga", vim.lsp.buf.range_code_action }
-    buf_nn { "gR", vim.lsp.buf.rename }
-    buf_nn { "<leader>lR", vim.lsp.buf.rename }
+    buffer_map ("n", "gd", vim.lsp.buf.definition)
+    buffer_map ("n", "gD", vim.lsp.buf.declaration)
+    buffer_map ("n", "gi", vim.lsp.buf.implementation)
+    buffer_map ("n", "gt", vim.lsp.buf.type_definition)
+    buffer_map ("n", "gr", vim.lsp.buf.references)
+    buffer_map ("n", "K",  vim.lsp.buf.hover)
+    buffer_map ("n", "ga", vim.lsp.buf.code_action)
+    buffer_map ("x", "ga", vim.lsp.buf.range_code_action)
+    buffer_map ("n", "gR", vim.lsp.buf.rename)
+    buffer_map ("n", "<leader>lR", vim.lsp.buf.rename)
 
-    buf_nn { "[d", vim.lsp.diagnostic.goto_prev }
-    buf_nn { "]d", vim.lsp.diagnostic.goto_next }
-    buf_nn { "<leader>lc", function() vim.lsp.diagnostic.clear(0) end }
-    buf_nn { "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics }
-    buf_nn { "<leader>lQ", vim.lsp.diagnostic.set_loclist }
-    nn { "<leader>lx", ":LspStop<CR>",  silent = true}
-    nn { "<leader>lX", ":LspStart<CR>", silent = true}
+    buffer_map ("n", "[d", vim.lsp.diagnostic.goto_prev)
+    buffer_map ("n", "]d", vim.lsp.diagnostic.goto_next)
+    buffer_map ("n", "<leader>lc", function() vim.lsp.diagnostic.clear(0) end)
+    buffer_map ("n", "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics)
+    buffer_map ("n", "<leader>lQ", vim.lsp.diagnostic.set_loclist)
+    map ("n", "<leader>lx", ":LspStop<CR>",  { silent = true })
+    map ("n", "<leader>lX", ":LspStart<CR>", { silent = true })
 
     tm("<leader>lr", "lsp_references",                true)
     tm("<leader>la", "lsp_code_actions",              true)
@@ -74,9 +68,9 @@ M.on_attach = function(client)
     end
 
     if client.resolved_capabilities.document_formatting then
-        buf_nn { "<leader>lf", vim.lsp.buf.formatting }
+        buffer_map ("n", "<leader>lf", vim.lsp.buf.formatting)
     elseif client.resolved_capabilities.document_range_formatting then
-        buf_nn { "<leader>lf", vim.lsp.buf.range_formatting }
+        buffer_map ("n", "<leader>lf", vim.lsp.buf.range_formatting)
     end
 end
 
