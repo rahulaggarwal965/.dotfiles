@@ -63,6 +63,9 @@ super + {_,shift +}r
 super + shift + {e,b}
 	bspc node @/ {-E,-B}
 
+super + b
+   bspfocus 
+
 # Monocle
 super + f
     bspc node focused.fullscreen -t tiled || bspc desktop -l next
@@ -130,6 +133,7 @@ super + F3
 # Change volume (coarse)
 super + {F5,F6}
 	pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ {-3%,+3%}
+    bspc config border_width 0
 
 # Change volume (fine)
 super + shift + {F5,F6}
@@ -166,4 +170,4 @@ super + alt + {b,s,d}
 
 # Commonly used terminal applications
 super + alt + {f,h,p}
-	$TERMINAL -e {$FILE, htop, pulsemixer}
+	$TERMINAL -e {$FILE, btop, pulsemixer}

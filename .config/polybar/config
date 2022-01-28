@@ -50,7 +50,7 @@ font-5 = Noto Sans Thai:size=11;2
 
 modules-left = bspwm spotify
 modules-center = date
-modules-right = wifinetwork networktraffic sep bluetooth pulseaudio battery power
+modules-right = wifinetwork sep bluetooth pulseaudio battery power
 
 cursor-click = pointer
 cursor-scroll = default
