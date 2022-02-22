@@ -1,4 +1,10 @@
-require('gitsigns').setup {
+local present, gs = pcall(require, "gitsigns")
+
+if not present then
+    return
+end
+
+gs.setup {
     signs = {
         add          = { hl = 'GitSignsAdd'   , text = '▌', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
         change       = { hl = 'GitSignsChange', text = '▌', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
@@ -8,8 +14,6 @@ require('gitsigns').setup {
     },
 
     on_attach = function(bufnr)
-        local gs = require("gitsigns")
-
         local function map(mode, l, r, opts)
             opts = opts or {}
             opts.buffer = bufnr

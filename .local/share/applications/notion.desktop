@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=sh -c "\$BROWSER --app\=https://notion.so"
+Exec=sh -c "wmctrl -xa notion.so || \$BROWSER --app\=https://notion.so"
 Icon=notion
 Terminal=false
 Type=Application

@@ -16,9 +16,9 @@ return packer.startup(function(use)
 
         use "wbthomason/packer.nvim"
         use "nvim-lua/plenary.nvim"
+        use "lewis6991/impatient.nvim"
 
         use { "lewis6991/gitsigns.nvim",
-            requires = { "plenary.nvim" },
             config = function()
                 require("plugins.gitsigns")
             end,
@@ -63,7 +63,7 @@ return packer.startup(function(use)
             requires = {
                 { "nvim-telescope/telescope-fzy-native.nvim", opt = true }
             },
-            wants = { "telescope-fzy-native.nvim", "plenary.nvim" },
+            wants = { "telescope-fzy-native.nvim" },
             setup = function()
                 require("plugins.telescope").setup()
             end,

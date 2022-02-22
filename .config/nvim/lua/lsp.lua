@@ -96,10 +96,25 @@ vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = "", numhl = "Lsp
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
 vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
 
+local function client_is_configured(server_name, ft)
+  ft = ft or vim.bo.filetype
+  local active_autocmds = vim.split(vim.fn.execute("autocmd FileType " .. ft), "\n")
+  for _, result in ipairs(active_autocmds) do
+    if result:match(server_name) then
+      return true
+    end
+  end
+  return false
+end
+
 local meta = {
     __index = function(_, server)
         return {
             setup = function(config)
+
+                if client_is_configured(server) then
+                    return
+                end
 
                 if config.on_attach == nil then
                     config.on_attach = M.on_attach

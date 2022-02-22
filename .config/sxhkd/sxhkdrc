@@ -164,6 +164,9 @@ super + slash
 super + m; {t,b,e,p}
     {transmission-dmenu, rofi -show bluetooth -theme menu, ebooks-dmenu, power-dmenu}
 
+super + m; s
+    eww open --toggle music
+
 # Commonly used applications/menus
 super + alt + {b,s,d}
 	{$BROWSER, xdo activate -n spotify || spotify, discord}

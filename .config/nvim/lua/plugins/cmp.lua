@@ -23,7 +23,7 @@ local icons = {
     Struct = "פּ",
     Event = "",
     Operator = "",
-    TypeParameter = "",
+    TypeParameter = "",
 }
 
 local cmp = require("cmp")
