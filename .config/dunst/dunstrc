@@ -1,7 +1,3 @@
-[colors]
-	background = "#121212"
-	foreground = "#bbbbbb"
-
 [global]
     ### Display ###
 
@@ -78,18 +74,18 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = colors.background
-    foreground = colors.foreground
+    background = "#121212"
+    foreground = "#bbbbbb"
     timeout = 10
 
 [urgency_normal]
-    background = colors.background
-    foreground = colors.foreground
+    background = "#121212"
+    foreground = "#bbbbbb"
     timeout = 10
 
 [urgency_critical]
-    background = colors.background
-    foreground = colors.foreground
+    background = "#121212"
+    foreground = "#bbbbbb"
     timeout = 10
 
 # vim: ft=cfg

@@ -8,7 +8,6 @@ M.config = function()
 
     local g = vim.g
 
-    g.nvim_tree_quit_on_open = 1
     g.nvim_tree_git_hl = 1
     g.nvim_tree_respect_buf_cwd = 1
 
@@ -81,6 +80,11 @@ M.config = function()
                   { key = "h",      cb = tree_cb("close_node") },
                   { key = ".",      cb = tree_cb("toggle_dotfiles") },
                 }
+            }
+        },
+        actions = {
+            open_file = {
+                quit_on_open = true
             }
         }
     }

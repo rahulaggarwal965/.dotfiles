@@ -129,7 +129,7 @@ return packer.startup(function(use)
             ft = "markdown"
         }
 
-        use { "plasticboy/vim-markdown" }
+        use { "preservim/vim-markdown" }
 
         use { "norcalli/nvim-colorizer.lua",
             cmd = "ColorizerToggle"

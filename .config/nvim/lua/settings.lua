@@ -1,5 +1,7 @@
 local opt = vim.opt
 
+vim.g.vim_markdown_folding_disabled = 1
+
 vim.cmd [[colorscheme gruvbox]]
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
