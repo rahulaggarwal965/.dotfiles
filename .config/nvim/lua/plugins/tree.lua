@@ -55,7 +55,6 @@ M.config = function()
 
     local tree_cb = require'nvim-tree.config'.nvim_tree_callback
     require("nvim-tree").setup {
-        auto_close = true,
         update_cwd = true,
         diagnostics = {
             enable = true,
@@ -88,6 +87,8 @@ M.config = function()
             }
         }
     }
+
+    vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 end
 
 return M
