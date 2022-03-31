@@ -36,11 +36,11 @@ M.on_attach = function(client)
     buffer_map ("n", "gR", vim.lsp.buf.rename)
     buffer_map ("n", "<leader>lR", vim.lsp.buf.rename)
 
-    buffer_map ("n", "[d", vim.lsp.diagnostic.goto_prev)
-    buffer_map ("n", "]d", vim.lsp.diagnostic.goto_next)
-    buffer_map ("n", "<leader>lc", function() vim.lsp.diagnostic.clear(0) end)
-    buffer_map ("n", "<leader>ll", vim.lsp.diagnostic.show_line_diagnostics)
-    buffer_map ("n", "<leader>lQ", vim.lsp.diagnostic.set_loclist)
+    buffer_map ("n", "[d", vim.diagnostic.goto_prev)
+    buffer_map ("n", "]d", vim.diagnostic.goto_next)
+    buffer_map ("n", "<leader>lc", function() vim.diagnostic.hide(nil, 0) end)
+    buffer_map ("n", "<leader>ll", vim.diagnostic.open_float)
+    buffer_map ("n", "<leader>lQ", vim.diagnostic.setloclist)
     map ("n", "<leader>lx", ":LspStop<CR>",  { silent = true })
     map ("n", "<leader>lX", ":LspStart<CR>", { silent = true })
 
@@ -97,14 +97,14 @@ vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "Lsp
 vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
 
 local function client_is_configured(server_name, ft)
-  ft = ft or vim.bo.filetype
-  local active_autocmds = vim.split(vim.fn.execute("autocmd FileType " .. ft), "\n")
-  for _, result in ipairs(active_autocmds) do
-    if result:match(server_name) then
-      return true
+    ft = ft or vim.bo.filetype
+    local active_autocmds = vim.api.nvim_get_autocmds({event = "FileType", pattern = ft})
+    for _, autocmd in ipairs(active_autocmds) do
+        if autocmd.command:match(server_name) then
+            return true
+        end
     end
-  end
-  return false
+    return false
 end
 
 local meta = {
