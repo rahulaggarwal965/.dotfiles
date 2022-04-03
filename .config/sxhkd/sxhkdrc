@@ -133,7 +133,6 @@ super + F3
 # Change volume (coarse)
 super + {F5,F6}
 	pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ {-3%,+3%}
-    bspc config border_width 0
 
 # Change volume (fine)
 super + shift + {F5,F6}
