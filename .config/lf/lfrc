@@ -14,6 +14,9 @@ cmd open ${{
 	    text/html) xdg-open "$f" ;;
 		text/*|application/octet-stream|inode/x-empty) $EDITOR "$fx" ;;
 		image/*) sxiv_dir "$f" ;;
+		audio/*) $VIDEO --audio-display=no $f ;;
+		video/*) setsid -f $VIDEO $f -quiet >/dev/null 2>&1 ;;
+		application/pdf) setsid -f $READER $fx >/dev/null 2>&1 ;;
 		*) xdg-open "$f" ;;
 	esac
 }}
@@ -81,12 +84,14 @@ map e
 map r
 map m
 map u
+map [
+map ]
 
 # Set Background
 map sb %setbg "$f"
 
 # File Openers
-map v $$EDITOR
+map v $$EDITOR "$fx"
 
 map br bulk-rename "$fx"
 
@@ -119,6 +124,8 @@ map <m-up> up
 map <m-down> down
 map <m-left> updir
 map <m-right> open
+map <c-o> jump-prev
+map <tab> jump-next
 
 # Movement
 map g/ cd /

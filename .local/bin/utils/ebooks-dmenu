@@ -27,5 +27,5 @@ do
 done
 
 select=$(echo -en "$string" | rofi -dmenu -i -format 'i' -p "Ebook:" -no-custom -show-icons -theme fullscreen) || { exit 1; }
-$TERMINAL -e $READER "${paths[$select]}/${filenames[$select]}.pdf"
+$READER "${paths[$select]}/${filenames[$select]}.pdf"
 
