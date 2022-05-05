@@ -15,8 +15,8 @@ cmd open ${{
 		text/*|application/octet-stream|inode/x-empty) $EDITOR "$fx" ;;
 		image/*) sxiv_dir "$f" ;;
 		audio/*) $VIDEO --audio-display=no $f ;;
-		video/*) setsid -f $VIDEO $f -quiet >/dev/null 2>&1 ;;
-		application/pdf) setsid -f $READER $fx >/dev/null 2>&1 ;;
+		video/*) setsid -f $VIDEO "$f" -quiet >/dev/null 2>&1 ;;
+		application/pdf) setsid -f $READER "$fx" >/dev/null 2>&1 ;;
 		*) xdg-open "$f" ;;
 	esac
 }}
