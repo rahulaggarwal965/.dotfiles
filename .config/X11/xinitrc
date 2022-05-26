@@ -1,5 +1,6 @@
 /usr/bin/prime-offload                                                                          # Enable GPU Switching
 autorandr --change                                                                              # Setup monitors
+xrdb -merge ~/.config/X11/Xresources                                                            # Set colors/fonts
 flux &                                                                                          # Screen temperature daemon
 udiskie &                                                                                       # Mounting Daemon
 dunst &                                                                                         # Notification Daemon
@@ -9,6 +10,5 @@ transmission-daemon &                                                           
 xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &                                    # Set normal cursor
 xss-lock -n /home/infinity/.local/bin/utils/dim-screen -l -- betterlockscreen -l &              # Set lock hook
 picom --experimental-backends -b &                                                              # Transparency Daemon
-exec awesome                                                                                    # Window Manager
-
-#ft=conf
+awesome                                                                                         # Window Manager
+sudo /usr/bin/prime-switch                                                                      # End GPU Switching

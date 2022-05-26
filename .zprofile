@@ -50,6 +50,5 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git --exclude MATLAB
 export CLASSPATH=.:/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar
 
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-    sudo /usr/bin/prime-switch
     exec ssh-agent startx "$XDG_CONFIG_HOME/X11/xinitrc" -- -keeptty &> ~/.cache/xorg.log
 fi
