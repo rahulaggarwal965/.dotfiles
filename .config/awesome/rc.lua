@@ -21,6 +21,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -33,9 +34,10 @@ naughty.connect_signal("request::display_error", function(message, startup)
 end)
 -- }}}
 
+require("core.keys")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(require("theme"))
 
 -- This is used later as the default terminal and editor to run.
 terminal = os.getenv("TERMINAL")
@@ -180,8 +182,6 @@ end)
 -- }}}
 
 -- {{{ Key bindings
-
-require("core.keys")
 
 -- Focus related keybindings
 -- awful.keyboard.append_global_keybindings({

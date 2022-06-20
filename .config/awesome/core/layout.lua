@@ -67,6 +67,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
     end
 end)
 
+-- screen.connect_signal("request::deskop_decoration", function(s)
+--     awful.wallpaper {
+--         screen = s,
+--         widget = {
+--             {}
+--         }
+--     }
+
 client.connect_signal("focus", function(c)
     c:raise()
 end)

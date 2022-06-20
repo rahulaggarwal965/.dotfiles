@@ -6,56 +6,10 @@ end
 
 M.config = function()
 
-    local g = vim.g
-
-    g.nvim_tree_git_hl = 1
-    g.nvim_tree_respect_buf_cwd = 1
-
-    g.nvim_tree_show_icons = {
-        git = 1,
-        folders = 1,
-        files = 1,
-        folder_arrows = 1,
-        lsp = 1
-    }
-
-    g.vim_tree_special_files = {
-        "README.md",
-        "LICENSE",
-        "Makefile"
-    }
-
-    g.nvim_tree_icons = {
-        default = "",
-        symlink = "",
-        git = {
-            unstaged  = "",
-            staged    = "S",
-            unmerged  = "",
-            renamed   = "->",
-            untracked = "U",
-            deleted   = "-",
-            ignored   = "~",
-        },
-        folder = {
-            default      = "",
-            open         = "",
-            empty        = "",
-            empty_open   = "",
-            symlink      = "",
-            symlink_open = "",
-        },
-        lsp = {
-            error   = "",
-            warning = "",
-            info    = "",
-            hint    = "",
-        },
-    }
-
     local tree_cb = require'nvim-tree.config'.nvim_tree_callback
     require("nvim-tree").setup {
         update_cwd = true,
+        respect_buf_cwd = true,
         diagnostics = {
             enable = true,
             icons = {
@@ -79,6 +33,43 @@ M.config = function()
                   { key = "h",      cb = tree_cb("close_node") },
                   { key = ".",      cb = tree_cb("toggle_dotfiles") },
                 }
+            }
+        },
+        renderer = {
+            highlight_git = true,
+            icons = {
+                show = {
+                    file = true,
+                    folder = true,
+                    folder_arrow = true,
+                    git = true
+                },
+                glyphs = {
+                    default = "",
+                    symlink = "",
+                    folder = {
+                        default      = "",
+                        open         = "",
+                        empty        = "",
+                        empty_open   = "",
+                        symlink      = "",
+                        symlink_open = "",
+                    },
+                    git = {
+                        unstaged  = "",
+                        staged    = "S",
+                        unmerged  = "",
+                        renamed   = "->",
+                        untracked = "U",
+                        deleted   = "-",
+                        ignored   = "~",
+                    },
+                }
+            },
+            special_files = {
+                "README.md",
+                "LICENSE",
+                "Makefile"
             }
         },
         actions = {

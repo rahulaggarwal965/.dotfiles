@@ -44,10 +44,7 @@ export SUDO_ASKPASS="$HOME/.local/bin/utils/askpass-dmenu"
 export SSH_ASKPASS="$HOME/.local/bin/utils/askpass-dmenu"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export FZF_DEFAULT_OPTS="--reverse --height 40%"
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git --exclude MATLAB"
-
-# Java Classpath
-export CLASSPATH=.:/usr/share/java/junit.jar:/usr/share/java/hamcrest-core.jar
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
 
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec ssh-agent startx "$XDG_CONFIG_HOME/X11/xinitrc" -- -keeptty &> ~/.cache/xorg.log
