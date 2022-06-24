@@ -28,3 +28,7 @@ client.connect_signal("property::fullscreen", function(c)
     end)
   end
 end)
+
+client.connect_signal("focus", function(c)
+    c:raise()
+end)

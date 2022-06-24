@@ -13,27 +13,33 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({super, shift}, "Tab", function()
         local screen = awful.screen.focused()
-        local c_index = screen.selected_tag.index
-        local n_tags = #screen.tags
 
-        for i = 2, n_tags, 1 do
-            local t = screen.tags[(c_index - i) % n_tags + 1]
-            if #t:clients() > 0 then
-                t:view_only()
-                return
+        if (screen.selected_tag) then
+            local c_index = screen.selected_tag.index
+            local n_tags = #screen.tags
+
+            for i = 2, n_tags, 1 do
+                local t = screen.tags[(c_index - i) % n_tags + 1]
+                if #t:clients() > 0 then
+                    t:view_only()
+                    return
+                end
             end
         end
     end),
     awful.key({super}, "Tab", function()
         local screen = awful.screen.focused()
-        local c_index = screen.selected_tag.index
-        local n_tags = #screen.tags
 
-        for i = 0, n_tags - 2, 1 do
-            local t = screen.tags[(c_index + i) % n_tags + 1]
-            if #t:clients() > 0 then
-                t:view_only()
-                return
+        if (screen.selected_tag) then
+            local c_index = screen.selected_tag.index
+            local n_tags = #screen.tags
+
+            for i = 0, n_tags - 2, 1 do
+                local t = screen.tags[(c_index + i) % n_tags + 1]
+                if #t:clients() > 0 then
+                    t:view_only()
+                    return
+                end
             end
         end
     end),

@@ -1,5 +1,6 @@
-local gears = require("gears")
 local awful = require("awful")
+local beautiful = require("beautiful")
+local wibox = require("wibox")
 
 tag.connect_signal("request::default_layouts", function()
     awful.layout.append_default_layouts({
@@ -67,14 +68,19 @@ screen.connect_signal("request::desktop_decoration", function(s)
     end
 end)
 
--- screen.connect_signal("request::deskop_decoration", function(s)
---     awful.wallpaper {
---         screen = s,
---         widget = {
---             {}
---         }
---     }
-
-client.connect_signal("focus", function(c)
-    c:raise()
+screen.connect_signal("request::wallpaper", function(s)
+    awful.wallpaper {
+        screen = s,
+        widget = {
+            {
+                image = beautiful.wallpaper,
+                resize = true,
+                widget = wibox.widget.imagebox,
+            },
+            valign = "center",
+            halign = "center",
+            tiled = false,
+            widget = wibox.container.tile
+        }
+    }
 end)

@@ -55,7 +55,7 @@ M.on_attach = function(client)
     tm("<leader>lS", "lsp_dynamic_workspace_symbols", true)
 
 
-    if client.resolved_capabilities.document_highlight then
+    if client.server_capabilities.document_highlight then
         vim.api.nvim_exec ([[
     	    hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
     	    hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
@@ -67,9 +67,9 @@ M.on_attach = function(client)
     	    augroup END ]], false)
     end
 
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
         buffer_map ("n", "<leader>lf", vim.lsp.buf.formatting)
-    elseif client.resolved_capabilities.document_range_formatting then
+    elseif client.server_capabilities.document_range_formatting then
         buffer_map ("n", "<leader>lf", vim.lsp.buf.range_formatting)
     end
 end

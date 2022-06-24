@@ -106,26 +106,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 require("core.layout")
 -- }}}
 
--- {{{ Wallpaper
-screen.connect_signal("request::wallpaper", function(s)
-    awful.wallpaper {
-        screen = s,
-        widget = {
-            {
-                image     = beautiful.wallpaper,
-                upscale   = true,
-                downscale = true,
-                widget    = wibox.widget.imagebox,
-            },
-            valign = "center",
-            halign = "center",
-            tiled  = false,
-            widget = wibox.container.tile,
-        }
-    }
-end)
--- }}}
-
 -- {{{ Wibar
 
 -- Create a textclock widget
@@ -164,6 +144,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         height   = 32,
         widget   = {
             layout = wibox.layout.align.horizontal,
+            expand = "outside",
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 mylauncher,
