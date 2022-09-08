@@ -79,11 +79,12 @@ cmp.setup {
         end, { "i", "s", })
     },
     sources = {
-        { name = "nvim_lsp" },
-        { name = "path"     },
-        { name = "luasnip"  },
-        { name = "buffer"   },
-        { name = "nvim_lua" }
+        { name = "nvim_lsp"      },
+        { name = "path"          },
+        { name = "luasnip"       },
+        { name = "buffer"        },
+        { name = "nvim_lua"      },
+        { name = "latex_symbols" }
     },
     experimental = {
         ghost_text = true

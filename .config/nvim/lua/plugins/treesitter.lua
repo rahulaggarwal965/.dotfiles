@@ -5,6 +5,6 @@ if not present then
 end
 
 ts_config.setup {
-    ensure_installed = { "c", "cpp", "cuda", "go", "lua", "javascript", "python", "bash", "comment" },
+    ensure_installed = { "c", "cpp", "cuda", "go", "lua", "javascript", "python", "bash", "comment", "rust"},
     highlight = { enable = true },
 }
