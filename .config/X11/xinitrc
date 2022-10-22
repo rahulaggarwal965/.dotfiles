@@ -5,7 +5,7 @@ flux &                                                                          
 udiskie &                                                                                       # Mounting Daemon
 dunst &                                                                                         # Notification Daemon
 remaps &                                                                                        # Remap keys (caps,ctrl,lock)
-#libinput-gestures -c ~/.config/libinput/libinput-gestures.conf &                                # Enable trackpad gestures
+libinput-gestures -c ~/.config/libinput/awesome.conf &                                          # Enable trackpad gestures
 transmission-daemon &                                                                           # Torrent Daemon
 xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &                                    # Set normal cursor
 xss-lock -n /home/infinity/.local/bin/utils/dim-screen -l -- betterlockscreen -l &              # Set lock hook
