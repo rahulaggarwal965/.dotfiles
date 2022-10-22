@@ -47,7 +47,17 @@ tag.connect_signal("request::screen", function(t)
 
 end)
 
+awful.screen.connect_for_each_screen(function(s)
+    -- Order screens left to right
+    for i = s.index - 1, 1, -1 do
+        if (screen[i].geometry.x > s.geometry.x) then
+            screen[i]:swap(s)
+        end
+    end
+end)
+
 screen.connect_signal("request::desktop_decoration", function(s)
+
     awful.tag({"1", "2", "3", "4", "5", "6", "7", "8", "9"}, s, awful.layout.layouts[1])
 
     -- clear out killed clients
@@ -58,7 +68,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
     if original_tags then
         for _, tag in ipairs(s.tags) do
             local clients = original_tags[tag.name]
-
             if clients then
                 for _, client in ipairs(clients) do
                     client:move_to_tag(tag)

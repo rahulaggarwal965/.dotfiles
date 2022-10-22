@@ -288,13 +288,6 @@ client.connect_signal("request::default_mousebindings", function()
                     math.abs(m.x - c.x - c.width) <= 10 or math.abs(m.y - c.y - c.height) <= 10) then
                     c:activate({context = "mouse_click", action = "mouse_resize"})
                 end
-
-                -- for _, pos in pairs(corners) do
-                --     if (m.x - pos[1]) ^ 2 + (m.y - pos[2]) ^ 2 <= 400 then
-                --         c:activate({context = "mouse_click", action = "mouse_resize"})
-                --         return
-                --     end
-                -- end
             end
             c:activate({context = "mouse_click"})
         end),
