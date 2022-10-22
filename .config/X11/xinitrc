@@ -9,6 +9,6 @@ remaps &                                                                        
 transmission-daemon &                                                                           # Torrent Daemon
 xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 16 &                                    # Set normal cursor
 xss-lock -n /home/infinity/.local/bin/utils/dim-screen -l -- betterlockscreen -l &              # Set lock hook
-picom --experimental-backends -b &                                                              # Transparency Daemon
+picom -b &                                                                                      # Transparency Daemon
 awesome                                                                                         # Window Manager
 sudo /usr/bin/prime-switch                                                                      # End GPU Switching
