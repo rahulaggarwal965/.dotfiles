@@ -2,19 +2,17 @@ require("lsp").sumneko_lua.setup {
     cmd = { "lua-language-server" },
     settings = {
         Lua = {
-	    runtime = {
-	        version = "LuaJIT",
-	    },
-        diagnostics = {
-            globals = { "vim" }
-        },
-        workspace = {
-            library = vim.api.nvim_get_runtime_file("", true)
-        },
-        telemetry = {
-            enable = false
+            runtime = { version = "LuaJIT" },
+            diagnostics = {
+                globals = { "vim" }
+            },
+            workspace = {
+                vim.fn.expand("$VIMRUNTIME"),
+                maxPreload = 5000,
+                preloadFileSize = 10000,
+            },
+            telemetry = { enable = false }
         }
-    }
     }
 }
 

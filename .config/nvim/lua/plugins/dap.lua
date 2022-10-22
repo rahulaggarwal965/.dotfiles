@@ -5,13 +5,12 @@ M.configurations = {}
 M.external = {}
 
 M.setup = function()
-    local map = vim.keymap.set
-    map ("n", "<leader>dd", "<cmd>lua require('dap').continue()<CR>")
-    map ("n", "<F4>",  "<cmd>lua require('dap').run_last()<CR>")
-    map ("n", "<F5>",  "<cmd>lua require('dap').continue()<CR>")
-    map ("n", "<F8>",  "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
-    map ("n", "<F9>",  "<cmd>lua require('dap').toggle_breakpoint()<CR>")
-    map ("n", "<leader><F9>", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+    vim.keymap.set("n", "<leader>dd", "<cmd>lua require('dap').continue()<CR>")
+    vim.keymap.set("n", "<F4>",  "<cmd>lua require('dap').run_last()<CR>")
+    vim.keymap.set("n", "<F5>",  "<cmd>lua require('dap').continue()<CR>")
+    vim.keymap.set("n", "<F8>",  "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
+    vim.keymap.set("n", "<F9>",  "<cmd>lua require('dap').toggle_breakpoint()<CR>")
+    vim.keymap.set("n", "<leader><F9>", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
 end
 
 M.config = function()
@@ -26,8 +25,6 @@ M.config = function()
     if M.external[ft] then
         M.external[ft]()
     end
-
-    local map = vim.keymap.set
 
     local debug_keymaps = {
         ["<F3>" ] = function()
@@ -57,7 +54,7 @@ M.config = function()
         end
 
         for lhs, rhs in pairs(debug_keymaps) do
-            map ("n", lhs, rhs)
+            vim.keymap.set("n", lhs, rhs)
         end
 
         require("dapui").open()

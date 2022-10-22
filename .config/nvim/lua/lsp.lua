@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 local buffer_map = function(modes, lhs, rhs)
-    vim.keymap.set(modes, lhs, rhs, { buffer  = true })
+    vim.keymap.set(modes, lhs, rhs, { buffer = true })
 end
 
 local tm = require("plugins.telescope").telescope_map
@@ -25,23 +25,23 @@ M.on_attach = function(client)
 
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    buffer_map ("n", "gd", vim.lsp.buf.definition)
-    buffer_map ("n", "gD", vim.lsp.buf.declaration)
-    buffer_map ("n", "gi", vim.lsp.buf.implementation)
-    buffer_map ("n", "gt", vim.lsp.buf.type_definition)
-    buffer_map ("n", "gr", vim.lsp.buf.references)
-    buffer_map ("n", "K",  vim.lsp.buf.hover)
-    buffer_map ("n", "gR", vim.lsp.buf.rename)
-    buffer_map ("n", "<leader>lR", vim.lsp.buf.rename)
-    buffer_map ({"n", "x"}, "ga", vim.lsp.buf.code_action)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = true, desc = "Go to definition" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = true, desc = "Go to declaration" })
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = true, desc = "Go to implementation" })
+    vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = true, desc = "Go to type definition" })
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = true, desc = "Go to references" })
+    vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = true, desc = "Show definition" })
+    vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = true, desc = "Rename symbol" })
+    vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, { buffer = true, desc = "Rename Symbol" })
+    vim.keymap.set({"n", "x"}, "ga", vim.lsp.buf.code_action, { buffer = true, desc = "Code Action" })
 
-    buffer_map ("n", "[d", vim.diagnostic.goto_prev)
-    buffer_map ("n", "]d", vim.diagnostic.goto_next)
-    buffer_map ("n", "<leader>lc", function() vim.diagnostic.hide(nil, 0) end)
-    buffer_map ("n", "<leader>ll", vim.diagnostic.open_float)
-    buffer_map ("n", "<leader>lQ", vim.diagnostic.setloclist)
-    map ("n", "<leader>lx", ":LspStop<CR>",  { silent = true })
-    map ("n", "<leader>lX", ":LspStart<CR>", { silent = true })
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = true, desc = "Previous diagnostic"} )
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = true, desc = "Next diagnostic"} )
+    vim.keymap.set("n", "<leader>lc", function() vim.diagnostic.hide(nil, 0) end, { buffer = true, desc = "Clear diagnostics"} )
+    vim.keymap.set("n", "<leader>ll", vim.diagnostic.open_float, { buffer = true, desc = "Show line diagnostics"})
+    vim.keymap.set("n", "<leader>lQ", vim.diagnostic.setloclist, { buffer = true, desc = "Add diagnostics to quickfix list"})
+    vim.keymap.set("n", "<leader>lx", ":LspStop<CR>",  { silent = true, desc = "Start LSP" })
+    vim.keymap.set("n", "<leader>lX", ":LspStart<CR>", { silent = true, desc = "Stop LSP" })
 
     tm("<leader>lr", "lsp_references",                true)
     tm("<leader>la", "lsp_code_actions",              true)

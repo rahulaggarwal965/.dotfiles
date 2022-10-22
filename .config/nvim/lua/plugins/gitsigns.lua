@@ -38,5 +38,13 @@ gs.setup {
 
         --  Text object
         map ({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")
-    end
+    end,
+
+    -- For the dotfiles git bare repo
+    worktrees = {
+        {
+            toplevel = vim.env.HOME,
+            gitdir = vim.env.HOME .. '/.local/share/.dotfiles'
+        }
+    }
 }
