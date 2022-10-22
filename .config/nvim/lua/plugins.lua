@@ -75,9 +75,9 @@ return packer.startup(function(use)
             cmd = "Telescope"
         }
 
-        use { "terrortylor/nvim-comment",
+        use { "numToStr/Comment.nvim",
             config = function()
-                require("nvim_comment").setup()
+                require("Comment").setup()
             end,
             keys = "gc"
         }
@@ -103,6 +103,7 @@ return packer.startup(function(use)
 
         -- TODO(rahul): make this based on filetype
         use { "nvim-treesitter/nvim-treesitter",
+            commit = "4cccb6f",
             config = function()
                 require("plugins.treesitter")
             end,
@@ -143,7 +144,18 @@ return packer.startup(function(use)
             cmd = "ColorizerToggle"
         }
 
-        use "christoomey/vim-tmux-navigator"
+        use { "numToStr/Navigator.nvim",
+            config = function()
+                local navigator = require("Navigator")
+                navigator.setup()
+
+                vim.keymap.set("n", "<C-h>", navigator.left)
+                vim.keymap.set("n", "<C-j>", navigator.down)
+                vim.keymap.set("n", "<C-k>", navigator.up)
+                vim.keymap.set("n", "<C-l>", navigator.right)
+            end
+        }
+
         use "RyanMillerC/better-vim-tmux-resizer"
     end
 )
