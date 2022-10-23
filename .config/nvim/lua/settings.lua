@@ -1,6 +1,6 @@
 local opt = vim.opt
 
-vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme tokyonight-night]]
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.showmode = false

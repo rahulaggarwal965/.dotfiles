@@ -1,7 +1,6 @@
 local M = {}
 
 M.setup = function()
-    vim.keymap.set ("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 end
 
 M.config = function()
@@ -78,6 +77,8 @@ M.config = function()
             }
         }
     }
+
+    vim.keymap.set ("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 
     vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 end

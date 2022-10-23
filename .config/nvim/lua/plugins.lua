@@ -26,25 +26,30 @@ return packer.startup(function(use)
 
         use { "neovim/nvim-lspconfig", module = "lspconfig" }
         use { "ray-x/lsp_signature.nvim", module = "lsp_signature" }
-        use { "L3MON4D3/LuaSnip", module = "luasnip" }
+        use "L3MON4D3/LuaSnip"
+
+        use { "nvim-lualine/lualine.nvim",
+            config = function()
+                require("plugins.lualine")
+            end
+        }
 
         use { "hrsh7th/nvim-cmp",
             requires =  {
-                { "hrsh7th/cmp-buffer",         after = "nvim-cmp" },
-                { "hrsh7th/cmp-nvim-lsp",       after = "nvim-cmp" },
-                { "hrsh7th/cmp-nvim-lua",       after = "nvim-cmp" },
-                { "hrsh7th/cmp-path",           after = "nvim-cmp" },
-                { "saadparwaiz1/cmp_luasnip",   after = "nvim-cmp" },
-                { "kdheepak/cmp-latex-symbols", after = "nvim-cmp" }
+                "hrsh7th/cmp-buffer",
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-nvim-lua",
+                "hrsh7th/cmp-path",
+                "saadparwaiz1/cmp_luasnip",
+                "kdheepak/cmp-latex-symbols",
             },
             config = function()
                 require("plugins.cmp")
             end,
-            event = "InsertEnter"
         }
 
+
         use { "windwp/nvim-autopairs",
-            after = "nvim-cmp",
             config = function()
                 require("nvim-autopairs").setup()
                 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -101,30 +106,22 @@ return packer.startup(function(use)
 
         use { "mfussenegger/nvim-dap-python", module = "dap-python" }
 
-        -- TODO(rahul): make this based on filetype
         use { "nvim-treesitter/nvim-treesitter",
             commit = "4cccb6f",
             config = function()
                 require("plugins.treesitter")
             end,
-            event = "BufRead",
             run = ":TSUpdate"
         }
 
     	use { "kyazdani42/nvim-tree.lua",
     	    requires = { "kyazdani42/nvim-web-devicons" },
-    	    setup = function()
-    	        require("plugins.tree").setup()
-            end,
     	    config = function()
     	        require("plugins.tree").config()
-            end,
-            cmd = "NvimTreeToggle"
+            end
         }
 
-        use { "ChristianChiarulli/nvcode-color-schemes.vim",
-            event = "ColorSchemePre"
-        }
+        use "folke/tokyonight.nvim"
 
         use { "iamcco/markdown-preview.nvim",
             run = function() fn['mkdp#util#install']() end,
