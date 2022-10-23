@@ -26,8 +26,16 @@ local icons = {
     TypeParameter = "",
 }
 
-local cmp = require("cmp")
-local luasnip = require("luasnip")
+local present, cmp = pcall(require, "cmp")
+if not present then
+    return
+end
+
+local present, luasnip = pcall(require, "luasnip")
+if not present then
+    return
+end
+
 cmp.setup {
     snippet = {
         expand = function(args)

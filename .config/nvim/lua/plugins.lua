@@ -26,7 +26,6 @@ return packer.startup(function(use)
 
         use { "neovim/nvim-lspconfig", module = "lspconfig" }
         use { "ray-x/lsp_signature.nvim", module = "lsp_signature" }
-        use "L3MON4D3/LuaSnip"
 
         use { "nvim-lualine/lualine.nvim",
             config = function()
@@ -48,7 +47,7 @@ return packer.startup(function(use)
             end,
         }
 
-
+        use "L3MON4D3/LuaSnip"
         use { "windwp/nvim-autopairs",
             config = function()
                 require("nvim-autopairs").setup()
@@ -65,19 +64,13 @@ return packer.startup(function(use)
             end
         }
 
-        use { "nvim-telescope/telescope.nvim", -- TODO(rahul): this is broken due to some packer bug (telescope doesn't get client automatically)
+        use { "nvim-telescope/telescope.nvim",
             requires = {
-                { "nvim-telescope/telescope-fzy-native.nvim", opt = true }
+                { "nvim-telescope/telescope-fzy-native.nvim" }
             },
-            wants = { "telescope-fzy-native.nvim" },
-            setup = function()
-                require("plugins.telescope").setup()
-            end,
             config = function()
-                require("plugins.telescope").config()
+                require("plugins.telescope")
             end,
-            module = "telescope.builtin",
-            cmd = "Telescope"
         }
 
         use { "numToStr/Comment.nvim",
@@ -117,11 +110,15 @@ return packer.startup(function(use)
     	use { "kyazdani42/nvim-tree.lua",
     	    requires = { "kyazdani42/nvim-web-devicons" },
     	    config = function()
-    	        require("plugins.tree").config()
+    	        require("plugins.tree")
             end
         }
 
-        use "folke/tokyonight.nvim"
+        use {"folke/tokyonight.nvim",
+            config = function()
+                require("plugins.theme")
+            end
+        }
 
         use { "iamcco/markdown-preview.nvim",
             run = function() fn['mkdp#util#install']() end,
@@ -130,12 +127,7 @@ return packer.startup(function(use)
 
         use { "preservim/vim-markdown" }
 
-        use { "lervag/vimtex",
-            config = function()
-                require("plugins.latex")
-            end,
-            ft = "tex"
-        }
+        use { "lervag/vimtex", ft = "tex" }
 
         use { "norcalli/nvim-colorizer.lua",
             cmd = "ColorizerToggle"

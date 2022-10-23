@@ -1,10 +1,6 @@
-local map = vim.keymap.set
-
 local buffer_map = function(modes, lhs, rhs)
     vim.keymap.set(modes, lhs, rhs, { buffer = true })
 end
-
-local tm = require("plugins.telescope").telescope_map
 
 local M = {}
 M.on_attach = function(client)
@@ -43,15 +39,14 @@ M.on_attach = function(client)
     vim.keymap.set("n", "<leader>lx", ":LspStop<CR>",  { silent = true, desc = "Start LSP" })
     vim.keymap.set("n", "<leader>lX", ":LspStart<CR>", { silent = true, desc = "Stop LSP" })
 
-    tm("<leader>lr", "lsp_references",                true)
-    tm("<leader>la", "lsp_code_actions",              true)
-    tm("<leader>la", "lsp_range_code_actions",        true)
-    tm("<leader>ld", "lsp_definitions",               true)
-    tm("<leader>li", "lsp_implementations",           true)
-    tm("<leader>lg", "lsp_document_diagnostics",      true)
-    tm("<leader>lG", "lsp_workspace_diagnostics",     true)
-    tm("<leader>ls", "lsp_document_symbols",          true)
-    tm("<leader>lS", "lsp_dynamic_workspace_symbols", true)
+    local telescope = require("telescope.builtin")
+    vim.keymap.set("n", "<leader>lr", telescope.lsp_references, {buffer = true, desc = "List references for symbol"})
+    vim.keymap.set("n", "<leader>ld", telescope.lsp_definitions, {buffer = true, desc = "List definitions for symbol"})
+    vim.keymap.set("n", "<leader>li", telescope.lsp_implementations, {buffer = true, desc = "List implementations for symbols"})
+    vim.keymap.set("n", "<leader>ls", telescope.lsp_document_symbols, {buffer = true, desc = "List file symbols"})
+    vim.keymap.set("n", "<leader>lS", telescope.lsp_dynamic_workspace_symbols, { buffer = true, desc = "List project symbols"})
+    vim.keymap.set("n", "<leader>lg", function() telescope.diagnostics({bufnr = 0}) end, {buffer = true, desc = "List project diagnostics"})
+    vim.keymap.set("n", "<leader>lG", telescope.diagnostics, {buffer = true, desc = "List project diagnostics"})
 
 
     if client.server_capabilities.document_highlight then
