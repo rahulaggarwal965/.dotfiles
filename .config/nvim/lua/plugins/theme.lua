@@ -5,7 +5,8 @@ end
 
 theme.setup {
     style = "night",
-    sidebars = {"qf", "help", "packer"}
+    sidebars = { "qf", "help", "packer" }
 }
 
 vim.cmd("colorscheme tokyonight")
+

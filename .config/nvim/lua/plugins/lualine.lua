@@ -36,7 +36,7 @@ local lsp = {
         end
     end,
     color = { gui = "bold" },
-    on_click = function(_, _, _)
+    on_click = function()
         require("lspconfig.ui.lspinfo")()
     end
 }

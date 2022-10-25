@@ -1,15 +1,15 @@
 local actions = require("telescope.actions")
 
-require("telescope").setup{
+require("telescope").setup {
     defaults = {
         vimgrep_arguments = {
-             "rg",
-             "--color=never",
-             "--no-heading",
-             "--with-filename",
-             "--line-number",
-             "--column",
-             "--smart-case",
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
         },
         prompt_prefix = "   ",
         selection_caret = "  ",
@@ -40,9 +40,9 @@ require("telescope").setup{
                 ["<C-k>"] = actions.move_selection_previous
             }
         },
-        file_sorter =  require("telescope.sorters").get_fuzzy_file,
+        file_sorter = require("telescope.sorters").get_fuzzy_file,
         file_ignore_patterns = {},
-        generic_sorter =  require("telescope.sorters").get_generic_fuzzy_sorter,
+        generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         path_display = { "truncate" },
         winblend = 10,
         border = {},
@@ -68,14 +68,17 @@ require("telescope").setup{
 require("telescope").load_extension('fzy_native')
 
 local telescope = require("telescope.builtin")
-vim.keymap.set("n", "<leader>f",  telescope.find_files, {desc = "List files in current working directory"})
-vim.keymap.set("n", "<leader>b",  telescope.buffers, {desc = "list current open buffers"})
-vim.keymap.set("n", "<leader>/g", telescope.live_grep, {desc = "Search for strings in current working directory"})
-vim.keymap.set("n", "<leader>/t", telescope.tags, {desc = "List tags in current working directory"})
-vim.keymap.set("n", "<leader>/m", telescope.marks, {desc = "List marks in working session"})
-vim.keymap.set("n", "<leader>/r", telescope.registers, {desc = "List current registers"})
-vim.keymap.set("n", "<leader>/k", telescope.keymaps, {desc = "List keymappings"})
-vim.keymap.set("n", "<leader>/c", telescope.command_history, {desc = "List previous commands"})
-vim.keymap.set("n", "<leader>/h", telescope.search_history, {desc = "List previous searches"})
-vim.keymap.set("n", "<leader>/s", telescope.current_buffer_fuzzy_find, {desc = "Search within buffer"})
-vim.keymap.set("n", "<leader>/w", function() require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") }) end, {desc = "Search for the word underneath the cursor"})
+vim.keymap.set("n", "<leader>f", telescope.find_files, { desc = "List files in current working directory" })
+vim.keymap.set("n", "<leader>b", telescope.buffers, { desc = "list current open buffers" })
+vim.keymap.set("n", "<leader>/g", telescope.live_grep, { desc = "Search for strings in current working directory" })
+vim.keymap.set("n", "<leader>/t", telescope.tags, { desc = "List tags in current working directory" })
+vim.keymap.set("n", "<leader>/m", telescope.marks, { desc = "List marks in working session" })
+vim.keymap.set("n", "<leader>/r", telescope.registers, { desc = "List current registers" })
+vim.keymap.set("n", "<leader>/k", telescope.keymaps, { desc = "List keymappings" })
+vim.keymap.set("n", "<leader>/c", telescope.command_history, { desc = "List previous commands" })
+vim.keymap.set("n", "<leader>/h", telescope.search_history, { desc = "List previous searches" })
+vim.keymap.set("n", "<leader>/s", telescope.current_buffer_fuzzy_find, { desc = "Search within buffer" })
+vim.keymap.set("n", "<leader>/w",
+    function() require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") }) end,
+    { desc = "Search for the word underneath the cursor" })
+

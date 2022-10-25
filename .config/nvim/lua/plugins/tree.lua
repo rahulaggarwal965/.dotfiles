@@ -1,6 +1,7 @@
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+local tree = require("nvim-tree")
+local api = require("nvim-tree.api")
 
-require("nvim-tree").setup {
+tree.setup {
     update_cwd = true,
     respect_buf_cwd = true,
     diagnostics = {
@@ -16,18 +17,14 @@ require("nvim-tree").setup {
         enable = true,
         update_cwd = true
     },
-    view = {
-        mappings = {
-            list = {
-              { key = "l",      cb = tree_cb("edit") },
-              { key = "L",      cb = tree_cb("cd") },
-              { key = "H",      cb = tree_cb("dir_up") },
-              { key = "<C-s>",  cb = tree_cb("split") },
-              { key = "h",      cb = tree_cb("close_node") },
-              { key = ".",      cb = tree_cb("toggle_dotfiles") },
-            }
-        }
-    },
+    on_attach = function(bufnr)
+        vim.keymap.set("n", "l", api.node.open.edit, { buffer = bufnr })
+        vim.keymap.set("n", "L", api.tree.change_root_to_node, { buffer = bufnr })
+        vim.keymap.set("n", "H", api.tree.change_root_to_parent, { buffer = bufnr })
+        vim.keymap.set("n", "<C-s>", api.node.open.horizontal, { buffer = bufnr })
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, { buffer = bufnr })
+        vim.keymap.set("n", ".", api.tree.toggle_hidden_filter, { buffer = bufnr })
+    end,
     renderer = {
         highlight_git = true,
         icons = {
@@ -72,6 +69,17 @@ require("nvim-tree").setup {
     }
 }
 
-vim.keymap.set ("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
+require("nvim-tree.view").View.winopts.cursorline = true
 
-vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
+vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Toggle File Explorer" })
+
+-- Auto close nvim-tree when it is the last buffer
+vim.api.nvim_create_autocmd("BufEnter", {
+    nested = true,
+    callback = function()
+        if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+            vim.cmd "quit"
+        end
+    end
+})
+
