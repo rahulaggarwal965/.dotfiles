@@ -15,59 +15,70 @@ local function diff_source()
     end
 end
 
+local branch = {
+    "b:gitsigns_head",
+    icon = "",
+    color = { gui = "bold" },
+    on_click = function()
+        require("telescope.builtin").git_branches()
+    end
+}
+
+local lsp = {
+    function()
+        local status = ""
+        local clients = vim.lsp.buf_get_clients()
+        if not next(clients) then
+            return status
+        else
+            local _, client = next(clients)
+            return client.name
+        end
+    end,
+    color = { gui = "bold" },
+    on_click = function(_, _, _)
+        require("lspconfig.ui.lspinfo")()
+    end
+}
+
+local python_env = {
+    function()
+        local version = ""
+        require("plenary.job"):new({
+            command = "python",
+            args = { "--version" },
+            on_stdout = function(_, data)
+                if data then
+                    version = vim.split(data, " ")[2]
+                end
+            end
+        }):sync()
+        local venv = os.getenv("VIRTUAL_ENV")
+        if venv then
+            return string.format("%s (%s)", version, vim.fs.basename(venv))
+        end
+        return version
+    end,
+    padding = { left = 0, right = 1 },
+    cond = function() return vim.bo.filetype == "python" end
+}
+
 lualine.setup {
     options = {
         theme = "tokyonight",
         component_separators = "",
         section_separators = "",
+        ignore_focus = { "TelescopePrompt", "NvimTree", "lspinfo", "packer" },
         disabled_filetypes = {
-            statusline = { "NvimTree" }
+            statusline = { "NvimTree", "packer" }
         }
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = {
-            { "b:gitsigns_head", icon = "", color = { gui = "bold" } }
-        },
+        lualine_b = { branch },
         lualine_c = { "filename", { "diff", source = diff_source } },
-        lualine_x = { "diagnostics",
-            {
-                function()
-                    local status = ""
-                    local clients = vim.lsp.buf_get_clients()
-                    if not next(clients) then
-                        return status
-                    else
-                        local _, client = next(clients)
-                        return client.name
-                    end
-                end,
-                color = { gui = "bold" }
-            }
-        },
-        lualine_y = { "filetype",
-            {
-                function()
-                    local version = ""
-                    require("plenary.job"):new({
-                        command = "python",
-                        args = { "--version" },
-                        on_stdout = function(_, data)
-                            if data then
-                                version = vim.split(data, " ")[2]
-                            end
-                        end
-                    }):sync()
-                    local venv = os.getenv("VIRTUAL_ENV")
-                    if venv then
-                        return string.format("%s (%s)", version, vim.fs.basename(venv))
-                    end
-                    return version
-                end,
-                padding = { left = 0, right = 1 },
-                cond = function() return vim.bo.filetype == "python" end
-            }
-        },
+        lualine_x = { "diagnostics", lsp },
+        lualine_y = { "filetype", python_env },
         lualine_z = { "location" }
 
     },
