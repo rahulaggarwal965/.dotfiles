@@ -90,25 +90,21 @@ vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = "", numhl = "Lsp
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
 vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
 
-local function client_is_configured(server_name, ft)
-    ft = ft or vim.bo.filetype
-    local active_autocmds = vim.api.nvim_get_autocmds({event = "FileType", pattern = ft})
-    for _, autocmd in ipairs(active_autocmds) do
-        if autocmd.command:match(server_name) then
-            return true
-        end
-    end
-    return false
-end
+M.configured_servers = {}
 
 local meta = {
-    __index = function(_, server)
+    __index = function(_, server_name)
+
+        -- We do not want to setup the server everytime we enter a new file
+        for _, configured_server_name in pairs(M.configured_servers) do
+            if (server_name == configured_server_name) then
+                return { setup = function() end }
+            end
+        end
+        table.insert(M.configured_servers, server_name)
+
         return {
             setup = function(config)
-
-                if client_is_configured(server) then
-                    return
-                end
 
                 if config.on_attach == nil then
                     config.on_attach = M.on_attach
@@ -116,8 +112,8 @@ local meta = {
                 config.capabilities = M.capabilities
 
                 local lspconfig = require("lspconfig")
-                lspconfig[server].setup(config)
-                lspconfig[server].manager.try_add_wrapper() --so we can use this in ftplugins
+                lspconfig[server_name].setup(config)
+                lspconfig[server_name].manager.try_add_wrapper() --so we can use this in ftplugins
             end
         }
     end
