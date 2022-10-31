@@ -1,7 +1,3 @@
-local buffer_map = function(modes, lhs, rhs)
-    vim.keymap.set(modes, lhs, rhs, { buffer = true })
-end
-
 local M = {}
 M.on_attach = function(client)
 
@@ -26,45 +22,35 @@ M.on_attach = function(client)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = true, desc = "Go to implementation" })
     vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { buffer = true, desc = "Go to type definition" })
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = true, desc = "Go to references" })
-    vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = true, desc = "Show definition" })
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = true, desc = "Show definition" })
     vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = true, desc = "Rename symbol" })
     vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, { buffer = true, desc = "Rename Symbol" })
-    vim.keymap.set({"n", "x"}, "ga", vim.lsp.buf.code_action, { buffer = true, desc = "Code Action" })
+    vim.keymap.set({ "n", "x" }, "ga", vim.lsp.buf.code_action, { buffer = true, desc = "Code Action" })
 
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = true, desc = "Previous diagnostic"} )
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = true, desc = "Next diagnostic"} )
-    vim.keymap.set("n", "<leader>lc", function() vim.diagnostic.hide(nil, 0) end, { buffer = true, desc = "Clear diagnostics"} )
-    vim.keymap.set("n", "<leader>ll", vim.diagnostic.open_float, { buffer = true, desc = "Show line diagnostics"})
-    vim.keymap.set("n", "<leader>lQ", vim.diagnostic.setloclist, { buffer = true, desc = "Add diagnostics to quickfix list"})
-    vim.keymap.set("n", "<leader>lx", ":LspStop<CR>",  { silent = true, desc = "Start LSP" })
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = true, desc = "Previous diagnostic" })
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = true, desc = "Next diagnostic" })
+    vim.keymap.set("n", "<leader>lc", function() vim.diagnostic.hide(nil, 0) end,
+        { buffer = true, desc = "Clear diagnostics" })
+    vim.keymap.set("n", "<leader>ll", vim.diagnostic.open_float, { buffer = true, desc = "Show line diagnostics" })
+    vim.keymap.set("n", "<leader>lQ", vim.diagnostic.setloclist,
+        { buffer = true, desc = "Add diagnostics to quickfix list" })
+    vim.keymap.set("n", "<leader>lx", ":LspStop<CR>", { silent = true, desc = "Start LSP" })
     vim.keymap.set("n", "<leader>lX", ":LspStart<CR>", { silent = true, desc = "Stop LSP" })
 
     local telescope = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>lr", telescope.lsp_references, {buffer = true, desc = "List references for symbol"})
-    vim.keymap.set("n", "<leader>ld", telescope.lsp_definitions, {buffer = true, desc = "List definitions for symbol"})
-    vim.keymap.set("n", "<leader>li", telescope.lsp_implementations, {buffer = true, desc = "List implementations for symbols"})
-    vim.keymap.set("n", "<leader>ls", telescope.lsp_document_symbols, {buffer = true, desc = "List file symbols"})
-    vim.keymap.set("n", "<leader>lS", telescope.lsp_dynamic_workspace_symbols, { buffer = true, desc = "List project symbols"})
-    vim.keymap.set("n", "<leader>lg", function() telescope.diagnostics({bufnr = 0}) end, {buffer = true, desc = "List project diagnostics"})
-    vim.keymap.set("n", "<leader>lG", telescope.diagnostics, {buffer = true, desc = "List project diagnostics"})
-
-
-    if client.server_capabilities.document_highlight then
-        vim.api.nvim_exec ([[
-    	    hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
-    	    hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
-    	    hi LspReferenceWrite cterm=bold ctermbg=red guibg=#464646
-    	    augroup lsp_document_highlight
-    	    	autocmd! * <buffer>
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    	    augroup END ]], false)
-    end
+    vim.keymap.set("n", "<leader>lr", telescope.lsp_references, { buffer = true, desc = "List references for symbol" })
+    vim.keymap.set("n", "<leader>ld", telescope.lsp_definitions, { buffer = true, desc = "List definitions for symbol" })
+    vim.keymap.set("n", "<leader>li", telescope.lsp_implementations,
+        { buffer = true, desc = "List implementations for symbols" })
+    vim.keymap.set("n", "<leader>ls", telescope.lsp_document_symbols, { buffer = true, desc = "List file symbols" })
+    vim.keymap.set("n", "<leader>lS", telescope.lsp_dynamic_workspace_symbols,
+        { buffer = true, desc = "List project symbols" })
+    vim.keymap.set("n", "<leader>lg", function() telescope.diagnostics({ bufnr = 0 }) end,
+        { buffer = true, desc = "List project diagnostics" })
+    vim.keymap.set("n", "<leader>lG", telescope.diagnostics, { buffer = true, desc = "List project diagnostics" })
 
     if client.server_capabilities.document_formatting then
-        buffer_map ("n", "<leader>lf", vim.lsp.buf.formatting)
-    elseif client.server_capabilities.document_range_formatting then
-        buffer_map ("n", "<leader>lf", vim.lsp.buf.range_formatting)
+        vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format({async = true}) end, { buffer = true, desc = "Format document"})
     end
 end
 
@@ -79,16 +65,16 @@ completion_item.commitCharactersSupport = true
 completion_item.tagSupport = { valueSet = { 1 } }
 completion_item.resolveSupport = {
     properties = {
-      'documentation',
-      'detail',
-      'additionalTextEdits',
+        'documentation',
+        'detail',
+        'additionalTextEdits',
     }
 }
 
-vim.fn.sign_define("LspDiagnosticsSignError",       { text = "", numhl = "LspDiagnosticsSignError"       })
-vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = "", numhl = "LspDiagnosticsSignWarning"     })
+vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsSignError" })
+vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", numhl = "LspDiagnosticsSignWarning" })
 vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "LspDiagnosticsSignInformation" })
-vim.fn.sign_define("LspDiagnosticsSignHint",        { text = "", numhl = "LspDiagnosticsSignHint"        })
+vim.fn.sign_define("LspDiagnosticsSignHint", { text = "", numhl = "LspDiagnosticsSignHint" })
 
 M.configured_servers = {}
 
@@ -122,3 +108,4 @@ local meta = {
 setmetatable(M, meta)
 
 return M
+

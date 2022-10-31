@@ -1,11 +1,11 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  execute 'packadd packer.nvim'
+    fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
+    execute 'packadd packer.nvim'
 end
 
 local packer = require('packer')
@@ -34,7 +34,7 @@ return packer.startup(function(use)
     }
 
     use { "hrsh7th/nvim-cmp",
-        requires =  {
+        requires = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lua",
@@ -52,7 +52,7 @@ return packer.startup(function(use)
         config = function()
             require("nvim-autopairs").setup()
             local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-            require("cmp").event:on( 'confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
+            require("cmp").event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
         end
     }
 
@@ -73,14 +73,10 @@ return packer.startup(function(use)
         end,
     }
 
-    use { "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup()
-        end,
-        keys = "gc"
-    }
+    use { "echasnovski/mini.comment", config = function() require("mini.comment").setup() end }
+    use { "echasnovski/mini.surround", config = function() require("mini.surround").setup() end }
 
-    use { "mfussenegger/nvim-dap",
+    use { "mfusenegger/nvim-dap",
         setup = function()
             require("plugins.dap").setup()
         end,
@@ -114,7 +110,7 @@ return packer.startup(function(use)
         end
     }
 
-    use {"folke/tokyonight.nvim",
+    use { "folke/tokyonight.nvim",
         config = function()
             require("plugins.theme")
         end
@@ -147,4 +143,3 @@ return packer.startup(function(use)
 
     use "RyanMillerC/better-vim-tmux-resizer"
 end)
-
