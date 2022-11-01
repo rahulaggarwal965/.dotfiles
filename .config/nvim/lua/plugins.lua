@@ -74,7 +74,7 @@ return packer.startup(function(use)
     }
 
     use { "echasnovski/mini.comment", config = function() require("mini.comment").setup() end }
-    use { "echasnovski/mini.surround", config = function() require("mini.surround").setup() end }
+    -- use { "echasnovski/mini.surround", config = function() require("mini.surround").setup() end }
 
     use { "mfusenegger/nvim-dap",
         setup = function()
