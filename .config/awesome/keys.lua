@@ -1,4 +1,3 @@
-local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 
@@ -6,6 +5,9 @@ local super = "Mod4"
 local alt   = "Mod1"
 local ctrl  = "Control"
 local shift = "Shift"
+
+local terminal = os.getenv("TERMINAL")
+local browser = os.getenv("BROWSER")
 
 awful.keyboard.append_global_keybindings({
     awful.key({super, shift}, "Escape", awesome.quit),
@@ -60,26 +62,26 @@ awful.keyboard.append_global_keybindings({
     awful.key({super}, "-", function() awful.layout.inc(-1) end),
 
     awful.key({}, "XF86MonBrightnessDown", function()
-        awful.spawn.with_shell("xbacklight -2") end),
+        awful.spawn("xbacklight -2", false) end),
     awful.key({}, "XF86MonBrightnessUp", function()
-        awful.spawn.with_shell("xbacklight +2") end),
+        awful.spawn("xbacklight +2", false) end),
 
     awful.key({}, "XF86AudioMute", function()
-        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
+        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle", false) end),
     awful.key({}, "XF86AudioLowerVolume", function()
-        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
+        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%", false) end),
     awful.key({}, "XF86AudioRaiseVolume", function()
-        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
+        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%", false) end),
 
     awful.key({}, "XF86AudioPlay", function()
-        awful.spawn.with_shell("playerctl -p spotify play-pause") end),
+        awful.spawn("playerctl -p spotify play-pause", false) end),
     awful.key({}, "XF86AudioPrev", function()
-        awful.spawn.with_shell("playerctl -p spotify previous") end),
+        awful.spawn("playerctl -p spotify previous", false) end),
     awful.key({}, "XF86AudioNext", function()
-        awful.spawn.with_shell("playerctl -p spotify next") end),
+        awful.spawn("playerctl -p spotify next", false) end),
 
-    awful.key({}, "Print", function() awful.spawn.with_shell("screenshot full") end),
-    awful.key({shift}, "Print", function() awful.spawn.with_shell("screenshot select") end),
+    awful.key({}, "Print", function() awful.spawn("screenshot full", false) end),
+    awful.key({shift}, "Print", function() awful.spawn("screenshot select", false) end),
 
     awful.key({super, shift}, "n", function() awful.spawn("betterlockscreen -l", false) end),
 
@@ -99,8 +101,8 @@ awful.keyboard.append_global_keybindings({
         awful.spawn("spotify")
     end),
 
-    awful.key({super, alt}, "h", function() awful.spawn(terminal .. " -e btop", false) end),
-    awful.key({super, alt}, "p", function() awful.spawn(terminal .. " -e pulsemixer", false) end)
+    awful.key({super, alt}, "h", function() awful.spawn(terminal.. " -e btop", false) end),
+    awful.key({super, alt}, "p", function() awful.spawn(terminal.. " -e pulsemixer", false) end)
 })
 
 awful.keyboard.append_global_keybindings({
@@ -278,12 +280,7 @@ client.connect_signal("request::default_mousebindings", function()
     awful.mouse.append_client_mousebindings({
         awful.button({}, 1, function(c)
             if (c.floating) then
-                m = mouse.coords()
-                local corners = {
-                    { c.x + c.width, c.y + c.height },
-                    { c.x, c.y + c.height}
-                }
-
+                local m = mouse.coords()
                 if (math.abs(m.x - c.x) <= 10 or math.abs(m.y - c.y) <= 10 or
                     math.abs(m.x - c.x - c.width) <= 10 or math.abs(m.y - c.y - c.height) <= 10) then
                     c:activate({context = "mouse_click", action = "mouse_resize"})
