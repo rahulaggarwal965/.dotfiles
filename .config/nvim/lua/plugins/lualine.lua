@@ -54,7 +54,7 @@ local python_env = {
                 end
             end
         }):sync()
-        local venv = os.getenv("VIRTUAL_ENV")
+        local venv = vim.env.VIRTUAL_ENV
         if venv then
             return string.format("%s (%s)", version, vim.fs.basename(venv))
         end

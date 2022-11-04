@@ -6,7 +6,7 @@ vim.keymap.set("v", "<leader>ds", "<cmd>lua require('dap-python').debug_selectio
 
 require("plugins.dap").external.python = function()
     -- TODO search up the tree to find nearest "debugpy/bin/python" up to n dirs up
-    local base = os.getenv("VIRTUAL_ENV")
+    local base = vim.env.VIRTUAL_ENV
     if not base then
         base = "/usr"
     end

@@ -20,8 +20,15 @@ gs.setup {
             vim.keymap.set(mode, l, r, opts)
         end
 
-        map ("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-        map ("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+        map ("n", "]c", function()
+            if vim.wo.diff then return "]c" end
+            return ":Gitsigns next_hunk<CR>"
+        end, {expr = true})
+
+        map ("n", "[c", function()
+            if vim.wo.diff then return "[c" end
+            return ":Gitsigns prev_hunk<CR>"
+        end, {expr = true})
 
         --  Actions
         map ({"n", "v"}, "<leader>hs", gs.stage_hunk)
