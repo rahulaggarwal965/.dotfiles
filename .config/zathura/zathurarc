@@ -1,6 +1,7 @@
 set default-bg "#1c1d1f"
 set recolor-lightcolor "#1c1d1f"
 set recolor-darkcolor "#F2F2F2"
+set highlight-color "#00339F"
 set recolor-keephue true
 set statusbar-h-padding 0
 set statusbar-v-padding 0

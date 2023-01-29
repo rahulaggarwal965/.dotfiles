@@ -103,8 +103,8 @@ return packer.startup(function(use)
         run = ":TSUpdate"
     }
 
-    use { "kyazdani42/nvim-tree.lua",
-        requires = { "kyazdani42/nvim-web-devicons" },
+    use { "nvim-tree/nvim-tree.lua",
+        requires = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("plugins.tree")
         end

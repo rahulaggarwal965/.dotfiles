@@ -1,10 +1,10 @@
 #!/bin/sh
 
-select=$(printf "^Lock\n⏾^Suspend\n^Logout\n^Restart\n⏻^Shutdown" | column -s'^' -t -R2 | rofi -dmenu -theme powermenu -i)
+select=$(printf "^Lock\n⏾^Sleep\n^Logout\n^Restart\n⏻^Shutdown" | column -s'^' -t -R2 | rofi -dmenu -theme powermenu -i)
 case "$select" in
-    *"Lock")     betterlockscreen -l ;;
-    *"Suspend")  systemctl suspend ;;
-    *"Logout")   bspc quit ;;
-    *"Restart")   systemctl reboot ;;
+    *"Lock") betterlockscreen -l ;;
+    *"Sleep") xset dpms force off ;;
+    *"Logout") bspc quit ;;
+    *"Restart") systemctl reboot ;;
     *"Shutdown") systemctl poweroff ;;
 esac

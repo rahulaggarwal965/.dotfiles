@@ -11,7 +11,5 @@ require("plugins.dap").external.python = function()
         base = "/usr"
     end
     require("dap-python").setup(base .. "/bin/python")
-    -- TODO do pytest/unittest stuff
-    require("dap-python").test_runner = "pytest"
 end
 

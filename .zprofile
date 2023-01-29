@@ -14,7 +14,7 @@ export VIDEO="mpv"
 export PAGER="less"
 export MANPAGER="nvim +Man!"
 export FILE="lfimg"
-export WM="bspwm"
+export WM="awesome"
 
 # Clean up home directory
 export XDG_CONFIG_HOME="$HOME/.config"
