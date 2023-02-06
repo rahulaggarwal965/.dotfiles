@@ -2,7 +2,9 @@
 
 # Colors and Prompt
 autoload -U colors && colors
-PS1="%{%F{208}%}%n%{%F{247}%} :: %{%F{96}%}%~ %{%F{247}%}$ "
+
+setopt PROMPT_SUBST
+PS1='${VIRTUAL_ENV_PROMPT:+$VIRTUAL_ENV_PROMPT}%{%F{208}%}%n%{%F{247}%} :: %{%F{96}%}%~ %{%F{247}%}$ '
 
 # History file
 HISTSIZE=10000
