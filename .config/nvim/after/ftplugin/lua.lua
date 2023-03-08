@@ -1,4 +1,4 @@
-require("lsp").sumneko_lua.setup {
+require("lsp").lua_ls.setup {
     cmd = { "lua-language-server" },
     settings = {
         Lua = {
