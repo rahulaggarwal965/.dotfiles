@@ -62,16 +62,21 @@ awful.keyboard.append_global_keybindings({
     awful.key({super}, "-", function() awful.layout.inc(-1) end),
 
     awful.key({}, "XF86MonBrightnessDown", function()
-        awful.spawn("xbacklight -2", false) end),
+        awful.spawn("light -U 2", false) end),
     awful.key({}, "XF86MonBrightnessUp", function()
-        awful.spawn("xbacklight +2", false) end),
+        awful.spawn("light -A 2", false) end),
+
+    awful.key({super}, "XF86MonBrightnessDown", function()
+        awful.spawn.with_shell("light -O && light -S 0") end),
+    awful.key({super}, "XF86MonBrightnessUp", function()
+        awful.spawn.with_shell("light -I") end),
 
     awful.key({}, "XF86AudioMute", function()
         awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle", false) end),
     awful.key({}, "XF86AudioLowerVolume", function()
-        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%", false) end),
+        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
     awful.key({}, "XF86AudioRaiseVolume", function()
-        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%", false) end),
+        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
 
     awful.key({}, "XF86AudioPlay", function()
         awful.spawn("playerctl -p spotify play-pause", false) end),

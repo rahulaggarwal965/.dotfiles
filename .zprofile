@@ -23,6 +23,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
+# Default cleanup
 export LESSHISTFILE="-"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
@@ -30,18 +31,15 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export PULSE_COOKIE="$XDG_CONFIG_HOME/pulse/cookie"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+
+# Machine specific cleanup
 export GOPATH="$XDG_CONFIG_HOME/go"
 export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
-
-export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export TERMINFO="$XDG_DATA_HOME/terminfo"
-
-export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
-export MATLAB_LOG_DIR="$XDG_CACHE_HOME/matlab"
 
 # Other program settings
 export SUDO_ASKPASS="$HOME/.local/bin/utils/askpass-dmenu"

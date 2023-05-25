@@ -30,7 +30,7 @@ function M.new()
                 widget.bg = "#222222"
                 awful.spawn.with_line_callback("rofi -show bluetooth -theme menu", {
                     exit = function()
-                        widget.bg = "#121212"
+                        widget.bg = nil
                     end
                 })
             end),

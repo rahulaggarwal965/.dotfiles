@@ -1,6 +1,10 @@
 local awful = require("awful")
 require("awful.autofocus")
 
+-- require("autostart")
+local gears = require("gears")
+local wibox = require("wibox")
+
 -- Notification library
 local naughty = require("naughty")
 -- Declarative object management
@@ -21,29 +25,6 @@ end)
 require("keys")
 require("theme")
 
--- local hide = function (o)
---     -- naughty.notify({ title = "hide triggered"})
---     -- print("launcher ==== " .. tostring(mylauncher))
---     -- print("object ===== " .. tostring(o.widget))
---     if o ~= mymainmenu.wibox then
---         mymainmenu:hide()
---     end
--- end
-
--- mymainmenu.wibox:connect_signal("property::visible", function (w)
---
---
---     if w.visible then
---         wibox.connect_signal("button::press", hide)
---         client.connect_signal("button::press", hide)
---         awful.mouse.append_global_mousebinding(awful.button({}, 1, hide))
---     else
---         wibox.disconnect_signal("button::press", hide)
---         client.disconnect_signal("button::press", hide)
---         awful.mouse.remove_global_mousebinding(awful.button({}, 1, hide))
---     end
--- end)
-
 require("screens")
 require("bar")
 require("rules")
@@ -61,8 +42,57 @@ ruled.notification.connect_signal('request::rules', function()
     }
 end)
 
+local dpi = require("beautiful").xresources.apply_dpi
+
 naughty.connect_signal("request::display", function(n)
-    naughty.layout.box { notification = n }
+    naughty.layout.box {
+        notification = n,
+        -- widget_template = {
+        --     widget = wibox.container.constraint,
+        --     strategy = "max",
+        --     width = 340,
+        --     {
+        --         id     = "background_role",
+        --         widget = naughty.container.background,
+        --         {
+        --             margins = dpi(10),
+        --             widget  = wibox.container.margin,
+        --             {
+        --                 widget = wibox.container.place,
+        --                 valign = "center",
+        --                 halign = "left",
+        --                 {
+        --                     {
+        --                         widget = naughty.widget.icon,
+        --                         valign = "center",
+        --                         forced_height = 128
+        --                     },
+        --                     {
+        --                         {
+        --                             {
+        --                                 widget = naughty.widget.title,
+        --                                 font = "SF Pro Display Bold 20"
+        --                             },
+        --                             {
+        --                                 widget = naughty.widget.message,
+        --                                 font = "SF Pro Display 11"
+        --                             },
+        --                             spacing = 4,
+        --                             layout  = wibox.layout.fixed.vertical,
+        --                         },
+        --                         widget = wibox.container.background,
+        --                         bg = "red"
+        --                     },
+        --                     fill_space = true,
+        --                     spacing    = 4,
+        --                     layout     = wibox.layout.fixed.horizontal,
+        --                 },
+        --             }
+        --         },
+        --     },
+        -- },
+        -- shape = gears.shape.rounded_rect
+    }
 end)
 
 -- }}}

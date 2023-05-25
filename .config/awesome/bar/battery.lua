@@ -31,7 +31,7 @@ function M.new()
     local textbox = wibox.widget {
         widget = wibox.widget.textbox,
         halign = "center",
-        font = "SF Pro Display Semibold 10",
+        font = "Roboto Mono Nerd Font 10",
         text = format_battery(M.device.percentage)
     }
 

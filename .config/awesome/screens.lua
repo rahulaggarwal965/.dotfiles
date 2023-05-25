@@ -30,16 +30,21 @@ tag.connect_signal("request::screen", function(t)
 
     fallback_tag = fallback_tag or awful.tag.find_fallback()
 
+    local clients = t:clients()
+
     local output = next(t.screen.outputs)
 
-    if not tag_store[output] then
-        tag_store[output] = {}
-    end
+    if output then
 
-    local clients = t:clients()
-    tag_store[output][t.name] = clients
-    -- Don't keep references to killed clients by using a weak metatable
-    setmetatable(tag_store[output][t.name], {__mode = "v"})
+        if not tag_store[output] then
+            tag_store[output] = {}
+        end
+
+        tag_store[output][t.name] = clients
+        -- Don't keep references to killed clients by using a weak metatable
+        setmetatable(tag_store[output][t.name], {__mode = "v"})
+
+    end
 
     for _, c in ipairs(clients) do
       c:move_to_tag(fallback_tag)
@@ -77,18 +82,20 @@ screen.connect_signal("request::desktop_decoration", function(s)
 end)
 
 screen.connect_signal("request::wallpaper", function(s)
-    awful.wallpaper {
-        screen = s,
-        widget = {
-            {
-                image = beautiful.wallpaper,
-                resize = true,
-                widget = wibox.widget.imagebox,
-            },
-            valign = "center",
-            halign = "center",
-            tiled = false,
-            widget = wibox.container.tile
-        }
-    }
+    require("gears").wallpaper.maximized(beautiful.wallpaper, s)
+    -- awful.wallpaper {
+    --     screen = s,
+    --     widget = {
+    --         {
+    --             image = beautiful.wallpaper,
+    --             upscale = true,
+    --             downscale = true,
+    --             widget = wibox.widget.imagebox,
+    --         },
+    --         valign = "center",
+    --         halign = "center",
+    --         tiled = false,
+    --         widget = wibox.container.tile
+    --     }
+    -- }
 end)
