@@ -92,6 +92,17 @@ local meta = {
         return {
             setup = function(config)
 
+                local cmd
+                if (config.cmd == nil) then
+                    cmd = require("lspconfig.server_configurations." .. server_name).default_config.cmd
+                else
+                    cmd = config.cmd
+                end
+
+                if (vim.fn.executable(cmd[1]) == 0) then
+                    return
+                end
+
                 if config.on_attach == nil then
                     config.on_attach = M.on_attach
                 end
@@ -99,7 +110,7 @@ local meta = {
 
                 local lspconfig = require("lspconfig")
                 lspconfig[server_name].setup(config)
-                lspconfig[server_name].manager.try_add_wrapper() --so we can use this in ftplugins
+                lspconfig[server_name].manager.try_add_wrapper(vim.api.nvim_get_current_buf()) --so we can use this in ftplugins
             end
         }
     end

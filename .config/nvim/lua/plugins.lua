@@ -129,17 +129,10 @@ return packer.startup(function(use)
         cmd = "ColorizerToggle"
     }
 
-    use { "numToStr/Navigator.nvim",
+    use { "mrjones2014/smart-splits.nvim",
         config = function()
-            local navigator = require("Navigator")
-            navigator.setup()
-
-            vim.keymap.set("n", "<C-h>", navigator.left)
-            vim.keymap.set("n", "<C-j>", navigator.down)
-            vim.keymap.set("n", "<C-k>", navigator.up)
-            vim.keymap.set("n", "<C-l>", navigator.right)
+            require("plugins.splits")
         end
     }
 
-    use "RyanMillerC/better-vim-tmux-resizer"
 end)

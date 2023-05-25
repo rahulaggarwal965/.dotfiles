@@ -75,7 +75,7 @@ cmd bulk-rename ${{
 }}
 
 cmd fzf_jump ${{
-    res="$(find . | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    res="$(fd --hidden | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
     if [ -d "$res" ] ; then
         cmd="cd"
     elif [ -f "$res" ] ; then
@@ -138,10 +138,10 @@ map mf mkfile
 map mr sudomkfile
 map md mkdir
 map ch chmod
-map a rename
-map A push a<c-u>
-map I push a<a-b><a-b><a-f><c-u>
-map i push a<a-b><a-b><a-f>
+map i rename
+map I push i<c-u>
+map a push i<c-e>
+map A push i<c-e><c-u>
 map H top
 map L bottom
 map R reload

@@ -2,8 +2,6 @@ local tree = require("nvim-tree")
 local api = require("nvim-tree.api")
 
 tree.setup {
-    update_cwd = true,
-    respect_buf_cwd = true,
     diagnostics = {
         enable = true,
         icons = {
@@ -15,9 +13,10 @@ tree.setup {
     },
     update_focused_file = {
         enable = true,
-        update_cwd = true
     },
     on_attach = function(bufnr)
+        api.config.mappings.default_on_attach(bufnr)
+
         vim.keymap.set("n", "l", api.node.open.edit, { buffer = bufnr })
         vim.keymap.set("n", "L", api.tree.change_root_to_node, { buffer = bufnr })
         vim.keymap.set("n", "H", api.tree.change_root_to_parent, { buffer = bufnr })
@@ -68,8 +67,6 @@ tree.setup {
         }
     }
 }
-
-require("nvim-tree.view").View.winopts.cursorline = true
 
 vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Toggle File Explorer" })
 
