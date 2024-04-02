@@ -103,6 +103,10 @@ cmd tar %tar cvf "$f.tar" "$f"
 cmd targz %tar cvzf "$f.tar.gz" "$f"
 cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
 
+cmd copy-path $readlink -f "$f" | xclip -sel clip
+cmd copy-basename $basename -a -- $fx | head -c-1 | xclip -sel clip
+cmd copy-image $xclip "$f" -sel clip -t image/png
+
 # Bindings
 map <c-f> :fzf_jump
 map <c-s> :fzf_search
@@ -138,29 +142,39 @@ map mf mkfile
 map mr sudomkfile
 map md mkdir
 map ch chmod
-map i rename
-map I push i<c-u>
-map a push i<c-e>
-map A push i<c-e><c-u>
 map H top
 map L bottom
 map R reload
 map C clear
 map U unselect
 map V invert
+
+map i rename
+map I :rename; cmd-delete-home
+map a :rename; cmd-end
+map A :rename; cmd-end; cmd-delete-home
+
+# Mouse
 map <m-up> up
 map <m-down> down
 map <m-left> updir
 map <m-right> open
+
+# jump list
 map <c-o> jump-prev
 map <tab> jump-next
+
+# copying
+map cp copy-path
+map cb copy-basename
+map ci copy-image
 
 # Movement
 map g/ cd /
 map gc cd ~/.config
 map gl cd ~/.local/share
 map gs cd ~/.local/bin
-map gS cd ~/Documents/Georgia_Tech
+map gS cd ~/Documents/upenn/sem2
 map gd cd ~/Documents
 map geb cd ~/Documents/ebooks
 map gD cd ~/Downloads
