@@ -67,7 +67,8 @@ require("telescope").setup {
 require("telescope").load_extension('fzy_native')
 
 local telescope = require("telescope.builtin")
-vim.keymap.set("n", "<leader>f", telescope.find_files, { desc = "List files in current working directory" })
+vim.keymap.set("n", "<leader>f", function() telescope.find_files({ follow = true }) end, { desc = "List files in current working directory" })
+
 vim.keymap.set("n", "<leader>b", telescope.buffers, { desc = "list current open buffers" })
 vim.keymap.set("n", "<leader>/g", telescope.live_grep, { desc = "Search for strings in current working directory" })
 vim.keymap.set("n", "<leader>/t", telescope.tags, { desc = "List tags in current working directory" })

@@ -1,19 +1,21 @@
 require("lsp").lua_ls.setup {
-    cmd = { "lua-language-server" },
-    settings = {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
-            runtime = { version = "LuaJIT" },
-            diagnostics = {
-                globals = { "vim" }
-            },
-            workspace = {
-                vim.fn.expand("$VIMRUNTIME"),
-                maxPreload = 5000,
-                preloadFileSize = 10000,
-            },
-            telemetry = { enable = false }
+          runtime = { version = 'LuaJIT' },
+          workspace = {
+            checkThirdParty = false,
+            library = { vim.env.VIMRUNTIME }
+          }
         }
-    }
+      })
+
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
 }
 
 vim.cmd "setlocal fo-=ro"

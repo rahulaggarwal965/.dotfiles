@@ -25,6 +25,7 @@ opt.fillchars = { vert = "│", eob = " " }
 opt.shortmess:append("c")
 
 opt.conceallevel = 2
+opt.foldlevelstart = 20
 opt.number = true
 opt.relativenumber = true
 opt.breakindent = true

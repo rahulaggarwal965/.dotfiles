@@ -25,7 +25,7 @@ M.on_attach = function(client)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = true, desc = "Show definition" })
     vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = true, desc = "Rename symbol" })
     vim.keymap.set("n", "<leader>lR", vim.lsp.buf.rename, { buffer = true, desc = "Rename Symbol" })
-    vim.keymap.set({ "n", "x" }, "ga", vim.lsp.buf.code_action, { buffer = true, desc = "Code Action" })
+    vim.keymap.set({ "n", "x" }, "<leader>la", vim.lsp.buf.code_action, { buffer = true, desc = "Code Action" })
 
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = true, desc = "Previous diagnostic" })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = true, desc = "Next diagnostic" })
@@ -110,7 +110,7 @@ local meta = {
 
                 local lspconfig = require("lspconfig")
                 lspconfig[server_name].setup(config)
-                lspconfig[server_name].manager.try_add_wrapper(vim.api.nvim_get_current_buf()) --so we can use this in ftplugins
+                lspconfig[server_name].manager:try_add_wrapper(vim.api.nvim_get_current_buf()) --so we can use this in ftplugins
             end
         }
     end

@@ -73,7 +73,9 @@ return packer.startup(function(use)
         end,
     }
 
+    use { "echasnovski/mini.align", config = function() require("mini.align").setup() end }
     use { "echasnovski/mini.comment", config = function() require("mini.comment").setup() end }
+    use { "echasnovski/mini.ai", config = function() require("mini.ai").setup() end }
     -- use { "echasnovski/mini.surround", config = function() require("mini.surround").setup() end }
 
     use { "mfussenegger/nvim-dap",
@@ -96,7 +98,6 @@ return packer.startup(function(use)
     use { "mfussenegger/nvim-dap-python", module = "dap-python" }
 
     use { "nvim-treesitter/nvim-treesitter",
-        commit = "4cccb6f",
         config = function()
             require("plugins.treesitter")
         end,
@@ -121,7 +122,7 @@ return packer.startup(function(use)
         ft = "markdown"
     }
 
-    use { "preservim/vim-markdown" }
+    use { "preservim/vim-markdown", ft="markdown"}
 
     use { "lervag/vimtex", ft = "tex" }
 
