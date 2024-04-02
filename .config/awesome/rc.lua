@@ -1,7 +1,6 @@
 local awful = require("awful")
 require("awful.autofocus")
 
--- require("autostart")
 local gears = require("gears")
 local wibox = require("wibox")
 

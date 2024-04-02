@@ -87,6 +87,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({}, "Print", function() awful.spawn("screenshot full", false) end),
     awful.key({shift}, "Print", function() awful.spawn("screenshot select", false) end),
+    awful.key({super, shift}, "s", function() awful.spawn("screenshot select", false) end),
 
     awful.key({super, shift}, "n", function() awful.spawn("betterlockscreen -l", false) end),
 
@@ -96,6 +97,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({super, alt}, "b", function() awful.spawn(browser, false) end),
     awful.key({super, alt}, "d", function() awful.spawn("discord", false) end),
+    awful.key({super, alt}, "l", function() awful.spawn("slack", false) end),
     awful.key({super, alt}, "s", function()
         for _, c in ipairs(client.get()) do
             if c.instance:match("spotify") then
