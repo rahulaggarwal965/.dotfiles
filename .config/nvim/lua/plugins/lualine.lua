@@ -15,6 +15,19 @@ local function diff_source()
     end
 end
 
+local filename = {
+    "filename",
+    path = 2,
+    fmt = function(absolute_path)
+        if vim.startswith(absolute_path, vim.uv.cwd() .. "/") then
+            -- TODO(rahul): make this relative?
+            return vim.fs.basename(absolute_path)
+        else
+            return absolute_path
+        end
+    end
+}
+
 local branch = {
     "b:gitsigns_head",
     icon = "",
@@ -28,7 +41,7 @@ local lsp = {
     function()
         local status = ""
         local bufnr = vim.api.nvim_get_current_buf()
-        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        local clients = vim.lsp.get_clients({ bufnr = bufnr })
         if not next(clients) then
             return status
         else
@@ -77,7 +90,7 @@ lualine.setup {
     sections = {
         lualine_a = { "mode" },
         lualine_b = { branch },
-        lualine_c = { "filename", { "diff", source = diff_source } },
+        lualine_c = { filename, { "diff", source = diff_source } },
         lualine_x = { "diagnostics", lsp },
         lualine_y = { "filetype", python_env },
         lualine_z = { "location" }
@@ -86,7 +99,7 @@ lualine.setup {
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { "filename" },
+        lualine_c = { filename },
         lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {}

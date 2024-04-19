@@ -5,7 +5,7 @@ if not present then
 end
 
 ts_config.setup {
-    ensure_installed = { "c", "cpp", "cuda", "go", "lua", "javascript", "python", "bash", "comment", "rust", "yaml", "java", "glsl"},
+    ensure_installed = { "c", "cpp", "cuda", "go", "lua", "javascript", "python", "bash", "comment", "rust", "yaml", "java", "glsl", "vim", "vimdoc", "query"},
     highlight = { enable = true },
 }
 

@@ -17,12 +17,12 @@ tree.setup {
     on_attach = function(bufnr)
         api.config.mappings.default_on_attach(bufnr)
 
-        vim.keymap.set("n", "l", api.node.open.edit, { buffer = bufnr })
-        vim.keymap.set("n", "L", api.tree.change_root_to_node, { buffer = bufnr })
-        vim.keymap.set("n", "H", api.tree.change_root_to_parent, { buffer = bufnr })
-        vim.keymap.set("n", "<C-s>", api.node.open.horizontal, { buffer = bufnr })
-        vim.keymap.set("n", "h", api.node.navigate.parent_close, { buffer = bufnr })
-        vim.keymap.set("n", ".", api.tree.toggle_hidden_filter, { buffer = bufnr })
+        vim.keymap.set("n", "l",     api.node.open.edit, { buffer = bufnr, desc = "File Explorer: Open file" })
+        vim.keymap.set("n", "L",     api.tree.change_root_to_node, { buffer = bufnr, desc = "File Explorer: cd down" })
+        vim.keymap.set("n", "H",     api.tree.change_root_to_parent, { buffer = bufnr, desc = "File Explorer: cd up" })
+        vim.keymap.set("n", "<C-s>", api.node.open.horizontal, { buffer = bufnr, desc = "File Explorer: Open file in horizontal split" })
+        vim.keymap.set("n", "h",     api.node.navigate.parent_close, { buffer = bufnr, desc = "File Explorer: Close node" })
+        vim.keymap.set("n", ".",     api.tree.toggle_hidden_filter, { buffer = bufnr, desc = "File Explorer: Toggle hidden files" })
     end,
     renderer = {
         highlight_git = true,
@@ -68,7 +68,7 @@ tree.setup {
     }
 }
 
-vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Toggle File Explorer" })
+vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "File Explorer: Toggle" })
 
 -- Auto close nvim-tree when it is the last buffer
 vim.api.nvim_create_autocmd("BufEnter", {
