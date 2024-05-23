@@ -23,7 +23,7 @@ alias \
 	g="git" \
 	f="$FILE" \
 	v="$EDITOR" \
-	t="tmux-attach" \
+	t="direnv exec / tmux" \
 	p="sudo pacman" \
 	y="yay" \
 	z="zathura" \

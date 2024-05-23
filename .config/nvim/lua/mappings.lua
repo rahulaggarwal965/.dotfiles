@@ -1,5 +1,4 @@
 vim.g.mapleader = ' '
-
 -- use jk to escape insert mode
 vim.keymap.set("i", "jk", "<Esc>")
 
@@ -21,9 +20,6 @@ vim.keymap.set("n", "N", "Nzz<Space>N")
 
 -- don't pollute the clipboard with "pasted over" text
 vim.keymap.set("x", "p", "pgvy")
-
--- quickly replay a macro in the q register
-vim.keymap.set("n", "Q", "@q")
 
 -- write to files wit elevated permissions
 vim.keymap.set("c", "w!!", "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!", { silent = true })
