@@ -11,7 +11,7 @@ ruled.client.connect_signal("request::rules", function()
             focus     = awful.client.focus.filter,
             raise     = true,
             screen    = awful.screen.preferred,
-            placement = awful.placement.no_overlap+awful.placement.no_offscreen
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen,
         }
     }
 
@@ -54,5 +54,17 @@ ruled.client.connect_signal("request::rules", function()
             end
         end
     }
+
+    -- ruled.client.append_rule {
+    --     rule = {},
+    --     properties = {
+    --         titlebars_enabled = true
+    --     }
+    --    --  callback = function(c)
+    --    --      if string.find(c.name, "565") then
+    --    --          c.requests_titlebars = true
+    --    --      end
+    --    -- end
+    -- }
 
 end)

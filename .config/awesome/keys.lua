@@ -277,6 +277,11 @@ client.connect_signal("request::default_keybindings", function()
             c:raise()
         end),
 
+        awful.key({super}, "y", function(c)
+            c.maximized = not c.maximized
+            c:raise()
+        end),
+
         -- Close clients
         awful.key({super}, "q", function(c) c:kill() end),
         awful.key({super, shift}, "q", function(c) awesome.kill(c.pid, 15) end),
