@@ -4,7 +4,7 @@ select=$(printf "^Lock\n⏾^Sleep\n^Logout\n^Restart\n⏻^Shutdown" | c
 case "$select" in
     *"Lock") betterlockscreen -l ;;
     *"Sleep") xset dpms force off ;;
-    *"Logout") bspc quit ;;
+    *"Logout") awesome-client 'awesome.quit()' ;;
     *"Restart") systemctl reboot ;;
     *"Shutdown") systemctl poweroff ;;
 esac

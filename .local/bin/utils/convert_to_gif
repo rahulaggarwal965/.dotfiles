@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Check if input file is provided
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 input_video.mp4 [scale_factor]"
+    exit 1
+fi
+
+input_file="$1"
+scale_factor="${2:-1}"  # Default scale factor is 1 if not provided
+output_file="${input_file%.*}.gif"
+
+# Get the video framerate using ffprobe
+framerate=$(ffprobe -v 0 -select_streams v:0 -show_entries stream=r_frame_rate -of default=noprint_wrappers=1:nokey=1 "$input_file")
+framerate=$(echo "$framerate" | bc)  # Convert the fraction to a decimal
+
+# Get the video resolution
+resolution=$(ffprobe -v 0 -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$input_file")
+width=$(echo "$resolution" | cut -d'x' -f1)
+height=$(echo "$resolution" | cut -d'x' -f2)
+
+# Scale the resolution based on the scale factor
+scaled_width=$(echo "$width * $scale_factor / 1" | bc)  # Divide by 1 to truncate decimal
+scaled_height=$(echo "$height * $scale_factor / 1" | bc)  # Divide by 1 to truncate decimal
+
+# Convert video to GIF using the same resolution and framerate
+ffmpeg -i "$input_file" -vf "fps=$framerate,scale=${scaled_width}x${scaled_height}:flags=lanczos" -loop 0 "$output_file"
+
+echo "GIF created: $output_file"

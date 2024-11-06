@@ -26,6 +26,6 @@ do
     string="$string$filename\0icon\x1f$dir_name/$filename.png\n"
 done
 
-select=$(echo -en "$string" | rofi -dmenu -i -format 'i' -p "Ebook:" -no-custom -show-icons -theme fullscreen) || { exit 1; }
+select=$(echo -en "$string" | rofi -dmenu -i -format 'i' -p "" -no-custom -show-icons -theme fullscreen) || { exit 1; }
 $READER "${paths[$select]}/${filenames[$select]}.pdf"
 
