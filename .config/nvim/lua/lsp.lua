@@ -89,7 +89,7 @@ local meta = {
 
                 local cmd
                 if (config.cmd == nil) then
-                    cmd = require("lspconfig.server_configurations." .. server_name).default_config.cmd
+                    cmd = require("lspconfig.configs." .. server_name).default_config.cmd
                 else
                     cmd = config.cmd
                 end

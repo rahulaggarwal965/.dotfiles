@@ -1,9 +1,3 @@
-local present, lualine = pcall(require, "lualine")
-
-if not present then
-    return
-end
-
 local function diff_source()
     local gitsigns = vim.b.gitsigns_status_dict
     if gitsigns then
@@ -77,32 +71,36 @@ local python_env = {
     cond = function() return vim.bo.filetype == "python" end
 }
 
-lualine.setup {
-    options = {
-        theme = "tokyonight",
-        component_separators = "",
-        section_separators = "",
-        ignore_focus = { "TelescopePrompt", "NvimTree", "lspinfo", "packer" },
-        disabled_filetypes = {
-            statusline = { "NvimTree", "packer" }
-        }
-    },
-    sections = {
-        lualine_a = { "mode" },
-        lualine_b = { branch },
-        lualine_c = { filename, { "diff", source = diff_source } },
-        lualine_x = { "diagnostics", lsp },
-        lualine_y = { "filetype", python_env },
-        lualine_z = { "location" }
+return {
+    {
+        "nvim-lualine/lualine.nvim",
+        opts = {
+            options = {
+                theme = "tokyonight",
+                component_separators = "",
+                section_separators = "",
+                ignore_focus = { "TelescopePrompt", "NvimTree", "lspinfo", "packer" },
+                disabled_filetypes = {
+                    statusline = { "NvimTree", "packer" }
+                }
+            },
+            sections = {
+                lualine_a = { "mode" },
+                lualine_b = { branch },
+                lualine_c = { filename, { "diff", source = diff_source } },
+                lualine_x = { "diagnostics", lsp },
+                lualine_y = { "filetype", python_env },
+                lualine_z = { "location" }
 
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { filename },
-        lualine_x = { "location" },
-        lualine_y = {},
-        lualine_z = {}
+            },
+            inactive_sections = {
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = { filename },
+                lualine_x = { "location" },
+                lualine_y = {},
+                lualine_z = {}
+            }
+        }
     }
 }
-

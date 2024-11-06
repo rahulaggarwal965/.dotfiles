@@ -1,4 +1,3 @@
-require("plugins")
-require("impatient")
-require("mappings")
-require("settings")
+require("config.mappings")
+require("config.plugins")
+require("config.settings")
