@@ -14,6 +14,7 @@ set incsearch true
 cmd open ${{
 	case $(file --mime-type "$f" -bL) in
 	    text/html) xdg-open "$f" ;;
+	    application/csv) csvlens "$f" ;;
 		text/*|application/octet-stream|inode/x-empty) $EDITOR "$fx" ;;
 		image/*) setsid -f sxiv_dir "$f" ;;
 		audio/*) $VIDEO --audio-display=no $f ;;
@@ -174,7 +175,7 @@ map g/ cd /
 map gc cd ~/.config
 map gl cd ~/.local/share
 map gs cd ~/.local/bin
-map gS cd ~/Documents/upenn/sem2
+map gS cd ~/Documents/upenn/sem3
 map gd cd ~/Documents
 map geb cd ~/Documents/ebooks
 map gD cd ~/Downloads
