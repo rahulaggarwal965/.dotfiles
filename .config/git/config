@@ -1,0 +1,38 @@
+[user]
+	email = rahulaggarwal965@gmail.com
+	name = Rahul Aggarwal
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[alias]
+    s = status
+    a = add
+    u = add -u
+    c = commit
+    l = log
+    rb = rebase
+    rbi = rebase -i
+    sw = switch
+    m = merge
+    p = push
+    f = fetch
+    fm = pull
+    d = diff
+    ds = diff --staged
+    r = restore
+    rs = restore --staged
+    lg = log --oneline --graph --decorate --all
