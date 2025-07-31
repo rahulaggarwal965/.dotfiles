@@ -70,6 +70,10 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({super, shift}, "=", function() awful.layout.inc(1)  end),
     awful.key({super}, "-", function() awful.layout.inc(-1) end),
+    awful.key({super}, "[", function() awful.tag.incncol(-1) end),
+    awful.key({super}, "]", function() awful.tag.incncol(1) end),
+    awful.key({super, shift}, "[", function() awful.tag.incnmaster(-1) end),
+    awful.key({super, shift}, "]", function() awful.tag.incnmaster(1) end),
 
     awful.key({}, "XF86MonBrightnessDown", function()
         awful.spawn("light -U 2", false) end),
