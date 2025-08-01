@@ -113,7 +113,10 @@ awful.keyboard.append_global_keybindings({
     awful.key({super, alt}, "d", function() awful.spawn("discord", false) end),
     awful.key({super, alt}, "l", function() awful.spawn("slack", false) end),
     awful.key({super, alt}, "o", function()
-        jump_to_or_spawn("outlook.office.com__mail", "google-chrome --app=https://outlook.office.com/mail/ --class=ICE-SSB-outlook --user-data-dir=/home/raaggarwal/.local/share/pwa/profiles/outlook")
+        jump_to_or_spawn("outlook.office.com__mail", "brave-browser --app=https://outlook.office.com/mail/")
+    end),
+    awful.key({super, alt}, "t", function()
+        jump_to_or_spawn("teams.microsoft.com", "brave-browser --app=https://teams.microsoft.com/")
     end),
     awful.key({super, alt}, "s", function() jump_to_or_spawn("spotify") end),
 
