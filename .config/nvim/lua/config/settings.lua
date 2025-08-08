@@ -1,12 +1,12 @@
 local opt = vim.opt
 
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd([[colorscheme tokyonight]])
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 opt.showmode = false
 opt.scrolloff = 5
 opt.pumheight = 10
-opt.completeopt = { "menuone" , "noselect" }
+opt.completeopt = { "menuone", "noselect" }
 opt.ignorecase = true
 opt.smartcase = true
 opt.termguicolors = true

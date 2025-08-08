@@ -2,7 +2,6 @@ return {
     { "preservim/vim-markdown", ft = "markdown" },
     {
         "toppair/peek.nvim",
-        ft = "markdown",
         build = "deno task --quiet build:fast",
         opts = function()
             vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
@@ -22,6 +21,7 @@ return {
                         peek.open()
                     end
                 end,
+                ft = "markdown",
                 desc = "Preview Markdown File"
             }
         }

@@ -29,6 +29,8 @@ M.on_attach = function(client)
 
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = true, desc = "LSP: Previous diagnostic" })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = true, desc = "LSP: Next diagnostic" })
+    vim.keymap.set("n", "[e", function() vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR}) end, { buffer = true, desc = "LSP: Previous diagnostic" })
+    vim.keymap.set("n", "]e", function() vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR}) end, { buffer = true, desc = "LSP: Next diagnostic" })
     vim.keymap.set("n", "<leader>lc", function() vim.diagnostic.hide(nil, 0) end, { buffer = true, desc = "LSP: Clear diagnostics" })
     vim.keymap.set("n", "<leader>ll", vim.diagnostic.open_float, { buffer = true, desc = "LSP: Show line diagnostics" })
     vim.keymap.set("n", "<leader>lQ", vim.diagnostic.setloclist, { buffer = true, desc = "LSP: Add diagnostics to quickfix list" })
@@ -44,9 +46,9 @@ M.on_attach = function(client)
     vim.keymap.set("n", "<leader>lg", function() telescope.diagnostics({ bufnr = 0 }) end, { buffer = true, desc = "Search: project diagnostics" })
     vim.keymap.set("n", "<leader>lG", telescope.diagnostics, { buffer = true, desc = "Search: project diagnostics" })
 
-    if client.server_capabilities.document_formatting then
-        vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format({async = true}) end, { buffer = true, desc = "LSP: Format document"})
-    end
+    -- if client.server_capabilities.document_formatting then
+    --     vim.keymap.set("n", "<leader>lf", function() vim.lsp.buf.format({async = true}) end, { buffer = true, desc = "LSP: Format document"})
+    -- end
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
