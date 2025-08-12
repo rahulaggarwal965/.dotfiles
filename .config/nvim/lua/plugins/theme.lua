@@ -19,7 +19,7 @@ return {
 				hl.NvimTreeExecFile = { fg = c.green, bold = true }
 			end,
 			style = "night",
-			sidebars = { "qf", "help", "packer" },
+			sidebars = { "qf", "help" },
 		},
 	},
 }

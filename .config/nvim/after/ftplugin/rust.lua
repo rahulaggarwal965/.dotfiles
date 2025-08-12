@@ -1,1 +1,1 @@
-require("lsp").rust_analyzer.setup {}
+require("lsp").rust_analyzer.setup({})

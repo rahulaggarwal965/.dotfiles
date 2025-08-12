@@ -1,1 +1,1 @@
-require("lsp").bashls.setup {}
+require("lsp").bashls.setup({})
