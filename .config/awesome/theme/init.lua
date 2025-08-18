@@ -59,6 +59,15 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
 
+-- Notification theme tweaks
+theme.notification_font          = theme.font
+theme.notification_bg            = theme.bg_normal
+theme.notification_fg            = theme.fg_normal
+theme.notification_width         = dpi(340)
+theme.notification_height        = dpi(120)
+theme.notification_margin        = dpi(8)
+theme.notification_border_width  = dpi(0)
+
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]

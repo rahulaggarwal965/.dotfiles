@@ -1,5 +1,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local volume_osd = require("osd.volume")
+local brightness_osd = require("osd.brightness")
 
 local super = "Mod4"
 local alt   = "Mod1"
@@ -76,21 +78,35 @@ awful.keyboard.append_global_keybindings({
     awful.key({super, shift}, "]", function() awful.tag.incnmaster(1) end),
 
     awful.key({}, "XF86MonBrightnessDown", function()
-        awful.spawn("light -U 2", false) end),
+        awful.spawn("light -U 2", false)
+        brightness_osd.update()
+    end),
     awful.key({}, "XF86MonBrightnessUp", function()
-        awful.spawn("light -A 2", false) end),
+        awful.spawn("light -A 2", false)
+        brightness_osd.update()
+    end),
 
     awful.key({super}, "XF86MonBrightnessDown", function()
-        awful.spawn.with_shell("light -O && light -S 0") end),
+        awful.spawn.with_shell("light -O && light -S 0")
+        brightness_osd.update()
+    end),
     awful.key({super}, "XF86MonBrightnessUp", function()
-        awful.spawn.with_shell("light -I") end),
+        awful.spawn.with_shell("light -I")
+        brightness_osd.update()
+    end),
 
     awful.key({}, "XF86AudioMute", function()
-        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle", false) end),
+        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle", false)
+        volume_osd.update()
+    end),
     awful.key({}, "XF86AudioLowerVolume", function()
-        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
+        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%")
+        volume_osd.update()
+    end),
     awful.key({}, "XF86AudioRaiseVolume", function()
-        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
+        awful.spawn.with_shell("pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%")
+        volume_osd.update()
+    end),
 
     awful.key({}, "XF86AudioPlay", function()
         awful.spawn("playerctl -p spotify play-pause", false) end),
@@ -117,6 +133,9 @@ awful.keyboard.append_global_keybindings({
     end),
     awful.key({super, alt}, "t", function()
         jump_to_or_spawn("teams.microsoft.com", "brave-browser --app=https://teams.microsoft.com/")
+    end),
+    awful.key({super, alt}, "n", function()
+        jump_to_or_spawn("notion.so", "brave-browser --app=https://notion.so/")
     end),
     awful.key({super, alt}, "s", function() jump_to_or_spawn("spotify") end),
 
@@ -289,8 +308,19 @@ client.connect_signal("request::default_keybindings", function()
             c:raise()
         end),
 
+        -- Maximization
         awful.key({super}, "y", function(c)
             c.maximized = not c.maximized
+            c:raise()
+        end),
+
+        awful.key({super}, "t", function(c)
+           c.ontop = not c.ontop
+           c:raise()
+        end),
+
+        awful.key({super}, "s", function(c)
+            c.sticky = not c.sticky
             c:raise()
         end),
 
