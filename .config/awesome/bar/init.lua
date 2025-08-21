@@ -7,6 +7,7 @@ local battery = require("bar.battery")
 local tags = require("bar.tags")
 local power = require("bar.power")
 local bluetooth = require("bar.bluetooth")
+local dnd = require("bar.dnd")
 -- local spotify = require("bar.spotify")
 local clock = require("bar.clock") {}
 
@@ -33,9 +34,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
             },
             {
                 layout = wibox.layout.fixed.horizontal,
-                spacing = dpi(5),
+                spacing = dpi(10),
+                dnd{},
                 bluetooth{},
-                battery,
+                battery{},
                 power{},
             }
         }

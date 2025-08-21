@@ -26,6 +26,7 @@ function M.new()
                 exit = function() widget.bg = "#ff8700" end
             })
         end)
+
     }
     widget:connect_signal("mouse::enter", function()
         widget.bg = "#ff9900"

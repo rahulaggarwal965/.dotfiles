@@ -1,8 +1,6 @@
 local awful = require("awful")
 require("awful.autofocus")
 
-local gears = require("gears")
-local wibox = require("wibox")
 
 -- Notification library
 local naughty = require("naughty")
@@ -20,13 +18,16 @@ naughty.connect_signal("request::display_error", function(message, startup)
     }
 end)
 -- }}}
+require("theme")
+require("screens")
+require("rules")
+
+require("system")
+require("notifications")
+require("signals")
 
 require("keys")
-require("theme")
-
-require("screens")
 require("bar")
-require("rules")
 
 -- {{{ Notifications
 
@@ -40,12 +41,3 @@ ruled.notification.connect_signal('request::rules', function()
         }
     }
 end)
-
-local dpi = require("beautiful").xresources.apply_dpi
-
-require("notifications")
-
-require("signals")
-
--- Initialize OSDs
-pcall(require, "osd.volume")

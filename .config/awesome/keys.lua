@@ -2,6 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local volume_osd = require("osd.volume")
 local brightness_osd = require("osd.brightness")
+local naughty = require("naughty")
 
 local super = "Mod4"
 local alt   = "Mod1"
@@ -119,7 +120,22 @@ awful.keyboard.append_global_keybindings({
     awful.key({shift}, "Print", function() awful.spawn("screenshot select", false) end),
     awful.key({super, shift}, "s", function() awful.spawn("screenshot select", false) end),
 
-    awful.key({super, shift}, "n", function() awful.spawn("betterlockscreen -l", false) end),
+    awful.key({super, shift}, "n", function() awful.spawn([[betterlockscreen -l -- --custom-key-commands \
+        --cmd-media-play "playerctl -p spotify play-pause" \
+        --cmd-media-prev "playerctl -p spotify previous" \
+        --cmd-media-next "playerctl -p spotify next" \
+        --cmd-audio-mute "pactl set-sink-mute @DEFAULT_SINK@ toggle" \
+        --cmd-volume-down "pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -3%" \
+        --cmd-volume-up "pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +3%" \
+        --cmd-brightness-down "light -U 2" \
+        --cmd-brightness-up "light -A 2"]])
+    end),
+
+
+
+    awful.key({super, shift}, "d", function()
+        require("system.dnd").toggle()
+    end),
 
     awful.key({super}, "space", nil, function() awful.spawn("rofi -show drun -theme launcher -show-icons", false) end),
 
@@ -127,7 +143,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({super, alt}, "b", function() awful.spawn(browser, false) end),
     awful.key({super, alt}, "d", function() awful.spawn("discord", false) end),
-    awful.key({super, alt}, "l", function() awful.spawn("slack", false) end),
+    awful.key({super, alt}, "l", function() awful.spawn("/usr/bin/slack", false) end),
     awful.key({super, alt}, "o", function()
         jump_to_or_spawn("outlook.office.com__mail", "brave-browser --app=https://outlook.office.com/mail/")
     end),
