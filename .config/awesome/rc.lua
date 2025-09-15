@@ -22,7 +22,8 @@ require("theme")
 require("screens")
 require("rules")
 
-require("system")
+
+require("sysinfo")
 require("notifications")
 require("signals")
 

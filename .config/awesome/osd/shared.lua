@@ -38,7 +38,7 @@ local function ensure_popup()
 	})
 
 	popup = wibox({
-		type    = "popup",
+		type    = "notification",
 		screen  = awful.screen.focused(),
 		height  = dpi(180),
 		width   = dpi(55),

@@ -8,6 +8,7 @@ local dpi = beautiful.xresources.apply_dpi
 -- Import our modules
 local icon_resolver = require("notifications.icon_resolver")
 local widgets = require("notifications.widgets")
+local rules = require("notifications.rules")
 
 -- Basic defaults; detailed behavior is defined by ruled in rc.lua
 naughty.config.defaults.ontop    = true
@@ -17,6 +18,11 @@ naughty.config.defaults.position = "top_right"
 naughty.connect_signal("request::display", function(n)
     local bg = beautiful.bg_normal or "#121212"
     local fg = beautiful.fg_normal or "#dddddd"
+
+    print("notification" .. gears.debug.dump_return(n))
+    print("app_name" .. n.app_name)
+    print("title" .. n.title)
+    print("message" .. n.message)
 
     local app_icon_path = icon_resolver.resolve_app_icon(n.app_name)
     

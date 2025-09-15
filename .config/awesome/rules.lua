@@ -17,30 +17,10 @@ ruled.client.connect_signal("request::rules", function()
 
     ruled.client.append_rule {
         rule = {
-            class = "st-256color"
-        },
-        properties = { size_hints_honor = false }
-    }
-
-    ruled.client.append_rule {
-        rule = {
             instance = "brave-browser",
             role  = "pop-up"
         },
         properties = { floating = true }
-    }
-
-    ruled.client.append_rule {
-        rule = {
-            class = "spotify" },
-        properties = { screen = 1, tag = "1"}
-    }
-
-    ruled.client.append_rule {
-        rule = {
-            class = "discord"
-        },
-        properties = { screen = 1, tag = "2"}
     }
 
     ruled.client.append_rule {
@@ -53,6 +33,21 @@ ruled.client.connect_signal("request::rules", function()
                 c.floating = true
             end
         end
+    }
+
+    ruled.client.append_rule {
+        id = "minimize_instead_of_close",
+        rule_any = {
+            instance = {
+                "web.whatsapp.com",
+                "teams.microsoft.com",
+                "outlook.office.com__mail",
+            }
+        },
+        properties = {
+            minimize_instead_of_kill = true,
+            floating = true,
+        }
     }
 
     -- ruled.client.append_rule {

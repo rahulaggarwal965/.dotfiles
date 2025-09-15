@@ -4,27 +4,7 @@ local M = {}
 
 -- Common app name to icon name mappings
 M.icon_mappings = {
-    ["Spotify"] = "spotify-client",
-    ["Slack"] = "slack",
-    ["Discord"] = "discord",
-    ["Visual Studio Code"] = "code",
-    ["VSCode"] = "code",
-    ["Google Chrome"] = "google-chrome",
-    ["Chrome"] = "google-chrome",
-    ["Firefox"] = "firefox",
-    ["Thunderbird"] = "thunderbird",
-    ["Steam"] = "steam",
-    ["Telegram Desktop"] = "telegram",
-    ["Signal"] = "signal-desktop",
-    ["WhatsApp"] = "whatsapp-desktop",
-    ["Microsoft Teams"] = "teams",
-    ["Zoom"] = "zoom",
-    ["OBS Studio"] = "obs",
-    ["VLC media player"] = "vlc",
-    ["Sublime Text"] = "sublime-text",
-    ["IntelliJ IDEA"] = "intellij-idea",
-    ["PyCharm"] = "pycharm",
-    ["Android Studio"] = "android-studio",
+    ["Brave"] = "brave-browser",
 }
 
 -- Generate common variants of an app name for icon lookup

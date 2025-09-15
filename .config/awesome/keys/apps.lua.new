@@ -1,0 +1,126 @@
+local awful = require("awful")
+
+local super = "Mod4"
+local alt = "Mod1"
+
+local terminal = os.getenv("TERMINAL")
+local browser = os.getenv("BROWSER")
+
+
+-- Find a client by its instance (WM_CLASS instance)
+local function find_client_by_instance(instance)
+	for _, c in ipairs(client.get()) do
+		if c.instance ~= nil and c.instance:match(instance) then
+			return c
+		end
+	end
+	return nil
+end
+
+local function jump_to_or_spawn(instance, command)
+	local c = find_client_by_instance(instance)
+	if c then
+		c:jump_to()
+	else
+		awful.spawn(command or instance)
+	end
+end
+
+-- Move a client to current tag, unminimize it, and focus it
+local function pop_up_client_on_current_tag(instance, command)
+	local t = awful.screen.focused().selected_tag
+	local c = find_client_by_instance(instance)
+	if t and c then
+		c:move_to_tag(t)
+		c.minimized = false
+		c:raise()
+	else
+		awful.spawn(command or instance)
+	end
+end
+
+-- Normalize singleton spec to a table { enabled, instance, sticky }
+local function normalize_singleton(app)
+	local spec = { enabled = false, instance = nil, sticky = false }
+	if app.singleton == nil then
+		return spec
+	end
+
+	spec.enabled = true
+	if type(app.singleton) == "table" then
+		spec.instance = app.singleton.instance
+		spec.sticky = app.singleton.sticky == true
+	else
+		spec.instance = app.command
+		spec.sticky = false
+	end
+	return spec
+end
+
+-- Build the concrete spawn command for an app
+local function build_spawn_command(app)
+	if app.terminal then
+		return terminal .. " -e " .. app.command
+	elseif app.browser then
+		return browser .. " --app=" .. app.url
+	else
+		return app.command
+	end
+end
+
+local apps = {
+	["Terminal"] = { command = terminal, modifiers = { super }, key = "Return" },
+	["Browser"] = { command = browser, key = "b" },
+	["Discord"] = { command = "discord", singleton = true, key = "d" },
+	["Slack"] = { command = "/usr/bin/slack", singleton = { instance = "slack" }, key = "l" },
+	["Spotify"] = { command = "spotify", singleton = true, key = "s" },
+
+	-- Web apps
+	["Microsoft Outlook"] = { url = "https://outlook.office.com/mail/", browser = true, singleton = { instance = "outlook.office.com__mail", sticky = true }, key = "o" },
+	["Microsoft Teams"] = { url = "https://teams.microsoft.com/", browser = true, singleton = { instance = "teams.microsoft.com" }, key = "t" },
+	["Notion"] = { url = "https://notion.so/", browser = true, singleton = { instance = "notion.so" }, key = "n" },
+	["WhatsApp"] = { url = "https://web.whatsapp.com/", browser = true, singleton = { instance = "web.whatsapp.com", sticky = true }, key = "w" },
+
+	--- Terminal apps
+	["Btop"] = { command = "btop", terminal = true, key = "h" },
+	["Pulsemixer"] = { command = "pulsemixer", terminal = true, key = "p" },
+}
+
+for _, app in pairs(apps) do
+	app.modifiers = app.modifiers or { super, alt }
+	local cmd = build_spawn_command(app)
+	local singleton = normalize_singleton(app)
+
+	awful.keyboard.append_global_keybinding(awful.key({
+		modifiers = app.modifiers,
+		key = app.key,
+		press = function()
+			if singleton.enabled then
+				if singleton.sticky then
+					-- Sticky singleton: pop up existing or float new on current tag
+					local pattern = singleton.instance or app.instance or app.command
+					if pattern then
+						local c = find_client_by_instance(pattern)
+						if c then
+							pop_up_client_on_current_tag(c)
+						else
+							with_next_client_matching(pattern, function(new_c)
+								pop_up_client_on_current_tag(new_c)
+							end)
+							awful.spawn(cmd, false)
+						end
+					else
+						awful.spawn(cmd, false)
+					end
+				else
+					-- Non-sticky singleton: focus existing by instance or spawn
+					local pattern = singleton.instance or cmd
+					jump_to_or_spawn(pattern, cmd)
+				end
+			else
+				-- Not a singleton: just spawn
+				awful.spawn(cmd, false)
+			end
+		end,
+	}))
+end

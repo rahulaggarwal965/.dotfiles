@@ -8,7 +8,7 @@ local M = {}
 M.commands = {
     -- Slack commands
     {
-        on = "slack-cli status edit focusing :dart:; slack-cli snooze start 60",
+        on = "slack-cli status edit focusing :dart:; slack-cli snooze start 1440",
         off = "slack-cli status clear; slack-cli snooze end"
     },
 }
