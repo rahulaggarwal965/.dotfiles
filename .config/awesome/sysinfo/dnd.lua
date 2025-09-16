@@ -25,7 +25,7 @@ end
 
 M.toggle = function()
     naughty.suspended = not naughty.suspended
-    awesome.emit_signal("system::dnd", naughty.suspended)
+    awesome.emit_signal("sysinfo::dnd", naughty.suspended)
 
     execute_commands(naughty.suspended)
 end

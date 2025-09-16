@@ -5,7 +5,7 @@ local GLib = lgi.GLib
 local awesome_instance = rawget(_G, "awesome")
 
 -- Event-driven Network monitor using NetworkManager (GI via lgi)
--- Emits: awesome.emit_signal("system::network", state_table)
+-- Emits: awesome.emit_signal("sysinfo::network", state_table)
 -- state_table fields:
 --   connected (bool)
 --   primary_type ("wifi"|"ethernet"|nil)
@@ -183,7 +183,7 @@ local function emit_network_info()
 	end
 	M._state = new_state
 	if awesome_instance then
-		awesome_instance.emit_signal("system::network", new_state)
+		awesome_instance.emit_signal("sysinfo::network", new_state)
 	end
 end
 

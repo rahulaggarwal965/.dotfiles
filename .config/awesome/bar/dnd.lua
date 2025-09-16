@@ -26,7 +26,7 @@ function M.new()
     return widget
 end
 
-awesome.connect_signal("system::dnd", function(suspended)
+awesome.connect_signal("sysinfo::dnd", function(suspended)
     for _, instance in pairs(M.instances) do
         instance.visible = suspended
     end

@@ -51,31 +51,31 @@ local function wifi_icon_for(state)
 end
 
 function M.new()
-	local textbox = wibox.widget {
+	local textbox = wibox.widget({
 		widget = wibox.widget.textbox,
 		font = "Font Awesome 6 Free 10",
 		halign = "center",
 		text = "󰤯 ",
-	}
+	})
 
-	local widget = wibox.widget {
+	local widget = wibox.widget({
 		widget = wibox.container.background,
 		shape = gears.shape.rounded_rect,
 		{
 			widget = wibox.container.margin,
 			margins = { left = dpi(8), right = dpi(8) },
-			textbox
-		}
-	}
+			textbox,
+		},
+	})
 
-	awesome.connect_signal("system::network", function(state)
+	awesome.connect_signal("sysinfo::network", function(state)
 		local icon = wifi_icon_for(state)
 		textbox.font = icon.font
 		textbox.text = icon.text
 	end)
 
 	-- initialize with current state if available
-	local sys = require("sysinfo.network_nm")
+	local sys = require("sysinfo.network")
 	local current = sys.get_state and sys.get_state() or nil
 	require("gears").debug.dump(current)
 	local icon = wifi_icon_for(current)
@@ -92,4 +92,3 @@ function meta.__call(_, ...)
 end
 
 return setmetatable(M, meta)
-
