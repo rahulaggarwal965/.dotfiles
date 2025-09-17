@@ -12,16 +12,22 @@ set incsearch true
 
 # Custom Functions
 cmd open ${{
-	case $(file --mime-type "$f" -bL) in
-	    text/html) xdg-open "$f" ;;
-	    application/csv) csvlens "$f" ;;
-		text/*|application/octet-stream|inode/x-empty) $EDITOR "$fx" ;;
-		image/*) setsid -f sxiv_dir "$f" ;;
-		audio/*) $VIDEO --audio-display=no $f ;;
-		video/*) setsid -f $VIDEO "$f" -quiet >/dev/null 2>&1 ;;
-		application/pdf) setsid -f $READER "$fx" >/dev/null 2>&1 ;;
-		*) xdg-open "$f" ;;
-	esac
+    case "$f" in
+    *.csv) csvlens "$f" ;;
+    *.json) jless "$f" ;;
+    *.yaml,|*.yml) jless --yaml "$f" ;;
+    *)
+        case $(file --mime-type "$f" -bL) in
+            text/html) xdg-open "$f" ;;
+            application/csv) csvlens "$f" ;;
+            text/*|application/octet-stream|inode/x-empty) $EDITOR "$fx" ;;
+            image/*) setsid -f sxiv_dir "$f" ;;
+            audio/*) $VIDEO --audio-display=no $f ;;
+            video/*) setsid -f $VIDEO "$f" -quiet >/dev/null 2>&1 ;;
+            application/pdf) setsid -f $READER "$f" >/dev/null 2>&1 ;;
+            *) xdg-open "$f" ;;
+        esac ;;
+    esac
 }}
 
 cmd mkdir %{{
@@ -99,6 +105,25 @@ cmd fzf_search ${{
     [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
 }}
 
+cmd link %{{
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    if [ "$#" -lt 1 ]; then
+        lf -remote "send $id echoerr no files to link"
+        exit
+    fi
+    case "$mode" in
+        # 'copy' mode indicates a symlink
+        copy) ln -sr -t . -- "$@";;
+        # while 'move' mode indicates a hard link
+        move)
+            ln -t . -- "$@"
+            lf -remote "send clear"
+            ;;
+    esac
+}}
+
 
 cmd tar %tar cvf "$f.tar" "$f"
 cmd targz %tar cvzf "$f.tar.gz" "$f"
@@ -125,11 +150,12 @@ map sb %setbg "$f"
 
 # File Openers
 map v $$EDITOR "$fx"
+map df $$EDITOR -d "$fx"
 
 map br bulk-rename "$fx"
 
 # Archive Mappings
-map ua %aunpack "$f"
+map uz $unp -U "$f"
 
 # Basic Functions
 map mm mark-save
@@ -138,6 +164,7 @@ map dd delete
 map p paste
 map x cut
 map y copy
+map P :link
 map <enter> open
 map mf mkfile
 map mr sudomkfile
@@ -175,14 +202,12 @@ map g/ cd /
 map gc cd ~/.config
 map gl cd ~/.local/share
 map gs cd ~/.local/bin
-map gS cd ~/Documents/upenn/sem3
 map gd cd ~/Documents
-map geb cd ~/Documents/ebooks
 map gD cd ~/Downloads
 map gp cd ~/Pictures
 map gv cd ~/Videos
 map ga cd ~/Music
-map gnp cd ~/.local/share/nvim/site/pack/packer
 map gr cd ~/repos
 map gb cd ~/builds
-map gw cd ~/catkin_workspaces
+map gT cd /tmp
+map gM cd ~/Music
